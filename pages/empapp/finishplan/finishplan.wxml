@@ -1,0 +1,116 @@
+<view class="container">
+
+  <view class="item-people">
+    <image style="border:1rpx #ccc solid;" class="people" src="{{wxUserInfo.avatarUrl}}"></image>
+    <view class="inform">
+      <text class="name">{{appuserinfo.name}}</text>
+      <text class="number">工号：{{appuserinfo.serialNo}}</text>
+    </view>
+  </view>
+
+  <view class="base">
+    <text class="plan-title">部门计划号：{{plan.dept_todocode?plan.dept_todocode:'请扫码'}}</text>
+    <!--生产计划编号-->
+  </view>
+
+  <view class="detail" style="border-bottom:none; color:#888;">
+
+    <view class='detail-txt'>
+      <view class='detail-title'>
+        <text>部门名称：</text>
+      </view>
+      <view class='detail-content'>
+        <text>{{plan.dept_name?plan.dept_name:'请扫码'}}</text>
+      </view>
+    </view>
+    <view class='detail-txt'>
+      <view class='detail-title'>
+        <text>计划名称：</text>
+      </view>
+      <view class='detail-content'>
+        <text>{{plan.dept_process?plan.dept_process:'请扫码'}}</text>
+      </view>
+    </view>
+    <view class='detail-txt'>
+      <view class='detail-title'>
+        <text>涉及产品：</text>
+      </view>
+      <view class='detail-content'>
+        <text wx:if="{{plan}}">{{plan.product_name}}/{{plan.product_typespec}}/{{plan.product_code}}</text>
+        <text wx:else>请扫码</text>
+      </view>
+    </view>
+    <!--<view><text>产品编号：{{plan.product_code}}</text></view>
+    <view><text>产品名称：{{plan.prodname}}</text></view>
+    <view><text>规格/型号：{{plan.typespec}}</text></view>-->
+    <view class='detail-txt'>
+      <view class='detail-title'>
+        <text>计划数：</text>
+      </view>
+      <view class='detail-content'>
+        <text>{{plan.dept_plannumber?plan.dept_plannumber:'请扫码'}}</text>
+      </view>
+    </view>
+    <view class='detail-txt'>
+      <view class='detail-title detail-title-other'>
+        <text>计划结束日期：</text>
+      </view>
+      <view class='detail-content detail-content-other'>
+        <text>{{plan.dept_enddate?plan.dept_enddate:'请扫码'}}</text>
+      </view>
+    </view>
+    <view class='detail-txt'>
+      <view class='detail-title detail-title-other'>
+        <text>计划开始日期：</text>
+      </view>
+      <view class='detail-content detail-content-other'>
+        <text>{{plan.dept_startdate?plan.dept_startdate:'请扫码'}}</text>
+      </view>
+    </view>
+    <view class='detail-txt' style="margin-bottom:0;">
+      <view class='detail-title detail-title-other'>
+        <text>审核合格数：</text>
+      </view>
+      <view class='detail-content detail-content-other'>
+        <text>{{plan?plan.dept_end:'请扫码'}}</text>
+      </view>
+    </view>
+    <view class='detail-cover' hidden='{{plan?true:false}}'></view>
+  </view>
+
+  <view class="border"></view>
+  <view class="push-box" bindtap="scanTodoCode">
+    <view class="item" style="border:none;">
+      <view class="code-box">
+        <text>扫描派工单号</text>
+      </view>
+      <view class="sao-box">
+        <image class="sao" src="../../../images/sao-gray.png"></image>
+        <text>扫描</text>
+      </view>
+    </view>
+  </view>
+
+
+  <form bindsubmit="dosubmit">
+    <view class="border"></view>
+    <view class="sub sub-box">
+      <!-- 合格数量 -->
+      <view class="item">
+        <text class="item-name">合格数量</text>
+        <input id='input1' hidden='{{!submitCover}}' placeholder='请输入' focus='true' class="item-value" name="qualifiedNum" type="number" maxlength="10" value='{{eligibilityNum}}'></input>
+      </view>
+
+      <!-- 不合格数量 -->
+      <view class="item" style="border:none;">
+        <text class="item-name" style="width:180rpx;">不合格数量</text>
+        <input id='input2' hidden='{{!submitCover}}' placeholder='请输入' class="item-value" name="disqualifiedNum" type="number" maxlength="10" value='{{disqualificationNum}}'></input>
+      </view>
+      <view class='cover' hidden='{{submitCover}}'></view>
+    </view>
+    <view class="btn-box">
+      <button class="btn" form-type="submit" hover-class="other-button-hover">提交</button>
+      <view class='btnCover' hidden='{{submitCover}}'></view>
+    </view>
+  </form>
+</view>

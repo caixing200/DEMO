@@ -1,0 +1,48 @@
+<view class="container">
+  <view class="tab-four">
+    <navigator bindtap="tabFinishedRate" hover-class="other-navigator-hover">任务完成率</navigator>
+    <navigator bindtap="tabPassedRate" hover-class="other-navigator-hover">生产合格率</navigator>
+    <navigator class="active" bindtap="tabEfficiency" hover-class="other-navigator-hover">生产效率</navigator>
+  </view>
+
+  <!-- 筛选条件 -->
+  <view class="deadline">
+    <picker mode="date" value="{{beginDateFinishedRate}}" start="2016-01-01" end="2030-12-12" bindchange="bindDateChange">
+      <text class="date">{{beginDateFinishedRate}}</text>
+      <image src="../../../../images/arrow-down.png"></image>
+    </picker>
+    <text class="zhi">至</text>
+    <picker mode="date" value="{{endDateFinishedRate}}" start="2016-01-01" end="2030-12-12" bindchange="bindEndDateChange">
+      <text class="date">{{endDateFinishedRate}}</text>
+      <image src="../../../../images/arrow-down.png"></image>
+    </picker>
+    <image wx:if="{{tabActive[0]}}" bindtap="filterOngoing" class="filtrate" src="../../../../images/filtrate.png"></image>
+    <image wx:if="{{tabActive[1]}}" bindtap="filterAwaiting" class="filtrate" src="../../../../images/filtrate.png"></image>
+    <image wx:if="{{tabActive[2]}}" bindtap="filterFinished" class="filtrate" src="../../../../images/filtrate.png"></image>
+  </view>
+
+  <view class="complete-box">
+    <view class="user"><text>{{deptName}}</text></view>
+    <view class="main-box">
+      <view class="complete">
+        <view class="pie">
+          <canvas canvas-id="pieCanvas" class="canvas" style="height:100%;width:100%" bindtouchstart="touchHandler"></canvas>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="complete-box">
+    <picker bindchange="orderPickChange" value="{{orderIndex}}" range="{{order}}">
+      <view class="rank">
+        <text>{{order[orderIndex]}}</text>
+        <image src="../../../../images/arrow-down.png"></image>
+      </view>
+    </picker>
+
+    <view class="zhutu">
+      <canvas canvas-id="lineCanvas" class="canvas" style="height:100%;width:100%" bindtouchstart="touchHandler"></canvas>
+    </view>
+  </view>
+
+</view>

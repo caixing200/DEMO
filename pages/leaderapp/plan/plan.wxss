@@ -1,0 +1,59 @@
+.top{
+  margin-top: 20rpx;
+}
+
+.deadline{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 88rpx;
+  line-height: 88rpx;
+  justify-content: left;
+  background-color: #ffffff;
+  border-top: 1rpx solid #e5e5e5;
+  padding: 0 20rpx;
+  position: relative;
+}
+
+.deadline image{
+  width: 14rpx;
+  height: 20rpx;
+}
+
+.deadline .bt{
+  font-size: 32rpx;
+  color: #888888;
+}
+
+.small-line{
+  width: 1rpx;
+  height: 28rpx;
+  background-color: #e5e5e5;
+  margin: 0 15rpx;
+}
+
+.deadline .date{
+  font-size: 32rpx;
+  color: #b2b2b2;
+  margin-right: 10rpx;
+}
+
+.deadline .filtrate{
+  position: absolute;
+  right: 20rpx;
+  top: 25rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.container .detail-color{
+  color: #888888;
+}
+
+.states image{
+  align-items: center;
+}
+
+.arrowtop{
+  top:37rpx;
+}

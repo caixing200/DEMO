@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="zhou-box">
+    <view class="zhou"></view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>销售订单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>生产计划</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>派工单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>派工单详情</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>相关详情</text>
+    </view>
+  </view>
+
+  <block wx:for="{{planlist}}" wx:key="id">
+    <navigator data-index="{{index}}" bindtap="tracingTodo" class="base top">
+      <text class="plan-title">计划单号：{{item.plan_code}}</text>
+      <view class="items-states">
+        <!-- 只有生产中的才有 完成经-->
+        <text wx:if="{{tabActive[0]}}">完成80%</text>
+        <image src="../../../../images/getmore.png"></image>
+      </view>
+    </navigator>
+
+    <view class="detail" style="border-bottom:none; color:#888;">
+      <view><text>产品编号：{{item.product_code}}</text></view>
+      <view><text>产品名称：{{item.prodname}}</text></view>
+      <view><text>规格/型号：{{item.typespec}}</text></view>
+      <view><text>计划完成数量：{{item.num}}</text></view>
+      <view><text>计划开始时间：{{item.start_date}}</text></view>
+      <view style="margin-bottom:0;"><text>计划完成时间：{{item.end_date}}</text></view>
+    </view>
+  </block>
+
+</view>

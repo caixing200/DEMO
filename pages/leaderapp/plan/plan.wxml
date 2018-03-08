@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="tab">
+    <navigator class="{{tabActive[0]}}" hover-class="other-navigator-hover" bindtap="tabOnGoing">生产中</navigator>
+    <navigator class="{{tabActive[1]}}" hover-class="other-navigator-hover" bindtap="tabFinished">已完成</navigator>
+    <navigator class="{{tabActive[2]}}" hover-class="other-navigator-hover" bindtap="tabCanceled">已取消</navigator>
+  </view>
+
+  <view class="deadline">
+    <text class="bt">全部</text>
+    <view class="small-line"></view>
+    <picker mode="date" value="{{selectedDate}}" start="2016-01-01" end="2030-12-12" bindchange="datePickerChangeOnGoing">
+      <text class="date">{{selectedDate}}</text>
+      <image src="../../../images/up.png"></image>
+    </picker>
+    <image wx:if="{{tabActive[0]}}" bindtap="filterOngoing" class="filtrate" src="../../../images/filtrate.png"></image>
+    <image wx:if="{{tabActive[1]}}" bindtap="filterFinished" class="filtrate" src="../../../images/filtrate.png"></image>
+    <image wx:if="{{tabActive[2]}}" bindtap="filterCanceled" class="filtrate" src="../../../images/filtrate.png"></image>
+  </view> 
+
+  <block wx:for="{{planlist}}" wx:key="id">
+    <view class="base top" data-index="{{index}}" bindtap="detail">
+      <text class="base-title">计划单号：{{item.plan_code}}</text>
+      <view class="states" wx:if="{{tabActive[0]}}">
+        <text>完成{{item.finishedrate}}%</text>
+        <image src="../../../images/getmore.png"></image>
+      </view>
+      <view class="states arrowtop" wx:else>
+        <image src="../../../images/getmore.png"></image>
+      </view>
+    </view>
+
+    <view class="detail detail-color" style="border-bottom:none;">
+      <view><text>产品编号：{{item.product_code}}</text></view>
+      <view><text>产品名称：{{item.prodname}}</text></view>
+      <view><text>规格/型号：{{item.typespec}}</text></view>
+      <view><text>计划完成数量：{{item.num}}</text></view>
+      <view wx:if="{{tabActive[1]}}"><text>实际完成数量：{{item.qualified_num}}</text></view>
+      <view><text>计划开始时间：{{item.start_date}}</text></view>
+      <view><text>计划完成时间：{{item.end_date}}</text></view>
+      <view style="margin-bottom:0;"><text>实际完成时间：{{item.finish_time}}</text></view>
+    </view>
+  </block>
+
+</view>

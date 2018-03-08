@@ -1,0 +1,80 @@
+<view class="container">
+
+  <view class="item-people">
+    <image style="border:1rpx #ccc solid;" class="people" src="{{wxUserInfo.avatarUrl}}"></image>
+    <view class="inform">
+      <text class="name">{{appuserinfo.name}}</text>
+      <text class="number">工号：{{appuserinfo.serialNo}}</text>
+    </view>
+  </view>
+
+  <scroll-view scroll-y style="height: 950rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+
+    <view class="list" style="display:flex;flex-direction:column;">
+      <block>
+        <text class="number-title">子派工单号:{{todo.subtodo_code}}</text>
+        <text class='title-bar'></text>
+        <view class="overtime">
+          <text>工序名称：{{todo.subtodo_process}}</text>
+        </view>
+        <view class="overtime">
+          <text>生产任务：{{todo.subtodo_taskname}}</text>
+        </view>
+        <view class="overtime">
+          <text>计划数：{{todo.subtodo_plannumber}}</text>
+        </view>
+        <view class="overtime">
+          <text>涉及产品：{{todo.product_name}}{{todo.product_code}}</text>
+        </view>
+      </block>
+    </view>
+
+    <block wx:for="{{review}}" wx:for-item="item" wx:key="id">
+      <view class="list" style="display:flex;flex-direction:column;">
+        <text wx:if="{{item.state == 0}}" class="examinestate0"><text class='examinestateView'>待审核</text>
+        <text class='examinestateTxt'>已报工</text></text>
+        <block wx:if="{{item.state == 1}}">
+          <text class="examinestate1">已审核</text>
+          <text class="rebackClaim">反审核</text>
+        </block>
+        <block>
+          <text class="number-title">报工人：{{item.claim_person}}</text>
+          <text class='title-bar'></text>
+          <view class="overtime">
+            <text>工作开始时间：{{item.start_time !== ''?item.start_time:'无数据'}}</text>
+          </view>
+          <view class="overtime">
+            <text>报工时间：{{item.claim_time !== ''?item.claim_time:'无数据'}}</text>
+          </view>
+          <view class="overtime">
+            <text>计划数：{{item.plan_num !== ''?item.plan_num:'无数据'}}</text>
+          </view>
+          <view class="overtime">
+            <text>报工合格数：{{item.claim_ok !== ''?item.claim_ok:'无数据'}}</text>
+          </view>
+          <view class="overtime">
+            <text>不合格数：{{item.claim_ng !== ''?item.claim_ng:'无数据'}}</text>
+          </view>
+        </block>
+
+        <block wx:if="{{item.state == 0}}">
+          <text class="modify" bindtap="modify">修正</text>
+          <text class="confirm" bindtap="confirm">确认</text>
+        </block>
+
+      </view>
+    </block>
+
+
+  </scroll-view>
+
+  <view wx:if="{{state == 0}}" class="mainbtn">
+    <view class="sao-btn-main" bindtap="confirmAll">
+      <text>全部确认</text>
+    </view>
+  </view>
+
+
+
+
+</view>

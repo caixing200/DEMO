@@ -1,0 +1,13 @@
+<view class="container">
+
+  <block wx:for="{{power}}" wx:key="id">
+    <navigator class="card" bindtap="menu_{{item.id}}">
+      <view class="card-text">
+        <image class="icon" src="./imgs/icon_{{item.id}}.png"></image>
+        <text>{{item.name}}</text>
+        <image class="icon{{item.id}}-img" src="./imgs/icon_bg_{{item.id}}.png"></image>
+      </view>
+    </navigator>
+  </block>
+
+</view>

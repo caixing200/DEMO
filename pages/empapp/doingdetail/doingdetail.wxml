@@ -1,0 +1,112 @@
+<view class="container">
+  <view class="item-people">
+    <image style="border:1rpx #ccc solid;" class="people" src="{{wxUserInfo.avatarUrl}}"></image>
+    <view class="inform">
+      <text class="name">{{appuserinfo.name}}</text>
+      <text class="number">工号：{{appuserinfo.serialNo}}</text>
+    </view>
+    <image class="user" src="../../../../images/partner.png" style="width:30px;height:30px;padding-left:150px"bindtap="partner"></image>     
+    <image class="getmore" src="../../../../images/getmore.png"></image>
+  </view>
+
+  <!--进行中派工单详细页面TAB-->
+  <scroll-view scroll-y style="height: 950rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    <!--<block wx:if="{{todo != null}}">-->
+      <view class="base">
+        <text class="base-title1">子派工单号:{{todo.subtodo_code}}</text>
+        <view class="qrcode" ><image src="../../../../images/qrcode.png"></image></view>
+        <view class="cancel" bindtap="cancel"><text>取消</text></view>
+      </view>
+
+      <view class="detail">  
+        <view><text>工序名称：{{todo.subtodo_process}}</text></view>
+        <view><text>生产任务：{{todo.subtodo_taskname}}</text></view>
+        <view><text>计划数：{{todo.subtodo_plannumber}}</text></view>                                  
+        <view wx:if="{{todo.claim_ok != ''}}"><text>报工合格数：{{todo.claim_ok}}</text></view>
+        <view wx:if="{{todo.exam_ok != ''}}"><text>审核合格数：{{todo.exam_ok}}</text></view>
+        <view><text>涉及产品：{{todo.product_name}}/{{todo.product_code}}</text></view>
+      </view>
+
+     <view class="detail">
+        <view><text>工艺文件号：{{todo.subtodo_technology_id}}</text></view>
+     </view>
+  
+     <view class="lookmaterial">
+       <view ><text>本次计划物料清单（留空）</text></view>
+       <view class="look" bindtap="look"><text>查看</text></view>
+     </view>
+    
+      <view class="care pbj">
+        <view class="about-sb">
+          <text>相关设备</text>
+          <image src="../../../../images/getmore.png"></image>
+        </view>
+        <view class="write-btn ccp" bindtap="inputEquip">
+          <image src="../../../../images/write-dark.png"></image>
+          <text>手动输入</text>
+        </view>
+        <view class="sao-btn ccp" bindtap="scanEquip">
+          <image src="../../../../images/sao-dark.png"></image>
+          <text>扫描</text>
+        </view>
+      </view>
+      <view class="care-box">
+        <block><!--wx:if="{{equiplist != null}}"--> 
+          <view class="about" wx:for="{{equiplist}}" wx:key="id">
+            <view class="num"><text>设备{{index + 1}}</text></view>
+            <view class="content">
+              <view><text>设备编号：{{item.equipcode}}</text></view>
+              <view><text>设备名称：{{item.equipname}}</text></view>
+              <view><text>规格型号：{{item.model}}</text></view>
+            </view>
+          </view>
+        </block>
+        <!-- <view class="del" data-addressid="{{item.address.ID}}" data-index="{{index}}" catchtap="delAddress">删除</view> 本来就有-->
+      </view>
+
+      <view class="care pbj">
+        <view class="about-sb">
+          <text>相关物料</text>
+          <image src="../../../../images/getmore.png"></image>
+        </view>
+        <view class="write-btn ccp" bindtap="inputMaterial">
+          <image src="../../../../images/write-dark.png"></image>
+          <text>手动输入</text>   
+        </view>
+        <view class="sao-btn ccp" bindtap="scanMaterial">
+          <image src="../../../../images/sao-dark.png"></image>
+          <text>扫描</text>
+        </view>
+      </view>
+
+      <view class="care-box">
+        <block><!--wx:if="{{materiallist != null}}-->
+          <view class="about" wx:for="{{materiallist}}" wx:key="id">
+            <view class="num"><text>物料{{index + 1}}</text></view>
+            <view class="content">
+              <view><text>物料编号：{{item.mcode}}</text></view>
+              <view><text>物料名称：{{item.mname}}</text></view>
+              <view><text>规格型号：{{item.model}}</text></view>
+              <view><text>批次号：{{item.batchno}}</text></view>
+            </view>
+          </view>
+        </block>
+      </view>
+
+
+   
+  </scroll-view>
+  <view class="report-btn" bindtap="claim"><!--wx:if="{{todo != null}}" -->
+    <text>报工</text>
+  </view> 
+
+</view>
+
+
+<!--
+  <view class="mainbtn" ><条件被去掉!--wx:if="{{tabActiveClass[0] == 'active' && todo == null}}"
+    <view class="sao-btn-main" bindtap="scanTodo">
+      <image class="sao-white" src="../../images/sao-white.png"></image>
+      <text>扫描派工单</text>
+    </view>
+-->      

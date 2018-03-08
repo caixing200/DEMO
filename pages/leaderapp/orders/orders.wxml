@@ -1,0 +1,89 @@
+<view class="container">
+  <view class="tab-four">
+    <navigator class="{{tabActive[0]}}" bindtap="tabOnGoing" hover-class="other-navigator-hover">生产中</navigator>
+    <navigator class="{{tabActive[1]}}" bindtap="tabAwaiting" hover-class="other-navigator-hover">待排产</navigator>
+    <navigator class="{{tabActive[2]}}" bindtap="tabCliamed" hover-class="other-navigator-hover">已完成</navigator>
+    <navigator class="{{tabActive[3]}}" bindtap="tabCanceled" hover-class="other-navigator-hover">已取消</navigator>
+  </view>
+
+  <!-- 筛选条件 -->
+  <view class="deadline">
+    <view wx:if="{{tabActive[0]}}" class="quanbu">
+      <text class="bt">全部</text>
+      <view class="small-line"></view>
+      <text class="smalltext">交付时间</text>
+      <image class="up" src="../../../images/up.png"></image>
+    </view>
+    <text class="bt" wx:if="{{tabActive[1]}}">计划交付时间</text>
+    <text class="bt" wx:if="{{tabActive[2]}}">完成时间</text>
+    <text class="bt" wx:if="{{tabActive[3]}}">取消时间</text>
+    <text class="zhi" wx:if="{{!tabActive[0]}}">至</text>
+
+    <picker wx:if="{{tabActive[1]}}" mode="date" value="{{selectedDateAwaiting}}" start="2016-01-01" end="2030-12-12" bindchange="datePickerChangeAwaiting">
+      <text class="date">{{selectedDateAwaiting}}</text>
+      <image src="../../../images/arrow-down.png"></image>
+    </picker>
+    <picker wx:if="{{tabActive[2]}}" mode="date" value="{{selectedDateFinished}}" start="2016-01-01" end="2030-12-12" bindchange="datePickerChangeFinished">
+      <text class="date">{{selectedDateFinished}}</text>
+      <image src="../../../images/arrow-down.png"></image>
+    </picker>
+    <picker wx:if="{{tabActive[3]}}" mode="date" value="{{selectedDateCanceled}}" start="2016-01-01" end="2030-12-12" bindchange="datePickerChangeCanceled">
+      <text class="date">{{selectedDateCanceled}}</text>
+      <image src="../../../images/arrow-down.png"></image>
+    </picker>
+    <image wx:if="{{tabActive[0]}}" bindtap="filterOngoing" class="filtrate" src="../../../images/filtrate.png"></image>
+    <image wx:if="{{tabActive[1]}}" bindtap="filterAwaiting" class="filtrate" src="../../../images/filtrate.png"></image>
+    <image wx:if="{{tabActive[2]}}" bindtap="filterFinished" class="filtrate" src="../../../images/filtrate.png"></image>
+    <image wx:if="{{tabActive[3]}}" bindtap="filterCanceled" class="filtrate" src="../../../images/filtrate.png"></image>
+  </view>
+
+  <block wx:for="{{orderslist}}" wx:key="id">
+    <view class="orderlist top">
+      <view class="line"></view>
+      <text wx:if="{{item.order_code}}">订单编号：{{item.order_code}}({{item.order_code_auto}})</text>
+      <text wx:if="{{!item.order_code}}">订单编号：{{item.order_code_auto}}</text>
+    </view>
+
+    <view class="detail" style="padding:0 20rpx 20rpx 20rpx;">
+      <view class="fps"><text>客户名称</text><text>{{item.customer_name}}</text></view>
+      <view class="fps"><text>下单时间</text><text>{{item.order_date}}</text></view>
+      <view class="fps" style="margin-bottom:0;"><text>计划交付时间</text><text>{{item.delivery_date}}</text></view>
+    </view>
+
+    <block wx:for="{{item.details}}" wx:for-item="detail" wx:key="id">
+      <view class="order-box {{opened[item.id] ? 'show':'hide'}}">
+        <navigator class="order-detail" data-state="{{item.state}}" data-odid="{{detail.id}}" bindtap="gotoPlanDetail">
+          <view class="items top">
+            <text class="items-title">产品编号：{{detail.product_code}}</text>
+            <view class="items-states">
+              <!-- 只有生产中的才有 完成经-->
+              <text wx:if="{{tabActive[0]}}">完成80%</text>
+              <image src="../../../images/getmore.png"></image>
+            </view>
+          </view>
+          <view class="items-detail">
+            <view><text>产品名称：{{detail.prodName}}</text></view>
+            <view><text>规格/型号：{{detail.typespec}}</text></view>
+            <view><text>销售数量：{{detail.num}}</text></view>
+            <view style="margin-bottom:0;"><text>计划交付时间：{{detail.deliveryd_date}}</text></view>
+          </view>
+        </navigator>
+      </view>
+
+    </block>
+    <!-- 展开收起 -->
+    <block  wx:if="{{item.details.length > 0}}">
+    <view style="height:20rpx; background-color:#fff;"></view>
+    <view class="display-box">
+      <view class="display {{opened[item.id] ? 'show':'hide'}}" data-id="{{item.id}}" bindtap="flodProds">
+        <text>收起</text>
+        <image src="../../../images/arrow-up.png"></image>
+      </view>
+      <view class="display {{opened[item.id] ? 'hide':'show'}}" data-id="{{item.id}}" bindtap="unflodProds">
+        <text>展开</text>
+        <image src="../../../images/arrow-down.png"></image>
+      </view>
+    </view>
+    </block>
+  </block>
+</view>

@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="border"></view>
+  <form bindsubmit="search">
+    <view class="sub sub-box">
+
+      <!-- 客户 -->
+      <view class="item">
+        <text class="item-name">产品编号</text>
+        <input class="item-inp" name="prodcode"></input>
+      </view>
+
+      <!-- 计划产量 -->
+      <view class="item">
+        <text class="item-name">产品名称</text>
+        <input class="item-inp" placeholder="" name="prodname"></input>
+      </view>
+
+      <!-- 交付时间 -->
+      <view class="item">
+        <text class="item-name">客户名称</text>
+        <view class="item-right">
+          <input class="item-inp" placeholder="" name="customer"></input>
+        </view>
+      </view>
+
+      <!-- 结束时间 -->
+      <picker mode="date" value="{{filter.produceDate}}" start="2016-01-01" end="2030-12-12" bindchange="datePickerChange">
+        <view class="item">
+          <text class="item-name">生产时间</text>
+          <view class="item-right">
+            <text class="item-value">{{filter.produceDate}}</text>
+            <image src="../../../images/arrow-down.png"></image>
+          </view>
+        </view>
+      </picker>
+
+      <!-- 结束时间 -->
+      <view class="item" style="border:none;">
+        <text class="item-name">追溯时间</text>
+        <view class="item-right">
+          <input class="item-inp" style="width:140rpx;" placeholder="1" />
+          <image src="../../../images/arrow-down.png"></image>
+          <input class="item-inp" style="width:60rpx;" placeholder="年" />
+          <image src="../../../images/arrow-down.png"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="btn-box">
+      <button class="btn" form-type="submit" hover-class="other-button-hover">查询</button>
+    </view>
+
+  </form>
+</view>

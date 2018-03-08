@@ -1,0 +1,72 @@
+<view class="container">
+  <view class="zhou-box">
+    <view class="zhou"></view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>销售订单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>生产计划</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>派工单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>派工单详情</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>相关详情</text>
+    </view>
+  </view>
+  <block wx:for="{{result}}" wx:key="id">
+    <view class="orderlist top">
+      <text>订单编号：{{item.order_code_auto}}</text>
+    </view>
+
+    <view class="detail" style="padding:0 20rpx 20rpx 40rpx; border:none;">
+      <view class="fps"><text>客户名称</text><text>{{item.customer_name}}</text></view>
+      <view class="fps"><text>下单时间</text><text>{{item.delivery_date}}</text></view>
+      <view class="fps" style="margin-bottom:0;"><text>计划交付时间</text><text>{{item.order_date}}</text></view>
+    </view>
+<block wx:for="{{item.details}}" wx:for-item="detail" wx:key="id">
+   <view class="order-box {{opened[item.id] ? 'show':'hide'}}">
+      <navigator class="order-detail" url="../plan/plan?odid={{detail.id}}">
+        <view class="items top">
+          <text class="items-title">订单编号</text>
+          <view class="items-states">
+            <!-- 只有生产中的才有 完成进度-->
+            <text wx:if="{{tabActive[0]}}">完成80%</text>
+            <image src="../../../../images/getmore.png"></image>
+          </view>
+        </view>
+        <view class="items-detail">
+          <view><text>产品名称：{{detail.prodName}}</text></view>
+          <view><text>规格型号：{{detail.typespec}}</text></view>
+          <view><text>销售数量：{{detail.num}}</text></view>
+          <view style="margin-bottom:0;"><text>计划交付时间：{{detail.deliveryd_date}}</text></view>
+        </view>
+      </navigator>
+    </view>
+</block>
+<!--展开收起-->
+     <block  wx:if="{{item.details.length > 0}}">
+    <view style="height:20rpx; background-color:#fff;"></view>
+    <view class="display-box">
+      <view class="display {{opened[item.id] ? 'show':'hide'}}" data-id="{{item.id}}" bindtap="flodProds">
+        <text>收起</text>
+        <image src="../../../../images/arrow-up.png"></image>
+      </view>
+      <view class="display {{opened[item.id] ? 'hide':'show'}}" data-id="{{item.id}}" bindtap="unflodProds">
+        <text>展开</text>
+        <image src="../../../../images/arrow-down.png"></image>
+      </view>
+    </view>
+    </block>
+     
+  </block>
+
+</view>

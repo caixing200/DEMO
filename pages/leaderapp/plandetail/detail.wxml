@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="order-box">
+    <view class="order-number">
+      <text>计划单号：{{plan.plan_code}}</text>
+    </view>
+    <view class="plan-bg">
+      <view class="plan-detail">
+        <view class="detail-pb"><text>产品编号：{{plan.product_code}}</text></view>
+        <view class="detail-pb"><text>产品名称：{{plan.prodname}}</text><text>计划开始时间：{{plan.start_date}}</text></view>
+        <view class="detail-pb"><text>规格/型号：{{plan.typespec}}</text><text>计划完成时间：{{plan.end_date}}</text></view>
+        <view class="detail-pb" style="margin-bottom:0;"><text>计划完成数：{{plan.num}}</text><text>实际完成时间：{{plan.finish_time}}</text></view>
+      </view>
+    </view>
+  </view>
+
+  <block wx:for="{{todolist}}" wx:key="id">
+    <view class="base" style="border:none;" data-index="{{index}}" bindtap="todoDetail">
+      <text class="base-title tit-color">派工单号：{{item.todocode}}</text>
+      <image src="../../../../images/getmore.png"></image>
+    </view>
+
+    <view class="detail-bg">
+      <view class="plan-detail" style="border-bottom:none;">
+        <view><text>工序名称：{{item.process}}</text></view>
+        <view><text>生产任务名称：{{item.taskname}}</text></view>
+        <view style="margin-bottom:0;"><text>总生产计划数量：{{item.plannum}}</text></view>
+      </view>
+    </view>
+  </block>
+
+</view>

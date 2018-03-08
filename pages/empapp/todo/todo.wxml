@@ -1,0 +1,86 @@
+<view>
+  <view class="container">
+    <view><text class="plan-title">  子派工单号：{{todo.subtodo_code}}</text></view>
+    <view><text class="plan-title">  派工单号：{{todo.todo_code}}</text></view>
+  </view>
+
+  <view class="detail" style="border-bottom:none; color:#888;">
+    <view><text>部门计划号：{{todo.dept_todocode}}</text></view>
+    <view><text>{{todo.dept_name}}/{{todo.dept_process}}</text></view>
+    <view><text>计划数：{{todo.dept_plannumber}}</text></view>
+    <view><text>计划开始：{{todo.dept_startdate}}</text></view>
+    <view style="margin-bottom:0;"><text>计划结束：{{todo.dept_enddate}}</text></view>
+  </view>
+
+  <view class="detail" style="border-bottom:none; color:#888;">
+    <view><text>涉及产品：{{todo.product_name}}/{{todo.product_code}}</text></view>
+    <view><text>工艺文件：{{todo.technologyid}}</text></view>
+  </view>
+
+  <form bindsubmit="todo">
+    <!--非空白派工单显示相关信息-->
+    <view class="sub sub-box">         
+      <!-- 子计划工序名称 -->
+      <view class="item" wx:if="{{todo.subtodo_process}}">
+        <text class="item-name">工序名称</text>
+        <text class="item-inp">{{todo.subtodo_process}}</text>
+      </view>
+    
+      <!--生产任务-->
+      <view class="item" wx:if="{{todo.subtodo_taskname}}">
+        <text class="item-name">生产任务</text>
+        <text class="item-value">{{todo.subtodo_taskname}}</text>
+      </view>
+
+      <!--工艺文件号-->
+      <view class="item" wx:if="{{todo.subtodo_technology_id}}">
+        <text class="item-name">工艺文件号</text>
+        <text class="item-value">{{todo.subtodo_technology_id}}</text>
+      </view>
+
+       <view class="item" wx:if="{{todo.subtodo_plannumber}}">
+        <text class="item-name" style="width:300rpx;">计划数</text>
+         <text class="item-value">{{todo.subtodo_plannumber}}</text>
+      </view>
+
+     
+    </view>
+    <view class="border"></view>
+
+    <!--空白单填写相关信息-->
+    <view class="sub sub-box">
+
+      <view class="item" wx:if="{{!todo.subtodo_process}}">
+        <text class="item-name">工序名称</text>
+        <input class="item-inp" name="process"></input>
+      </view>
+
+      <view class="item" wx:if="{{!todo.subtodo_taskname}}">
+        <text class="item-name">生产任务</text>
+        <input class="item-inp" name="taskname"></input>
+      </view>
+
+      <!--工艺文件号-->
+      <view class="item" wx:if="{{!todo.subtodo_technology_id}}">
+        <text class="item-name">工艺文件号</text>
+        <input class="item-inp" name="technologyid"></input>
+      </view>
+
+      <!-- 派工单计划数量 -->
+      <view class="item" wx:if="{{!todo.subtodo_plannumber}}">
+        <text class="item-name">计划数</text>
+        <input class="item-inp" name="num" type="number"></input>
+      </view>
+
+      <!-- 本次计划数量 
+      <view class="item"  style="border:none;">
+        <text class="item-name" style="width:180rpx;">本次计划数</text>
+        <input type="number" class="item-inp" name="plannumber"></input>
+      </view>-->
+    </view>
+
+    <view class="btn-box">
+      <button class="btn" form-type="submit" hover-class="other-button-hover">确定</button>
+    </view>
+  </form>
+</view>

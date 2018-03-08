@@ -1,0 +1,72 @@
+{
+  "pages": [
+    "pages/login/login",
+
+    "pages/main/main",
+    "pages/mine/change/password/password",
+    "pages/mine/mine",
+    "pages/empapp/index",
+    "pages/empapp/todo/todo",
+    "pages/empapp/claim/claim",
+    "pages/empapp/claim/disqreaon",
+    "pages/empapp/material/material",
+    "pages/empapp/equipment/equipment",
+    "pages/empapp/tododetail/detail",
+    "pages/empapp/finishplan/finishplan",
+    "pages/empapp/finishplan/disqreaon",
+    "pages/empapp/material_list/material_list",
+    "pages/empapp/doingdetail/doingdetail",
+    
+    "pages/empapp/review/review",
+    "pages/empapp/review/disqreaon",
+    "pages/empapp/review/detail",
+    "pages/empapp/partner_list/partner_list",
+    
+
+
+    "pages/leaderapp/orders/filter_ongoing/filter",
+    "pages/leaderapp/orders/filter_awaiting/filter",
+    "pages/leaderapp/orders/filter_canceled/filter",
+    "pages/leaderapp/orders/filter_finished/filter",
+    "pages/leaderapp/plan/plan",
+    "pages/leaderapp/plandetail/detail",
+    "pages/leaderapp/plan/filter_ongoing/filter",
+    "pages/leaderapp/plan/filter_canceled/filter",
+    "pages/leaderapp/plan/filter_finished/filter",
+    "pages/leaderapp/orders/orders",
+    "pages/leaderapp/status/status",
+    "pages/leaderapp/status/searchstatus/searchstatus",
+    "pages/leaderapp/status/equipmentstatus/equipmentstatus",
+    "pages/leaderapp/perform/finishedrate/filter/filter",
+    "pages/leaderapp/perform/finishedrate/finishedrate",
+    "pages/leaderapp/perform/passedrate/passedrate",
+    "pages/leaderapp/perform/passedrate/filter/filter",
+    "pages/leaderapp/perform/efficiency/efficiency",
+    "pages/leaderapp/perform/efficiency/filter/filter",
+    "pages/leaderapp/perform/pepperform/pepperform",
+    "pages/leaderapp/perform/pepefficiencyrate/pepperform",
+    "pages/leaderapp/perform/pepefficiencyrate/filter/filter",
+    "pages/leaderapp/perform/peppassedrate/pepperform",
+    "pages/leaderapp/perform/peppassedrate/filter/filter",
+    "pages/leaderapp/perform/pepperform/filter/filter",
+    "pages/leaderapp/perform/vary/vary",
+    "pages/leaderapp/tracing/tracing",
+    "pages/leaderapp/tracing/searchresult/searchresult",
+    "pages/leaderapp/tracing/plan/plan",
+    "pages/leaderapp/tracing/todo/todo",
+    "pages/leaderapp/tracing/tododetail/detail",
+    "pages/leaderapp/tracing/equipment/equipment"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#04c38e",
+    "navigationBarTitleText": "智造云管家",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true
+  },
+  "networkTimeout": {
+    "request": 15000,
+    "downloadFile": 15000
+  },
+  "debug": true
+}

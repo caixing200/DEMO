@@ -1,0 +1,99 @@
+.card{ 
+  height: 180rpx;
+  width: 706rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 4rpx;
+  box-shadow: 2rpx 2rpx 1rpx #ebebeb;
+}
+
+.icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 24rpx;
+  margin-right: 15rpx;
+}
+
+.card-text{
+  display: flex;
+  flex-direction: row;
+  font-size: 38rpx;
+  justify-content: left;
+  height: 186rpx;
+  align-items: center;
+}
+
+.icon6-img{
+  height: 176rpx;
+  width: 164rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.icon5-img{
+  height: 145rpx;
+  width: 141rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.icon4-img{
+  height: 175rpx;
+  width: 143rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.icon3-img{
+  height: 180rpx;
+  width: 142rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.icon2-img{
+  height: 180rpx;
+  width: 135rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.icon7-img{
+  height: 180rpx;
+  width: 135rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.icon1-img{
+  height: 180rpx;
+  width: 131rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.icon8-img{
+  height: 180rpx;
+  width: 135rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.icon9-img{
+  height: 180rpx;
+  width: 135rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

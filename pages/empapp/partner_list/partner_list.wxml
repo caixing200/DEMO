@@ -1,0 +1,44 @@
+<view class="container">
+ 
+ <view class="item-people">
+    <image src="../../../../images/qq.png" style="border:1rpx #ccc solid" class="people"></image>
+    <view class="inform">
+      <text class="name">王一</text>
+      <text class="number">请求加入派工单P12345678的任务</text>
+    </view>
+    <view style="padding-left:20px">
+      <view class="report-btn name" bindtap="agree">
+       <text>同意</text>
+      </view>
+      <br/>
+      <view class="report-btn number" bindtap="refuse">
+       <text >拒绝</text>
+      </view>
+   </view>
+    
+ </view>
+
+ <view class="item-people">
+    <image src="../../../../images/qq.png" style="border:1rpx #ccc solid" class="people"></image>
+    <view class="inform">
+      <text class="name">王二</text>
+      <text class="number">请求加入派工单P12345678的任务</text>
+    </view>
+    <view class="confirm" style="margin-left:20px">
+       <text>已同意</text>
+    </view>
+ </view>  
+
+ <view class="item-people">
+    <image src="../../../../images/qq.png" style="border:1rpx #ccc solid" class="people"></image>
+    <view class="inform">
+      <text class="name">王二</text>
+      <text class="number">请求加入派工单P12345678的任务</text>
+    </view>
+    <view class="confirm" style="margin-left:20px">
+       <text>已拒绝</text>
+    </view>
+  </view>
+  
+</view>
+

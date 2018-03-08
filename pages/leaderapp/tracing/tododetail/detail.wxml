@@ -1,0 +1,138 @@
+<view class="container">
+
+  <view class="zhou-box">
+    <view class="zhou"></view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>销售订单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>生产计划</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>派工单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>派工单详情</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>相关详情</text>
+    </view>
+  </view>
+
+  <view class="order-box">
+    <view class="order-number">
+      <text>派工单号：{{todo.todo_code}}</text>
+    </view>
+    <view class="plan-bg">
+      <view class="plan-detail" style="border:none;">
+        <view><text>工序名称：{{todo.process}}</text></view>
+        <view><text>生产任务名称：{{todo.taskname}}</text></view>
+        <view style="margin-bottom:0;"><text>总生产计划数量：{{todo.plan_num}}</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view>
+    <view class="report-detail"  style="border-bottom:none;">
+      <text>报工单详情</text>
+    </view>
+  </view>
+
+  <view class="order-box">
+    <view class="baogong">
+      <text class="pep">报工人:{{username}}</text>
+      <text class="state">{{stateCN[claim.state]}}</text>
+    </view>
+    <view class="plan-bg">
+      <view class="plan-detail" style="border:none;">
+        <view><text>工作开始时间：{{claim.addDate}} </text></view>
+        <view><text>报工时间：{{claim.finishTime}}</text></view>
+        <view><text>计划生产数量：{{claim.plannum}}</text></view>
+        <view><text>合格数：{{claim.qualifiedNum}}</text></view>
+        <view style="margin-bottom:0;"><text>不合格数：{{claim.disqualifiedNum}}</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="care pbz">
+    <view class="about-sb">
+      <text>相关设备</text>
+      <block wx:if="{{equiplist !=''}}">
+      <image src="../../../../images/getmore.png"   ></image>
+      </block>
+    </view>
+  </view>
+  <view class="care-box">
+    <block wx:if="{{equiplist !=''}}">
+      <view class="about" wx:for="{{equiplist}}" wx:key="id"> 
+        <view class="num"><text>设备{{index + 1}}</text></view>
+        <view class="content" bindtap="tracingEquipment" data-index="{{item.equipid}}">
+          <view><text>设备编号：{{item.equipcode}}</text></view>
+          <view><text>设备名称：{{item.equipname}}</text></view>
+        </view>
+      </view>
+   </block> 
+   <block wx:else>
+     <view class="content"><text>暂无数据</text></view>
+   </block>
+  </view>
+  <view class="care pbz">
+    <view class="about-sb" >
+      <text>相关物料</text>
+      <!-- <image src="../../../../images/getmore.png" bindtap="tracingMetrial"></image> -->
+    </view>
+  </view>
+  <view class="care-box" style="border-bottom:none;">
+    <block wx:if="{{materiallist!=''}}">
+      <view class="about" wx:for="{{materiallist}}" wx:key="id">
+        <view class="num"><text>物料{{index + 1}}</text></view>
+        <view class="content">
+          <view><text>物料编号：{{item.mcode}}</text></view>
+          <view><text>物料名称：{{item.mname}}</text></view>
+          <view><text>批次号：{{item.batchno}}</text></view>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+     <view class="content"><text>暂无数据</text></view>
+   </block>
+  </view>
+  <!-- 收起 -->
+  <!-- <view class="display-box">
+    <view class="display" bindtap='flodFn'>
+      <text>收起</text>
+      <image src="../../../../images/arrow-up.png"></image>
+    </view>
+  </view> -->
+  
+  
+
+
+  <!-- <view class="order-box" style="margin-bottom:0;border-bottom:none;">
+    <view class="baogong">
+      <text class="pep">报工人:张三</text>
+      <text class="state">已报工</text>
+    </view>
+    <view class="plan-bg">
+      <view class="plan-detail" style="border:none;">
+        <view><text>工作开始时间：2017.6.30 </text></view>
+        <view><text>报工时间：2017.9.30</text></view>
+        <view><text>计划生产数量：1000个</text></view>
+        <view><text>合格数：900个</text></view>
+        <view style="margin-bottom:0;"><text>不合格数：100个</text></view>
+      </view>
+    </view>
+  </view>
+  <!-- 展开 
+   <view class="display-box">
+    <view class="display">
+      <text>展开</text>
+      <image src="../../../../images/arrow-down.png"></image>
+    </view>
+  </view>    -->
+</view>

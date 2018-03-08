@@ -1,0 +1,33 @@
+.item image{
+  width: 25rpx;
+  height: 16rpx;
+  margin-left: 10rpx;
+}
+
+.item-right{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sec-btn{
+    width: 710rpx;
+    height: 88rpx;
+    background-color: #ffffff;
+    border-radius: 12rpx;
+    color: #1a1a1a;
+    font-size: 36rpx;
+    font-weight: 500;
+    text-align: center;
+    line-height: 88rpx;
+    margin-left: 25rpx;
+    border-color:#cccccc;
+}
+
+.sec-btn-box{
+  margin-top: 30rpx;
+}
+
+.other-button-hover{
+  background-color: #eeeeee;
+}

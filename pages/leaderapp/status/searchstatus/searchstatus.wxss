@@ -1,0 +1,21 @@
+.red{
+  color: #e64340;
+}
+
+.green{
+  color: #1bc798;
+}
+
+.gray{
+  color: #aaaaaa;
+}
+
+.container .recolor{
+  color: #888888;
+}
+
+.top .base-title{
+  font-size: 26rpx;
+  font-weight: 500;
+  line-height: 88rpx;
+}

@@ -1,0 +1,23 @@
+<view class="container bgimg">
+  <view class="system-title">
+    <view><text>{{compname}}</text></view>
+    <view><text>智造云管家</text></view>
+  </view>
+  <form bindsubmit="doLogin">
+  <view class="idbox">
+    <text>工号：</text>
+    <input name='accout' type="text" style="width:100%"  auto-focus />
+  </view>
+  <view class="idbox">
+    <text>密码：</text>
+    <input name="password" style="width:100%" password="true"/>
+  </view>
+  <view class="btn-box" bindtap="loading">
+    <button class="btn" form-type="submit" hover-class="other-button-hover">登录</button>
+  </view>
+  </form>
+  <view class="company">
+    <view><text>顶智智能技术</text></view>
+    <view><text>www.deecoop.cn</text></view>
+  </view>
+</view>

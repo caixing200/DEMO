@@ -1,0 +1,44 @@
+.code{
+  width: 50rpx;
+  height: 44rpx;
+  margin-right: 20rpx;
+}
+.sao{
+  width: 48rpx;
+  height: 40rpx;
+  margin-bottom: 6rpx;
+}
+.push-box{
+  padding: 14rpx 20rpx;
+  border-top: 1rpx solid #e5e5e5;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #ffffff;
+  height: 68rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+.sao-box{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 20rpx;
+  top: 15rpx;
+
+}
+.sao-box text{
+  font-size: 22rpx;
+  width: 48rpx;
+  text-align: center;
+}
+.code-box{
+  padding: 12rpx 0;
+  width:230rpx;
+  display: flex;
+  flex-direction: row;
+  font-size: 32rpx;
+}
+
+

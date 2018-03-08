@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="border"></view>
+  <form bindsubmit="doSubmit">
+    <view class="sub sub-box">
+      <!-- 物料编号 -->
+      <view class="item">
+        <text class="item-name">系统物料号</text>
+        <input class="item-inp" value="{{materialcode}}" type="number" auto-focus bindinput="autoFill"></input>
+      </view>
+
+      <!-- 物料名称 -->
+      <view class="item">
+        <text class="item-name">物料名称</text>
+        <text class="item-value">{{material.mname}}</text>
+      </view>
+
+      <view class="item">
+        <text class="item-name">规格型号</text>
+        <text class="item-value">{{material.model}}</text>
+      </view>
+
+      <!-- 计划产量 -->
+      <view class="item" >
+        <text class="item-name">批次号</text>
+        <input class="item-inp" bindinput="batchnoInput" name="batchno" value="{{batchno}}"></input>
+      </view>
+
+      <view class="item" style="border:none;">
+        <text class="item-name">单件用量</text>
+        <input class="item-inp" bindinput="peruseInput" name="peruse" value="{{peruse}}"></input>
+      </view>
+    
+    </view>
+
+
+
+    <view class="border"></view>
+    <view class="push-box" bindtap="scanBatchno">
+      <view class="item" style="border:none;" >
+        <view class="code-box">
+          <image class="code" src="../../../images/code.png"></image>
+          <text>批次号条码</text>
+        </view>
+        <view class="sao-box">
+          <image class="sao" src="../../../images/sao-gray.png"></image>
+          <text>扫描</text>
+        </view>
+      </view>
+    </view>
+    <view class="btn-box">
+      <button class="btn" form-type="submit" hover-class="other-button-hover">保存</button>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,5 @@
+<view class="container">
+  <view class="bingtu">
+      <canvas canvas-id="pieCanvas" class="canvas" style="width: 100%; height: 300px;" bindtouchstart="touchHandler"></canvas>
+  </view>
+</view>

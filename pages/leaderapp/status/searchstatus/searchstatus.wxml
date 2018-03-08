@@ -1,0 +1,26 @@
+<view class="container">
+  <view wx:for="{{list}}"  wx:key="item">
+  <navigator class="order-detail" data-id="{{item.id}}" bindtap="detail">
+  <view>
+  <view class="base top">
+    <text class="base-title">状态：<text class="{{statusClass[status]}}">{{statusName[status]}}</text></text>
+    <view class="states" >
+      <image src="../../../../images/getmore.png"></image>
+    </view>
+  </view>
+ 
+
+  <view class="detail recolor" style="border-bottom:none;">
+    <view><text>设备名称：{{item.name}}</text></view>
+    <view><text>设备编号：{{item.equipment_code}}</text></view>
+    <view style="margin-bottom:0;"><text>设备型号：{{item.model}}</text></view>   
+  </view>
+
+  <view class="border"></view>
+ 
+  </view>
+   </navigator>
+  </view>
+
+
+</view>

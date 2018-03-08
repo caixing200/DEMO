@@ -1,0 +1,95 @@
+
+.tab-four navigator{
+  width: 180rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666666;
+  padding: 25rpx 0;
+}
+
+.vary-box{
+  padding: 40rpx 20rpx; 
+  background-color: #ffffff;
+}
+
+.vary-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 88rpx;
+}
+
+.more image{
+  height: 25rpx;
+  width: 16rpx;
+  margin-left: 35rpx;
+}
+
+.team-list{
+  width: 85rpx;
+  margin-right: 5rpx;
+  font-size: 26rpx;
+  color: #888888;
+  line-height: 88rpx;
+}
+
+.bar-box image{
+  width: 300rpx;
+  height: 26rpx;
+   margin: 31rpx 10rpx 31rpx 2rpx ; 
+}
+
+.bar-box{
+  width:560rpx; 
+  height: 88rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  line-height: 88rpx;
+  border-left: 3rpx solid #ebeff0;
+  font-size: 26rpx;
+  color: #666666;
+}
+
+.deadline{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 88rpx;
+  line-height: 88rpx;
+  justify-content: left;
+  background-color: #ffffff;
+  border-top: 1rpx solid #e5e5e5;
+  padding: 0 20rpx;
+}
+.deadline image{
+  width: 25rpx;
+  height: 16rpx;
+}
+.deadline .bt{
+  font-size: 32rpx;
+  color: #888888;
+}
+.deadline .date{
+  font-size: 32rpx;
+  color: #1a1a1a;
+  margin-right: 10rpx;
+  font-weight: 500;
+}
+.deadline .zhi{
+  font-size: 26rpx;
+  color: #999999;
+  margin: 0 20rpx;
+}
+.deadline .btn{
+  position: absolute;
+  right: 20rpx;
+  width: 200rpx;
+  height: 80rpx;
+  margin-top: -30rpx;
+}
+.deadline .sec-btn-box{
+  margin-top:10rpx;
+}

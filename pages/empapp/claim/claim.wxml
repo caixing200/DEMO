@@ -1,0 +1,55 @@
+<view class="container">
+  <view class="border"></view>
+  <view class="sub sub-box">
+    <!-- 派工单号 -->
+    <view class="item">
+      <text class="item-name">子派工单号</text>
+      <text class="item-value">{{todo.subtodo_code}}</text>
+    </view>
+
+    <!-- 产品名称 -->
+    <view class="item">
+      <text class="item-name">涉及产品</text>
+      <text class="item-value">{{todo.product_name}}/{{todo.product_code}}</text>
+    </view>
+
+    <!-- 工序名称 -->
+    <view class="item">
+      <text class="item-name">工序名称</text>
+      <text class="item-value">{{todo.subtodo_process}}</text>
+    </view>
+
+    <!-- 生产任务 -->
+    <view class="item">
+      <text class="item-name">生产任务（留空）</text>
+      <text class="item-value">{{todo.subtodo_taskname}}</text>
+    </view>
+
+    <!-- 计划产量 -->
+    <view class="item" style="border:none;">
+      <text class="item-name">计划数</text>
+      <text class="item-value">{{todo.subtodo_plannumber}}</text>
+    </view>
+  </view>
+
+  <form bindsubmit="claim">
+  <view class="border"></view>
+  <view class="sub sub-box">
+    <!-- 合格数量 -->
+    <view class="item">
+      <text class="item-name"  style="width:180rpx;">报工合格数</text>
+      <input class="item-value" name="qualifiedNum" type="number" maxlength="10"></input>
+    </view>
+
+    <!-- 不合格数量 -->
+    <view class="item" style="border:none;">
+      <text class="item-name" style="width:180rpx;">不合格数</text>
+      <input class="item-value" name="disqualifiedNum" type="number" maxlength="10"></input>
+    </view>
+  </view>
+
+  <view class="btn-box" bindtap="index">
+    <button class="btn" form-type="submit" hover-class="other-button-hover">提交</button>
+  </view>
+  </form>
+</view>      

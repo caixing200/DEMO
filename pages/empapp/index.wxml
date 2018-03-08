@@ -1,0 +1,96 @@
+<view class="container">
+  <view class="item-people">
+    <image style="border:1rpx #ccc solid;" class="people" src="{{wxUserInfo.avatarUrl}}"></image>
+    <view class="inform">
+      <text class="name">{{appuserinfo.name}}</text>
+      <text class="number">工号：{{appuserinfo.serialNo}}</text>
+    </view>
+    <image class="user" src="../../images/partner.png" style="width:30px;height:30px;padding-left:150px"bindtap="partner"></image>  
+    <image class="getmore" src="../../images/getmore.png"></image>
+  </view>
+  <view class="tab bj">
+    <navigator class="{{tabActiveClass[0]}}" hover-class="other-navigator-hover" bindtap="tabShowOnGoing">进行中</navigator>
+    <navigator class="{{tabActiveClass[1]}}" hover-class="other-navigator-hover" bindtap="tabShowFinished">已报工</navigator>
+    <navigator class="{{tabActiveClass[2]}}" hover-class="other-navigator-hover" bindtap="tabShowCanncel">已取消</navigator>
+  </view>
+
+  
+  <scroll-view scroll-y style="height: 950rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}"><!--<block wx:if="{{todo != null}}">-->
+  
+    <!--进行中页面TAB-->  
+    <block wx:for="{{doinglist}}"  wx:for-item="item" wx:key="id">
+      <view class="complete-list"  wx:if="{{tabActiveClass[0]}}" >
+
+        <navigator class="list"  url= './doingdetail/doingdetail?code={{item.subtodo_id}}'>  <!--将子派工单号传给下个页面-->
+        <view class="list-text" style="display:flex;flex-direction:column;">
+          <block>
+            <text >子派工单号:{{item.subtodo_code}}</text>
+            <view class="overtime"><text>工序名称：{{item.subtodo_process}}</text></view>
+            <view class="overtime"><text>生产任务：{{item.subtodo_taskname}}</text></view>
+          </block>
+        </view>
+          <image src="../../images/getmore.png"></image>
+        </navigator>
+
+      </view>   
+    </block>
+
+    <!-- 已报工TAB页显示内容-->
+    <block wx:for="{{donelist}}"  wx:for-item="item" wx:key="id">
+      <view class="complete-list"  wx:if="{{tabActiveClass[1]}}" ><!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
+        <navigator class="list" url='./tododetail/detail?claimid={{item.claim_id}}'>
+          <view class="list-text" style="display:flex;flex-direction:column;">
+            <view class="examinestate0" wx:if="{{item.state==0}}"> 
+              <text>待审核</text>
+            </view>
+            <view class="examinestate1" wx:if="{{item.state==1}}"> 
+              <text>已审核</text>
+            </view>                  
+            <block>                                  
+              <text class="overtime"> 子派工单号:{{item.subtodo_code}}</text> 
+              <text class="overtime">{{item.subtodo_process}}/{{item.subtodo_taskname}}</text>                                         
+              <text class="overtime">涉及产品：{{item.product_name}}{{item.product_code}}</text>
+              <text class="overtime">报工时间：{{item.claim_time}}</text>            
+              <text class="overtime">报工合格数：{{item.claim_ok}}</text>
+              <text class="overtime">不合格数：{{item.claim_ng}}</text>
+              <text wx:if="{{item.exam_ok == null}}" class="overtime">审核合格数：{{item.exam_ok}}</text>
+              <text wx:if="{{item.exam_ng == null}}" class="overtime">不合格数：{{item.exam_ng}}</text>
+            </block>
+          </view>
+          <image src="../../images/getmore.png"></image>
+        </navigator>
+      </view>
+    </block>
+
+    <!--已报消 TAB页显示内容-->
+    <block wx:for="{{doinglist}}"  wx:for-item="item" wx:key="id">
+      <view class="complete-list"  wx:if="{{tabActiveClass[2]}}" ><!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
+        <navigator class="list" url="./tododetail/detail?claimid={{item.claimid}}">
+          <view class="list-text" style="display:flex;flex-direction:column;">
+            <block>
+              <text>子派工单号:{{item.subtodo_code}}</text>
+              <text class="overtime">取消时间：{{item.claim_cancel}}</text>
+            </block>
+          </view>
+          <image src="../../images/getmore.png"></image>
+        </navigator>
+      </view>
+    </block>
+
+</scroll-view>
+ 
+  <!--
+  <view class="report-btn" wx:if="{{todo != null}}" bindtap="claim">
+    <text>报工</text>
+  </view>
+  -->
+  <view class="mainbtn" ><!--wx:if="{{tabActiveClass[0] == 'active' && todo == null}}"-->
+    <view class="sao-btn-main" bindtap="scanTodo">
+      <image class="sao-white" src="../../images/sao-white.png"></image>
+      <text>扫描派工单</text>
+  </view>
+ </view>
+ 
+
+ 
+</view>

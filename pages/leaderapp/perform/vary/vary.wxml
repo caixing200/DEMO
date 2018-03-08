@@ -1,0 +1,39 @@
+<view class="container">
+  <view class="tab-four">
+    <navigator class="{{tabActive[0]}}" bindtap="tabTask" hover-class="other-navigator-hover">任务完成率</navigator>
+    <navigator class="{{tabActive[1]}}" bindtap="tabQuality" hover-class="other-navigator-hover">生产合格率</navigator>
+    <navigator class="{{tabActive[2]}}" bindtap="tabEfc" hover-class="other-navigator-hover">生产效率</navigator>
+  </view>
+ <!-- 筛选条件 -->
+  <view class="deadline">
+    <picker mode="date" value="{{beginDate}}" start="2016-01-01" end="2030-12-12" bindchange="bindDateChange">
+      <text class="date">{{beginDate}}</text>
+      <image src="../../../../images/arrow-down.png"></image>
+    </picker>
+    <text class="zhi">至</text>
+    <picker mode="date" value="{{endDate}}" start="2016-01-01" end="2030-12-12" bindchange="bindEndDateChange">
+      <text class="date">{{endDate}}</text>
+      <image src="../../../../images/arrow-down.png"></image>
+    </picker>
+    <view >
+      <button class="btn" bindtap="query" form-type="submit" hover-class="other-button-hover">查询</button>
+    </view>
+  </view>
+  
+  <view class="vary-box">
+    <view class="vary-list" wx:for="{{qlt}}">
+    <navigator class="vary-list" data-index="{{index}}" data-deptid="{{item.id}}" bindtap="detail">
+      <view class="team-list"><text>{{item.name}}</text></view>
+      <view class="bar-box">
+        <image style="width:{{item.qltTask}}%;" src="../../../../images/bar.png"></image>
+        <text>{{item.qltTask}}%</text>
+      </view>
+      
+      <view class="more"><image src="../../../../images/getmore.png"></image></view>
+    </navigator>
+    </view>
+    
+  </view>
+
+
+</view>

@@ -1,0 +1,12 @@
+
+.name-dq{
+  line-height: 120rpx;
+}
+
+.item-image{
+  padding: 20rpx;
+}
+
+.base-height{
+  height: 176rpx;
+}

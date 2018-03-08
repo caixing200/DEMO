@@ -1,0 +1,12 @@
+.item image{
+  width: 25rpx;
+  height: 16rpx;
+  margin-left: 10rpx;
+}
+
+.item-right{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+

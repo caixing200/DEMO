@@ -1,0 +1,56 @@
+<!-- 派工单 -->
+<view class="container">
+
+  <view class="zhou-box">
+    <view class="zhou"></view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>销售订单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>生产计划</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>派工单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>派工单详情</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou.png"></image>
+      <text>相关详情</text>
+    </view>    
+  </view>
+  
+  <view class="order-box">
+    <view class="order-number">
+      <text>计划单号：{{plan.plan_code}}</text>
+    </view>
+    <view class="plan-bg">
+      <view class="plan-detail" style="border:none;">
+        <view class="detail-pb"><text>产品编号：{{plan.product_code}}</text></view>
+        <view class="detail-pb"><text>产品名称：{{plan.prodname}}</text><text>计划开始时间：{{plan.start_date}}</text></view>
+        <view class="detail-pb"><text>规格/型号：{{plan.typespec}}</text><text>计划完成时间：{{plan.end_date}}</text></view>
+        <view class="detail-pb" style="margin-bottom:0;"><text>计划完成数：{{plan.num}}</text><text>实际完成时间：{{plan.finish_time}}</text></view>   
+      </view>
+    </view>
+  </view>
+
+  <block wx:for="{{result}}" wx:key="id">
+  <navigator data-index="{{index}}" bindtap="tracingCliam" class="base" style="border:none;">
+    <text class="base-title tit-color">派工单号：{{item.todo_code}}</text>
+    <image src="../../../../images/getmore.png"></image>  
+  </navigator>
+
+  <view class="detail-bg">
+    <view class="plan-detail">
+      <view><text>工序名称：{{item.process}}</text></view>
+      <view><text>生产任务名称：{{item.taskname}}</text></view>
+      <view style="margin-bottom:0;"><text>总计划生产数量：{{item.plan_num}}</text></view>   
+    </view>
+  </view>
+  </block> 
+</view>

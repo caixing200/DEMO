@@ -1,0 +1,10 @@
+<view class="container">
+ 
+  <view class="base">
+          <text>物料号</text>
+          <text>物料名称</text>
+          <text>规格/型号</text>
+          <text>应领取数</text>
+  </view>
+
+</view>

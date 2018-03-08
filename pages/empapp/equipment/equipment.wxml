@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="border"></view>
+  <form bindsubmit="doSubmit">
+    <view class="sub sub-box">
+      <!-- 设备编号 -->
+      <view class="item">
+        <text class="item-name">系统设备编号</text>
+        <input name="equipcode" confirm-type='done' bindinput="equipCodeInput" class="item-inp" placeholder="" maxlength="7" auto-focus type="number" value="{{equipcode}}"></input>
+      </view>
+
+      <!-- 设备名称 -->
+      <view class="item">
+        <text class="item-name">设备名称</text>
+        <text class="item-value" >{{equip.equipname}}</text>
+      </view>
+
+      <view class="item" style="border:none;">
+        <text class="item-name">规格/型号</text>
+        <text class="item-value" >{{equip.model}}</text>
+      </view>
+
+    </view>
+
+    <view class="btn-box" >
+      <button class="btn" form-type="submit" hover-class="other-button-hover">保存</button>
+    </view>
+  </form>
+</view>

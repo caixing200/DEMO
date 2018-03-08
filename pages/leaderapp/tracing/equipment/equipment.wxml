@@ -1,0 +1,71 @@
+<view class="container">
+
+  <view class="zhou-box">
+    <view class="zhou"></view>
+     <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>销售订单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>生产计划</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>派工单</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>派工单详情</text>
+    </view>
+    <view class="state-box">
+      <image class="zhou-icon" src="../../../../images/zhou-active.png"></image>
+      <text>相关详情</text>
+    </view>    
+  </view>
+  <view class="container">
+
+  <view class="item-tool">
+   <image class="tool" src="{{eqiupment.img?eqiupment.img:'../../../../images/tool.png'}}"></image>
+    <view class="inform">
+      <text class="name">编号：{{eqiupment.no}}</text>
+      <text class="number">型号：{{eqiupment.model}}</text>
+    </view>
+    <text class="now">{{statusName[eqiupment.state]}}</text>
+  </view>
+
+  <view class="detail" style="color:#888888;">
+    <view><text>主轴1</text></view>
+    <view><text>累计加工数(总量/合格)：{{eqiupment.total}}/{{eqiupment.qualifiedSum}}</text></view>
+     <view><text>今日加工数(总量/合格)：{{eqiupment.today.total}}/{{eqiupment.today.qualifiedSum}}</text></view>
+    <view><text>工作分钟：{{eqiupment.worktime}}</text></view>
+    <view><text>最后开机日：{{eqiupment.lastontime}}</text></view>
+    <view style="margin-bottom:0;"><text>最后采集时间:{{eqiupment.lastreceive}}</text></view>
+  </view> 
+
+  <view class="detail" style="color:#888888;">
+    <view><text>设备：{{eqiupment.name}}</text></view>
+    <view><text>企业：</text></view>
+    <view><text>电话：</text></view>
+    <view><text>服务：</text></view>
+    <view style="margin-bottom:0;"><text>地域</text></view>
+  </view> 
+
+  <view class="key-time">
+    <view>
+    
+      <view class="key-text"><text>开机时间</text></view> 
+      <view class="key-num"><text>{{eqiupment.today.ontime}}  {{eqiupment.today.begintime}}-{{eqiupment.today.endtime}}</text></view> 
+      <view class="key-text"><text>报警时间</text></view> 
+      <view class="key-num"><text>{{eqiupment.today.exceptiontime}}
+       {{eqiupment.today.exceptiontimegroup}}</text></view> 
+      <view class="key-text"><text>关机时间</text></view> 
+      <view class="key-num" style="margin-bottom:0;"><text>  {{eqiupment.today.offtime}} </text></view> 
+    </view>
+  
+  </view>  
+
+</view>
+  
+
+</view>

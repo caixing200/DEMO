@@ -1,0 +1,48 @@
+<view class="container">
+  <view class="border"></view>
+  <form bindsubmit="search">
+    <view class="sub sub-box">
+      <!-- 交付时间 -->
+      <picker mode="date" value="{{startDate}}" start="2016-01-01" end="2030-12-12" bindchange="startDateChange">
+        <view class="item">
+          <text class="item-name">取消时间</text>
+          <view class="item-right">
+            <text class="item-value">{{startDate}}</text>
+            <image src="../../../../images/arrow-down.png"></image>
+          </view>
+        </view>
+      </picker>
+      <!-- 结束时间 -->
+      <picker mode="date" value="{{endDate}}" start="2016-01-01" end="2030-12-12" bindchange="endDateChange">
+        <view class="item">
+          <text class="item-name">至</text>
+          <view class="item-right">
+            <text class="item-value">{{endDate}}</text>
+            <image src="../../../../images/arrow-down.png"></image>
+          </view>
+        </view>
+      </picker>
+      <!-- 客户 -->
+      <view class="item">
+        <text class="item-name">客户</text>
+        <input name="customer" value="{{filter.customer}}" class="item-inp" placeholder="" />
+      </view>
+
+      <!-- 计划产量 -->
+      <view class="item" style="border:none;">
+        <text class="item-name">产品</text>
+        <input name="prodname" value="{{filter.prodname}}" class="item-inp" placeholder="" />
+      </view>
+    </view>
+
+    <view class="reset-btn" bindtap="reset">      
+      <text>重置</text>
+      <image src="../../../../images/reset.png"></image>
+    </view>
+
+    <view class="btn-box">
+      <button class="btn" form-type="submit" hover-class="other-button-hover">查询</button>
+    </view>
+
+  </form>
+</view>

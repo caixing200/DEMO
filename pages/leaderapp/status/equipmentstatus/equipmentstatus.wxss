@@ -1,0 +1,57 @@
+.tool{
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 20rpx;
+}
+
+.now{
+  color: #999999;
+  font-size: 26rpx;
+  position: absolute;
+  right: 20rpx;
+}
+
+.item-tool{ 
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  padding: 20rpx;
+  position: relative;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #ffffff; 
+  align-items: center;
+}
+
+.key-time{
+  padding: 20rpx;
+  font-size: 26rpx;
+  background-color: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.key-text{
+  color: #353535;
+  font-weight: 500;
+  margin-bottom: 10rpx;
+  max-width: 480rpx;
+}
+
+.key-num{
+  color: #888888;
+  margin-bottom: 30rpx;
+  max-width: 480rpx;
+}
+
+.bing image{
+  width: 211rpx;
+  height: 211rpx;
+}
+
+.bing{
+  position: absolute;
+  right: 20rpx;
+
+}

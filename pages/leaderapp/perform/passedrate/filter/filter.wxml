@@ -1,0 +1,63 @@
+<view class="container">
+  <view class="border"></view>
+  <form bindsubmit="search">
+    <view class="sub sub-box">
+     <!-- 部门 -->
+      <picker bindchange="bindDeptChange" value="{{deptIndex}}" range-key="name" range="{{objectArray}}">
+        <view class="item">
+          <text class="item-name">部门</text>
+           <view class="item-right">
+             <block wx:if="{{deptIndex>=0}}">
+         <text placeholder="可选填" name="deptName" class="item-value">{{objectArray[deptIndex].name}}</text>
+          </block>
+          <block wx:else>
+             <text placeholder="可选填" name="deptName" class="item-value">{{deptName}}</text>
+          </block>
+            <image src="../../../../../images/arrow-down.png"></image>
+          </view>
+        </view>
+       </picker>
+      <!-- 人员 -->
+       <picker bindchange="bindEmpChange" value="{{empIndex}}" range-key="name" range="{{empObjectArray}}">
+        <view class="item">
+          <text class="item-name">人员</text>
+           <view class="item-right">
+           <text placeholder="可选填" name="empName" class="item-value">{{empObjectArray[empIndex].name}}</text>
+            <image src="../../../../../images/arrow-down.png"></image>
+          </view>
+        </view>
+       </picker>
+      <!-- 交付时间 -->
+      <picker mode="date" value="{{startDate}}" start="2016-01-01" end="2030-12-12" bindchange="startDateChange">
+        <view class="item">
+          <text class="item-name">开始时间</text>
+          <view class="item-right">
+            <text class="item-value">{{startDate}}</text>
+            <image src="../../../../../images/arrow-down.png"></image>
+          </view>
+        </view>
+      </picker>
+      <!-- 结束时间 -->
+      <picker mode="date" value="{{endDate}}" start="2016-01-01" end="2030-12-12" bindchange="endDateChange">
+        <view class="item">
+          <text class="item-name">结束时间</text>
+          <view class="item-right">
+            <text class="item-value">{{endDate}}</text>
+            <image src="../../../../../images/arrow-down.png"></image>
+          </view>
+        </view>
+      </picker>
+     
+    </view>
+
+    <view class="reset-btn" bindtap="reset">      
+      <text>重置</text>
+      <image src="../../../../../images/reset.png"></image>
+    </view>
+
+    <view class="btn-box">
+      <button class="btn" form-type="submit" hover-class="other-button-hover">查询</button>
+    </view>
+
+  </form>
+</view>

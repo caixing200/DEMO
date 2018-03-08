@@ -1,0 +1,39 @@
+<!--pages/warn/index.wxml-->
+
+<view class="container">
+  
+   <view class="top">
+    <text>报工合格数</text>{{qnum}}
+  </view>
+
+   <view class="top">
+    <text>不合格数</text>{{disqnum}}
+   </view>
+
+
+   <view class="choose">
+      <view class="title">不合格原因</view>
+      <checkbox-group class="choose-grids" bindchange="checkboxChange">
+         <block wx:for="{{reason}}" wx:key="{{item}}">
+            <view class="grids">
+               <checkbox value="{{item.value}}" checked="{{item.checked}}" />{{item.value}}                           
+            </view>
+            <input class="reason-num" name="reasonnum" placeholder="数量"  /> 
+         </block>
+      </checkbox-group>
+   </view>
+   
+  <form bindsubmit="claim">
+   <view class="action">
+      <view class="title">新增不合格原因</view>      
+      <view class="action-input">
+         <input name="number" placeholder="描述" bindinput="changeNum" />
+         <input name="desc" placeholder="数量" bindinput="changeDesc" />
+      </view>
+      <button class='add-reason' bindtap='addreason'>新增</button> 
+      <view class="btn-box">
+         <button class="btn" form-type="submit" hover-class="other-button-hover" name="submit">提交</button>
+      </view>
+   </view>
+  </form>
+</view>

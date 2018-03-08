@@ -1,0 +1,10 @@
+.base image{
+  width: 16rpx;
+  height: 25rpx;
+}
+
+.plan-title{
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #353535;
+}

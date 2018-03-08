@@ -1,0 +1,252 @@
+.top{
+  margin-top: 20rpx;
+}
+
+.states{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  position: absolute;
+  right: 20rpx;
+  font-size: 26rpx;
+  color: #04c38e;
+}
+
+.states image{
+  width: 16rpx;
+  height: 25rpx;
+  margin-left: 6rpx;
+}
+
+.tab-four view{
+  width: 180rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666666;
+  padding: 25rpx 0;
+}
+
+.deadline{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 88rpx;
+  line-height: 88rpx;
+  justify-content: left;
+  background-color: #ffffff;
+  border-top: 1rpx solid #e5e5e5;
+  padding: 0 20rpx;
+}
+
+.quanbu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+
+.deadline image{
+  width: 25rpx;
+  height: 16rpx;
+}
+
+.deadline .bt{
+  font-size: 32rpx;
+  color: #888888;
+}
+
+.small-line{
+  width: 1rpx;
+  height: 28rpx;
+  background-color: #e5e5e5;
+  margin: 0 15rpx;
+}
+
+.deadline .date{
+  font-size: 32rpx;
+  color: #1a1a1a;
+  margin-right: 10rpx;
+  font-weight: 500;
+}
+
+.deadline .zhi{
+  font-size: 26rpx;
+  color: #999999;
+  margin: 0 20rpx;
+}
+
+.deadline .filtrate{
+  position: absolute;
+  right: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.orderlist{
+  background-color: #ffffff;
+  height: 88rpx;
+  padding: 0 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+.orderlist text{
+  font-size: 32rpx;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.line{
+  width: 4rpx;
+  height: 30rpx;
+  background-color:#04c38e; 
+  margin-right: 10rpx;
+}
+
+.order-box{
+  background-color: #ffffff;
+  padding: 0 20rpx;
+}  
+  
+.order-detail{
+  background-color: #f5f9fa;
+  padding: 0 20rpx 20rpx 20rpx;
+  margin: 20rpx 0;
+}  
+ 
+.items{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  line-height: 88rpx;
+  border-bottom: 1rpx dashed #e5e5e5;
+}  
+
+.items-states{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  font-size: 26rpx;
+  color: #04c38e;
+  
+}
+
+.items-states image{
+  width: 16rpx;
+  height: 25rpx;
+  margin-left: 6rpx;
+}
+
+.items-detail{
+  color: #888888;
+  font-size: 26rpx;
+}
+
+.items-detail view{
+  margin-bottom: 10rpx;
+}
+
+.detail .fps{
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+  color: #888888;
+}
+
+.items .items-title{
+  font-size: 26rpx;
+  color: #353535;
+  line-height: 88rpx;
+  font-weight: 500;
+}
+
+.display{
+  font-size: 28rpx;
+  color: #6a7fa5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  line-height: 88rpx;
+  margin-left: 20rpx;
+  border-top: 1rpx solid #e5e5e5;
+}
+
+.display-box{
+  background-color: #ffffff;  
+}
+
+.display image{
+  width: 25rpx;
+  height: 16rpx;
+  margin-left: 10rpx;
+}
+
+.dot{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 18rpx;
+}
+
+.complete .pie{
+  width: 693rpx;
+  height: 400rpx;
+  align-items: center
+}
+
+
+.user{
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 40rpx;
+}
+
+.main{
+  font-size: 26rpx;
+  color: #353535;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.main-mg{
+  margin-bottom: 20rpx;
+}
+
+.complete-box{
+  padding: 40rpx 20rpx;
+  background-color: #ffffff;
+  margin-top: 20rpx;
+}
+
+.main-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;  
+}
+
+.zhutu{
+  width: 693rpx;
+  height: 346rpx;
+}
+
+.rank image{
+  width: 25rpx;
+  height: 16rpx;
+  margin-left: 10rpx;
+}
+.rank{
+  margin-bottom: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
