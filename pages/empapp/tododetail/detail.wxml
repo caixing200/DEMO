@@ -1,42 +1,73 @@
 <!--已报工页面-->
 
 <view class="container">
-  <view class="order-box">
-    <view class="order-number">
-      <text>子派工单号：{{claim.subtodo_code}}</text>
-      <view class="examinestate0" wx:if="{{claim.state==0}}"> <text>待审核</text></view> 
-      <view class="examinestate1" wx:if="{{claim.state==1}}"> <text>已审核</text></view>                     
-    </view>
-    <view class="plan-bg">
-      <view class="plan-detail" style="border:none;">
-        <view><text>工序名称：{{claim.subtodo_process}}</text></view>
-        <view><text>生产任务名称：{{claim.subtodo_taskname}}</text></view>
-        <view style="margin-bottom:0;"><text>计划数：{{claim.subtodo_plannumber}}</text></view>
+  <block wx:for="{{claim}}">
+    <view style='border-bottom:1rpx solid #e5e5e5;'>
+      <view class="order-number">
+        <text>子派工单号：{{item.subtodo_code}}</text>
+        <view class="examinestate0" wx:if="{{item.state==0}}">
+          <text>待审核</text>
+        </view>
+        <view class="examinestate1" wx:if="{{item.state==1}}">
+          <text>已审核</text>
+        </view>
+      </view>
+      <view class="plan-bg">
+        <view class="plan-detail" style="border:none;">
+          <view>
+            <text>工序名称：{{item.subtodo_process}}</text>
+          </view>
+          <view>
+            <text>生产任务名称：{{item.subtodo_taskname}}</text>
+          </view>
+          <view style="margin-bottom:0;">
+            <text>计划数：{{item.subtodo_plannumber}}</text>
+          </view>
+        </view>
       </view>
     </view>
-  </view>
 
-  <view class="order-box">
-    <view class="baogong">
-      <text class="pep">报工人:{{username}}</text>
-      <view class="withdraw" bindtap="withdraw" wx:if="{{claim.state==0}}"><text>撤回</text></view>
-      <text class="state">已报工</text> 
-    </view>
-    <view class="plan-bg">
-      <view class="plan-detail" style="border:none;">
-        <view><text>工作开始时间：{{claim.start_time}} </text></view>
-        <view><text>报工时间：{{claim.claim_time}}</text></view>
-        <view><text>计划数：{{claim.subtodo_plannumber}}</text></view>
-        <view><text>报工合格数：{{claim.claim_ok}}</text></view>
-        <view style="margin-bottom:0;"><text>不合格数：{{claim.claim_ng}}</text></view>
-        <view wx:if="{{claim.exam_state==1}}"><text>审核合格数：{{claim.exam_ok}}</text></view>
-        <view wx:if="{{claim.exam_state==1}}"><text>不合格数：{{claim.exam_ng}}</text></view>
-        <view wx:if="{{claim.exam_state==1}}"><text>审核人：{{claim.exam_person}}</text></view>      
+
+    <view style='border-bottom:1rpx solid #e5e5e5;margin-bottom:20rpx;'>
+      <view class="baogong">
+        <text class="pep">报工人:{{item.claim_person}}</text>
+        <view class="withdraw" bindtap="withdraw" wx:if="{{item.state==0&&item.claim_person!=username}}">
+          <text>撤回</text>
+        </view>
+        <text class="state">已报工</text>
+      </view>
+      <view class="plan-bg">
+        <view class="plan-detail" style="border:none;">
+          <view>
+            <text>工作开始时间：{{item.start_time}} </text>
+          </view>
+          <view>
+            <text>报工时间：{{item.claim_time}}</text>
+          </view>
+          <view>
+            <text>计划数：{{item.subtodo_plannumber}}</text>
+          </view>
+          <view>
+            <text>报工合格数：{{item.claim_ok}}</text>
+          </view>
+          <view style="margin-bottom:0;">
+            <text>不合格数：{{item.claim_ng}}</text>
+          </view>
+          <view wx:if="{{item.exam_state==1}}">
+            <text>审核合格数：{{item.exam_ok}}</text>
+          </view>
+          <view wx:if="{{item.exam_state==1}}">
+            <text>不合格数：{{item.exam_ng}}</text>
+          </view>
+          <view wx:if="{{item.exam_state==1}}">
+            <text>审核人：{{item.exam_person}}</text>
+          </view>
+        </view>
       </view>
     </view>
-  </view>
+  </block>
 
-  <view class="care pbz">
+  <!-- <view class="care pbz">
     <view class="about-sb">
       <text>相关设备</text>
       <image src="../../../../images/getmore.png"></image>
@@ -75,6 +106,6 @@
         </view>
       </view>
     </block>
-  </view>
+  </view> -->
 
 </view>

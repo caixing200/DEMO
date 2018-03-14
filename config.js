@@ -27,10 +27,27 @@ var config = {
     //获取已报工报工单信息 
     retreatClaim: `${host}/newtodo/retreatClaim`,
     //已报工报工单未审核前的撤回
-    claim: `${host}/newtodo/saveClaim`,
+
+    //郑燕03.09
+    //报工单确认||全部确认 
+    confirmClaim: `${host}/newtodo/confirmClaim`,
+    //报工单修正 
+    postAuditClaim: `${host}/newtodo/postAuditClaim`,
+
+
+    PartnerList: `${host}/newtodo/getCurrentPartnerList`,
+    //工友请求列表
+    updatePartner: `${host}/newtodo/updatePartner`,
+//请求列表中同意/拒绝选择PartnerList
+
+
+    getPartenList:`${host}/newtodo/getPartenList`,
+    //得到子派工多人的报工信息
+    saveClaim: `${host}/newtodo/saveClaim`,
     //claim.js 报工   
     cancelClaim: `${host}/newtodo/cancelClaim`,
     //取消报工
+
     ReviewList: `${host}/newtodo/ReviewList`,
     //获取审核中和已审核的派工单主要信息
     rebackClaim: `${host}/newtodo/rebackClaim`,
@@ -73,15 +90,14 @@ var config = {
     queryclaimdetail: `${host}/tracing/claim/getbyid`,
     //根据派工单号查询生产计划
     getplanbytodocode: `${apiUrlBase}/plan/getbytodocode`,
+    //结束生产计划
+    finishplan: `${host}/plan/finish`,
 
     //2018.03.06增加(蔡星)
     //部门计划报工扫码后请求接口
     getDeptplan: `${host}/newtodo/getDeptplan`,
     //提交部门计划合格数以及不合格数
     updateDeptplan: `${host}/newtodo/updateDeptplan`,
-
-    //结束生产计划
-    finishplan: `${host}/plan/finish`,
 
     //--------leaderapp ------------
     //销售订单
@@ -144,7 +160,9 @@ var config = {
     // 查询单个员工在某个时间段内的生产效率饼图
     queryEmpEfcPie: `${host}/achievements/empProductionEfficiency/{employeeId}`,
     //查询单个员工在某个时间段内的生产效率柱状图
-    queryEmpEfcHistogram: `${host}/achievements/empProductionEfficiencyHistogram/{employeeId}`
+    queryEmpEfcHistogram: `${host}/achievements/empProductionEfficiencyHistogram/{employeeId}`,
+
+
   },
  
 
@@ -176,8 +194,8 @@ var config = {
   //子派工单审核状态
   ReviewState: {
     //1已审核，0待审核
-    ongoing: 0,
-    finished: 1,
+    ongoing: '0',
+    finished: '1',
   },
   /**
   * 生产计划的状态

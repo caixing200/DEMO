@@ -104,7 +104,7 @@ Page({
         console.log(res)
         if (res.scanType == 'QR_CODE') {
           //得到物料编号，测试用
-          res.result = 'Z18030100001';
+          //res.result = 'Z18030900002';
           that.data.todocode = res.result;
           that._getPlanInfoByTodoCode(that.data.todocode);
         } else {
@@ -130,7 +130,7 @@ Page({
       succ: function (res) {
         console.log(res);
         // res[0].dept_end = '';
-        if (typeof res == 'object') {
+        if (typeof res == 'object' && res.length>0) {
           that.setData({
             submitCover: res[0].dept_end === '' ? true : false,
             plan: res[0],

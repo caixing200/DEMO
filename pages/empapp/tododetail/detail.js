@@ -9,13 +9,11 @@ Page({
     materiallist:null,
   },
   onLoad: function (options) {
-    this.setData({
-      username:app.Session.get().user.name
-    })
     console.log(options);
-
-    
     if (options) {
+      this.setData({
+        username: options.user
+      })
       this._getClaim(options.claim_id);
     } else {
       wx.showModal({
@@ -29,8 +27,8 @@ Page({
     var that = this;
     this._getClaimMainInfo(claim_id,function () {
       console.log("----call back..........")
-      that._getEquipList();
-      that._getMaterialList();
+      //that._getEquipList();
+      //that._getMaterialList();
     })
   },
   //只获取报工单主信息,不查设备、物料
@@ -49,7 +47,7 @@ Page({
         if (res.list[0]) {
           //如果返回了派出单
           that.setData({
-            claim: res.list[0]
+            claim: res.list
           });
           if (succCallBack) {
             succCallBack();

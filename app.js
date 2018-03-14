@@ -44,6 +44,7 @@ App       ({
     wxUserInfo: null,
     company: null,
     detailData: null,
+    todoData: null,
   },
   onLaunch: function () {
     var that = this;
@@ -83,7 +84,6 @@ App       ({
       url: this.config.service.getcompinfo,
       succ: function (res) {
         console.log("--32");
-        //首次载入为空数组
         console.log(res);
         if (res.list[0]) {
           that.globalData.company = res.list[0]

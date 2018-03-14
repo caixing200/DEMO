@@ -27,29 +27,40 @@
 
     <!-- 计划产量 -->
     <view class="item" style="border:none;">
-      <text class="item-name">计划数</text>
+      <text class="item-name">本次计划数</text>
       <text class="item-value">{{todo.subtodo_plannumber}}</text>
     </view>
   </view>
 
+
   <form bindsubmit="claim">
-  <view class="border"></view>
-  <view class="sub sub-box">
-    <!-- 合格数量 -->
-    <view class="item">
-      <text class="item-name"  style="width:180rpx;">报工合格数</text>
-      <input class="item-value" name="qualifiedNum" type="number" maxlength="10"></input>
-    </view>
+    <!--通过遍历获取n个user_name-->
+    <block wx:for="{{partner}}" wx:for-item="item" wx:key="id">
 
-    <!-- 不合格数量 -->
-    <view class="item" style="border:none;">
-      <text class="item-name" style="width:180rpx;">不合格数</text>
-      <input class="item-value" name="disqualifiedNum" type="number" maxlength="10"></input>
-    </view>
-  </view>
+      <view class="sub sub-box">
+        <view class="border"></view>
 
-  <view class="btn-box" bindtap="index">
-    <button class="btn" form-type="submit" hover-class="other-button-hover">提交</button>
-  </view>
+        <!--报工人-->
+        <view class="item">
+          <text class="item-name">{{item.user_name}}</text>
+        </view>
+
+        <!-- 合格数量 -->
+        <view class="item">
+          <text class="item-name" style="width:180rpx;">报工合格数</text>
+          <input class="item-value" name="qualifiedNum{{index}}" type="number" maxlength="10"></input>
+        </view>
+
+        <!-- 不合格数量 -->
+        <view class="item" style="border:none;">
+          <text class="item-name" style="width:180rpx;">不合格数</text>
+          <input class="item-value" name="disqualifiedNum{{index}}" type="number" maxlength="10"></input>
+        </view>
+      </view>
+    </block>
+
+    <view class="btn-box" bindtap="index">
+      <button class="btn" form-type="submit" hover-class="other-button-hover">提交</button>
+    </view>
   </form>
-</view>      
+</view>

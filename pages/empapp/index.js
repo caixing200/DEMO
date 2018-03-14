@@ -13,13 +13,13 @@ Page({
     //已报工的派工单信息 
     donelist: {},
     //存已完成/已取消的报工单列表    
-    scrollViewHeight:400,
-    tabActiveClass:['active','','']
+    scrollViewHeight: 400,
+    tabActiveClass: ['active', '', '']
   },
 
-//数据赋值
+  //数据赋值
   onLoad: function (options) {
-  
+
     console.log("---onshow:" + options);
     var that = this;
     console.log(app.Session.get());
@@ -35,24 +35,24 @@ Page({
       })
     });
   },
-  
-//展示页面
+
+  //展示页面
   onShow: function (options) {
-    
+
     console.log("---onshow:" + app.refreshCofing);
     console.log(app.refreshCofing);
     this.tabShowOnGoing(null, app.config.ClaimState.ongoing);
   },
 
   //进行中tab
-  tabShowOnGoing: function (e, filter) { 
+  tabShowOnGoing: function (e, filter) {
 
-     this.setData({
+    this.setData({
       tabActiveClass: ['active', '', '']
     });
-     this._getTodolistByState(utils.extend({
-       state: app.config.ClaimState.ongoing
-     }, filter)); 
+    this._getTodolistByState(utils.extend({
+      state: app.config.ClaimState.ongoing
+    }, filter));
   },
 
   //已取消TAB
@@ -63,7 +63,7 @@ Page({
     this._getTodolistByState(utils.extend({
       state: app.config.ClaimState.canceled
     }, filter));
-  },  
+  },
 
   //已报工TAB（不传值获取所有已报工派工单信息）
   tabShowFinished: function (options) {
@@ -76,15 +76,15 @@ Page({
     });
     app.admx.request({
       url: app.config.service.getAllClaimed,
-      data:{},
+      data: {},
       succ: function (res) {
 
         console.log("success fasong");
-        console.log(res);      
+        console.log(res);
         if (res.list[0]) {//如果返回了派出工
           that.setData({
-            donelist:res.list,
-            doinglist:null
+            donelist: res.list,
+            doinglist: null
           });
         } else {
           that.setData({
@@ -97,10 +97,10 @@ Page({
         wx.hideLoading();
       }
     })
-  }, 
+  },
 
   //获取所有正在进行中的派工单主要信息，同时可获取已取消信息（根据option不同） 
-  _getTodolistByState:function(option){
+  _getTodolistByState: function (option) {
     var that = this;
     wx.showLoading({
       title: '正在加载',
@@ -128,24 +128,19 @@ Page({
     })
   },
 
-  
+
 
   //扫描派工单(得到Qrcode即派工单号)
   scanTodo: function () {
-
-    /*wx.navigateTo({
-      url: './todo/todo?code=' + 123456
-    })*/
-
+    const that = this;
     wx.scanCode({
-      success: (res) => 
-      {
-        console.log(res)  
+      success: (res) => {
+        console.log(res)
         if (res.scanType == 'QR_CODE') {
           //得到派工单号
           var todocode = res.result;        //子派工单号
           wx.navigateTo({
-            url: './todo/todo?code=' + 'Z18030100001'
+            url: './todo/todo?code=' + todocode//         code +'&owner=' + that.data.appuserinfo.serialNo + '&owner_name=' + that.data.appuserinfo.name //测试用
           })
         } else {
           wx.showModal({

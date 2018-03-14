@@ -3,11 +3,11 @@
 <view class="container">
   
    <view class="top">
-    <text>审核合格数</text>{{qnum}}
+    <text>审核合格数</text><input placeholder='请输入' type='number' value='{{qnum}}' bindinput='bindOkInput' maxlength='10'></input>
   </view>
 
    <view class="top">
-    <text>不合格数</text>{{disqnum}}
+    <text>不合格数</text><input placeholder='请输入' type='number' value='{{disqnum}}' bindinput='bindNgInput' maxlength='10'></input>
    </view>
 
 
@@ -31,7 +31,7 @@
       </view>
       <button class='add-reason' bindtap='addreason'>新增</button> 
       <view class="btn-box">
-         <button class="btn" form-type="submit" hover-class="other-button-hover" name="submit">提交</button>
+         <button class="btn" form-type="submit" hover-class="other-button-hover" name="submit" bindtap='sendSubmit'>提交</button>
       </view>
    </view>
 </view>

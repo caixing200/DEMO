@@ -14,8 +14,8 @@
     <!--<block wx:if="{{todo != null}}">-->
       <view class="base">
         <text class="base-title1">子派工单号:{{todo.subtodo_code}}</text>
-        <view class="qrcode" ><image src="../../../../images/qrcode.png"></image></view>
-        <view class="cancel" bindtap="cancel"><text>取消</text></view>
+        <view class="qrcode" bindtap='createQRcode'></view>
+        <view class="cancel {{state === '1'?'':'is-cancel'}}" bindtap="cancel" data-state='{{state}}'>{{state === '1'?'取消':'已取消'}}</view>
       </view>
 
       <view class="detail">  
@@ -30,21 +30,20 @@
      <view class="detail">
         <view><text>工艺文件号：{{todo.subtodo_technology_id}}</text></view>
      </view>
-  
+<!--   
      <view class="lookmaterial">
        <view ><text>本次计划物料清单（留空）</text></view>
        <view class="look" bindtap="look"><text>查看</text></view>
-     </view>
+     </view> -->
     
       <view class="care pbj">
-        <view class="about-sb">
-          <text>相关设备</text>
-          <image src="../../../../images/getmore.png"></image>
+        <view class="about-sb" bindtap='getEquipList'>
+          相关设备<view class="iconBox {{equiplist[0]?'iconDeg':''}}"></view>
         </view>
-        <view class="write-btn ccp" bindtap="inputEquip">
+        <!-- <view class="write-btn ccp" bindtap="inputEquip">
           <image src="../../../../images/write-dark.png"></image>
           <text>手动输入</text>
-        </view>
+        </view> -->
         <view class="sao-btn ccp" bindtap="scanEquip">
           <image src="../../../../images/sao-dark.png"></image>
           <text>扫描</text>
@@ -52,27 +51,37 @@
       </view>
       <view class="care-box">
         <block><!--wx:if="{{equiplist != null}}"--> 
-          <view class="about" wx:for="{{equiplist}}" wx:key="id">
+        <movable-area wx:for="{{equiplist}}" wx:key="id" style="height:160rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
+          <movable-view style="height:100%;width:120%;" direction='horizontal' inertia='true'>
+            <view class="mView num"><text>设备{{index + 1}}</text></view>
+            <view class="mView content">
+              <view><text>设备编号：{{item.equipcode}}</text></view>
+              <view><text>设备名称：{{item.equipname}}</text></view>
+              <view><text>规格型号：{{item.model}}</text></view>
+            </view>
+            <view class='mView deletes'>删除</view>
+          </movable-view>
+        </movable-area>
+          <!-- <view class="about" wx:for="{{equiplist}}" wx:key="id">
             <view class="num"><text>设备{{index + 1}}</text></view>
             <view class="content">
               <view><text>设备编号：{{item.equipcode}}</text></view>
               <view><text>设备名称：{{item.equipname}}</text></view>
               <view><text>规格型号：{{item.model}}</text></view>
             </view>
-          </view>
+          </view> -->
         </block>
         <!-- <view class="del" data-addressid="{{item.address.ID}}" data-index="{{index}}" catchtap="delAddress">删除</view> 本来就有-->
       </view>
 
       <view class="care pbj">
-        <view class="about-sb">
-          <text>相关物料</text>
-          <image src="../../../../images/getmore.png"></image>
+        <view class="about-sb" bindtap='getMaterialList'>
+          相关物料<view class="iconBox {{materiallist[0]?'iconDeg':''}}"></view>
         </view>
-        <view class="write-btn ccp" bindtap="inputMaterial">
+        <!-- <view class="write-btn ccp" bindtap="inputMaterial">
           <image src="../../../../images/write-dark.png"></image>
           <text>手动输入</text>   
-        </view>
+        </view> -->
         <view class="sao-btn ccp" bindtap="scanMaterial">
           <image src="../../../../images/sao-dark.png"></image>
           <text>扫描</text>
@@ -96,7 +105,7 @@
 
    
   </scroll-view>
-  <view class="report-btn" bindtap="claim"><!--wx:if="{{todo != null}}" -->
+  <view class="report-btn" bindtap="claim" hidden='{{isOwner}}'><!--wx:if="{{todo != null}}" -->
     <text>报工</text>
   </view> 
 

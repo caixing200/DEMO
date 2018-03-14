@@ -1,24 +1,33 @@
 <view class="container">
  
- <view class="item-people">
-    <image src="../../../../images/qq.png" style="border:1rpx #ccc solid" class="people"></image>
+ <view class="item-people" wx:for="{{PartnerList}}"  wx:for-item= "item"  wx:key="id" >     
+     <image src="../../../../images/qq.png" style="border:1rpx #ccc solid" class="people"></image> 
     <view class="inform">
-      <text class="name">王一</text>
-      <text class="number">请求加入派工单P12345678的任务</text>
+      <text class="name">{{item.partner_name}}</text>
+      <text class="number">请求加入派工单{{item.partner_subtodo}}的任务</text>
     </view>
-    <view style="padding-left:20px">
-      <view class="report-btn name" bindtap="agree">
-       <text>同意</text>
+
+     <view wx:if="{{item.partner_state==0}}" style="padding-left:20px" >
+      <view class="report-btn name" data-partner_id='{{item.partner_id}}' data-partner_name='{{item.partner_name}}' bindtap="agree" >
+       同意
       </view>
       <br/>
-      <view class="report-btn number" bindtap="refuse">
-       <text >拒绝</text>
+      <view class="report-btn number" bindtap="refuse" data-partner_id='{{item.partner_id}}' data-partner_name='{{item.partner_name}}'>
+       拒绝
       </view>
    </view>
-    
- </view>
 
- <view class="item-people">
+    <view wx:if="{{item.partner_state==1||item.partner_state==2}}"  class="confirm" style="margin-left:20px">
+       <text>已同意</text>
+    </view>
+
+    <view wx:if="{{item.partner_state==-1}}" class="confirm" style="margin-left:20px">
+       <text>已拒绝</text>
+    </view>  
+ </view>
+</view>
+
+ <!-- <view class="item-people">
     <image src="../../../../images/qq.png" style="border:1rpx #ccc solid" class="people"></image>
     <view class="inform">
       <text class="name">王二</text>
@@ -38,7 +47,7 @@
     <view class="confirm" style="margin-left:20px">
        <text>已拒绝</text>
     </view>
-  </view>
+  </view> -->
   
-</view>
+
 

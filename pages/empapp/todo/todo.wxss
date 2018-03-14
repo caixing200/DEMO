@@ -8,3 +8,25 @@
   font-weight: 500;
   color: #353535;
 }
+.item-ratio {
+  position: absolute;
+  width: 80%;
+  text-align: right;
+}
+.inp-other {
+  width: 100rpx !important;
+}
+
+.container {
+  padding: 20rpx;
+}
+.detail view {
+  margin-bottom: 0;
+}
+.border-line {
+  padding: 0 20rpx;
+  
+}
+.border-line view {
+  border-bottom: 1rpx solid #e5e5e5;
+}

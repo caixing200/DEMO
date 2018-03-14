@@ -84,7 +84,7 @@
   margin: 0rpx 0;
   color: green;
   font-size: 30rpx;
-  line-height: 58rpx;
+  line-height: 50rpx;
   height: 50rpx;
   width: 145rpx;
   border: 1rpx solid green;
@@ -295,6 +295,22 @@
   justify-content: center;
   position: absolute;
   left: 625rpx;
+  top: 230rpx;
+  background-color: #04c38e;
+  color: #fff;
+}
+.confirm1 {
+  margin: 19rpx 0;
+  font-size: 26rpx;
+  line-height: 50rpx;
+  height: 50rpx;
+  width: 110rpx;
+  border: 1rpx solid #04c38e;
+  border-radius: 15rpx;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 550rpx;
   top: 230rpx;
   background-color: #04c38e;
   color: #fff;

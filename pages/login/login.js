@@ -14,12 +14,11 @@ Page({
 
   onShow: function (param) {
     console.log(app.globalData.company);
-    if(app.globalData.company){
+    if (app.globalData.company) {
       this.setData({
         compname: app.globalData.company.cname
       });
     }
-    
   },
 
   doLogin:function(e) {
@@ -27,8 +26,8 @@ Page({
     var account = e.detail.value.accout;
     var pwd = e.detail.value.password;
     var that = this;
-    //用户输入异常处理
     if (account.length == 0) {
+      //用户输入异常处理
       wx.showModal({
         content: "请输入工号",
         showCancel: false

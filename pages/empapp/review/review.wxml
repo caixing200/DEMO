@@ -17,13 +17,14 @@
   <scroll-view scroll-y style="height: 950rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
 
 <!--审核中-->
-  <block wx:for="{{todolist}}"  wx:for-item="item" wx:key="id">
+  <block wx:for="{{doinglist}}"  wx:for-item="item" wx:key="id">
     <view class="complete-list"  wx:if="{{tabActiveClass[0]}}" ><!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
-      <navigator class="list"  url="./detail?code={{item.subtodo_code}}">  
+      <navigator class="list"  url="./detail?code={{item.subtodo_code}}&navStatus=1&state=0">
         <view class="list-text" style="display:flex;flex-direction:column;">
           <block>
             <text class="number-title">子派工单号:{{item.subtodo_code}}</text>
-            <view class="overtime"><text>工序名称：{{item.subtodo_processe}}</text></view>
+            <text class='number-title-border'></text>
+            <view class="overtime"><text>工序名称：{{item.subtodo_process}}</text></view>
             <view class="overtime"><text>生产任务：{{item.subtodo_taskname}}</text></view>
             <view class="overtime"><text>计划数：{{item.subtodo_plannumber}}</text></view>
             <view class="overtime"><text>涉及产品：{{item.product_name}}{{item.product_code}}</text></view>
@@ -34,13 +35,14 @@
     </view>  
   </block> 
 <!--已审核-->
-  <block wx:for="{{todolist}}"  wx:for-item="item" wx:key="id">
+  <block wx:for="{{doinglist}}"  wx:for-item="item" wx:key="id">
    <view class="complete-list"  wx:if="{{tabActiveClass[1]}}" ><!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
-    <navigator class="list"  url="./detail?code={{item.subtodo_code}}">  
+    <navigator class="list"  url="./detail?code={{item.subtodo_code}}&navStatus=1&state=1">  
       <view class="list-text" style="display:flex;flex-direction:column;">
         <block>
           <text class="number-title">子派工单号:{{item.subtodo_code}}</text>
-          <view class="overtime"><text>工序名称：{{item.subtodo_processe}}</text></view>
+          <text class='number-title-border'></text>
+          <view class="overtime"><text>工序名称：{{item.subtodo_process}}</text></view>
           <view class="overtime"><text>生产任务：{{item.subtodo_taskname}}</text></view>
           <view class="overtime"><text>计划数：{{item.subtodo_plannumber}}</text></view>
           <view class="overtime"><text>涉及产品：{{item.product_name}}{{item.product_code}}</text></view>

@@ -13,7 +13,7 @@ Page({
     //app用存储的员工信息
     appuserinfo: null,
     //存储已审核和审核中的派工单信息
-    todolist: {},
+    todolist: [],
     tabActiveClass: ['active', ''],
   },
 
@@ -23,6 +23,7 @@ Page({
     console.log("---onshow:" + options);
     var that = this;
     app.globalData.detailData = null;
+    app.globalData.todoData = null;
     console.log(app.Session.get());
     app.getUserInfo(function (wxUserInfo) {
       var session = app.Session.get();
@@ -34,14 +35,15 @@ Page({
         appuserinfo: app.Session.get().user
       })
     })
+    
   },
 
   //展示页面
   onShow: function (options) {
-
+    var that = this;
     console.log("---onshow:" + app.refreshCofing);
     console.log(app.refreshCofing);
-    // this.tabShowOnGoing(null, app.config.ClaimState.ongoing);
+    that.tabShowOnGoing(null, app.config.ClaimState.ongoing);
   },
 
 
@@ -53,7 +55,7 @@ Page({
         console.log(res)
         if (res.scanType == 'QR_CODE') {
           //得到派工单号
-          res.result = 'Z18030100001';//测试用
+          //res.result = 'Z18030900002';//测试用
           var todocode = res.result;
           that._getReview(todocode);
 
@@ -90,10 +92,10 @@ Page({
       },
       succ: function (res) {
         console.log(res);
-        if (Array.isArray(res)) {
-          res[0].claim_person = '23333333';//测试用
+        if (Array.isArray(res) && res.length>0) {
+          //res[0].claim_person = '23333333';//测试用
           if (res && (res[0].claim_person !== '')) {
-            app.globalData.detailData = res;
+            //app.globalData.detailData = res;
             //app.globalData.detailData[0].state = '1';//测试用
             wx.navigateTo({
               url: './detail?code=' + code + '&navStatus=2',
@@ -171,6 +173,7 @@ Page({
 
   //获取审核中和已审核的派工单主要信息（根据option不同） 
   _postAuditClaim: function (option) {
+    console.log(option);
     var that = this;
     wx.showLoading({
       title: '正在加载',
@@ -182,9 +185,11 @@ Page({
         console.log("success fasong");
         console.log(option);
         console.log(res);
-        if (res.list) {//如果返回了派出工
+        if (res.length>0) {//如果返回了派出工
           that.setData({
-            doinglist: res.list,
+            doinglist: res,
+          },()=>{
+            app.globalData.todoData = res;
           });
         } else {
           that.setData({

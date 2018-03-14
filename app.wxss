@@ -183,7 +183,7 @@ page {
 
 }
 .detail view{
-  margin-bottom:-2rpx;
+  margin-bottom:-2rpx
 }
 
 .care{

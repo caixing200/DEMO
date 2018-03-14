@@ -21,7 +21,7 @@
     <block wx:for="{{doinglist}}"  wx:for-item="item" wx:key="id">
       <view class="complete-list"  wx:if="{{tabActiveClass[0]}}" >
 
-        <navigator class="list"  url= './doingdetail/doingdetail?code={{item.subtodo_id}}'>  <!--将子派工单号传给下个页面-->
+        <navigator class="list"  url= './doingdetail/doingdetail?code={{item.subtodo_id}}&owner={{appuserinfo.serialNo}}&state=1'>  <!--将子派工单号传给下个页面-->
         <view class="list-text" style="display:flex;flex-direction:column;">
           <block>
             <text >子派工单号:{{item.subtodo_code}}</text>
@@ -38,7 +38,7 @@
     <!-- 已报工TAB页显示内容-->
     <block wx:for="{{donelist}}"  wx:for-item="item" wx:key="id">
       <view class="complete-list"  wx:if="{{tabActiveClass[1]}}" ><!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
-        <navigator class="list" url='./tododetail/detail?claimid={{item.claim_id}}'>
+        <navigator class="list" url='./tododetail/detail?claimid={{item.claim_id}}&user={{appuserinfo.name}}'>
           <view class="list-text" style="display:flex;flex-direction:column;">
             <view class="examinestate0" wx:if="{{item.state==0}}"> 
               <text>待审核</text>
@@ -65,7 +65,7 @@
     <!--已报消 TAB页显示内容-->
     <block wx:for="{{doinglist}}"  wx:for-item="item" wx:key="id">
       <view class="complete-list"  wx:if="{{tabActiveClass[2]}}" ><!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
-        <navigator class="list" url="./tododetail/detail?claimid={{item.claimid}}">
+        <navigator class="list" url="./doingdetail/doingdetail?code={{item.subtodo_id}}&owner={{appuserinfo.serialNo}}&state=">
           <view class="list-text" style="display:flex;flex-direction:column;">
             <block>
               <text>子派工单号:{{item.subtodo_code}}</text>

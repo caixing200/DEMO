@@ -19,18 +19,71 @@ Page({
     todolist: {},
     materiallist: [],
     scrollViewHeight: 400,
-    equiplist: [],
+    equiplist: [{
+      equipcode: '111',
+      equipname: 'aaa',
+      model: 'adfad'
+    },
+    {
+      equipcode: '222',
+      equipname: 'aaa',
+      model: 'adfad'
+    },
+    {
+      equipcode: '333',
+      equipname: 'aaa',
+      model: 'adfad'
+    },
+    {
+      equipcode: '444',
+      equipname: 'aaa',
+      model: 'adfad'
+    },
+    {
+      equipcode: '555',
+      equipname: 'aaa',
+      model: 'adfad'
+    },
+    {
+      equipcode: '666',
+      equipname: 'aaa',
+      model: 'adfad'
+    }],
+    equiplistBox: [],
+    isOwner: true,
   },
-
+  getEquipList: function (e) {
+    const that = this;
+    if (that.data.equiplist.length>0){
+      that.setData({
+        equiplistBox: that.data.equiplist,
+        equiplist: []
+      })
+    }else {
+      that.setData({
+        equiplist: that.data.equiplistBox
+      })
+    }
+    
+  },
+  getMaterialList: function (e) {
+    const that = this;
+  },
+  createQRcode: function (e) {
+    const that = this;
+    wx.previewImage({
+      urls: ['data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAADSAQAAAAAX4qPvAAAA30lEQVR42u2YwQ3FIAxDIzFAR2J1RmIAJBcSQxH9fwI3h6ricbJip6kZKwHlama52qskWcaommDWmb95ybPqD2f9JN4sfWwy7yWq97FNs9FV//QUZMtjGY3qvf2nx1YmU7ifea3HsGofT6OKNJsTqitUxiBHpe/EGZN4Gq1X431xhpXEkclxTZ6xb+KzxijhaDFx5sd0VmjWwm1m2uzJZD+ONrqgzo4ZzuxhnymzfMYxuHWbOFu7EzZ7nXuVMItMpscOzZTZXKA4yOXZ9s/KN4OE2VDS7MlkRlGbvzyV2Q3XUKHNNHiSFQAAAABJRU5ErkJggg=='],
+    })
+  },
   onLoad: function (options) {
-
-    console.log("---onshow:" + options);
     var that = this;
     that.setData({
       subtodo_id: options.code,
+      owner: options.owner,
+      state: options.state
     })
     console.log(app.Session.get());
-    console.log(options.code);
+    console.log(options);
     app.getUserInfo(function (wxUserInfo) {
       var session = app.Session.get();
       session.wxUserInfo = wxUserInfo;
@@ -152,43 +205,45 @@ Page({
   },
 
   //点击取消报工按扭 (cancelClaim)
-  cancel: function () {
+  cancel: function (e) {
     var that = this;
-    wx.showModal({
-      content: '确定要取消本次派工单?',
-      success: function (res) {
-        if (res.confirm) {
-          wx.showLoading({
-            title: '操作中...',
-          })
-          app.admx.request({
-            url: app.config.service.cancelClaim,
-            data: {
-              subtodo_id: that.data.subtodo_id,
-            },
-            succ: function (res) {
-              if (res.effect > 0) {
-                wx.showToast({
-                  title: '取消成功'
+    if (e.target.dataset.state === '1') {
+      wx.showModal({
+        content: '确定要取消本次派工单?',
+        success: function (res) {
+          if (res.confirm) {
+            wx.showLoading({
+              title: '操作中...',
+            })
+            app.admx.request({
+              url: app.config.service.cancelClaim,
+              data: {
+                subtodo_id: that.data.subtodo_id,
+              },
+              succ: function (res) {
+                if (res.effect > 0) {
+                  wx.showToast({
+                    title: '取消成功'
+                  })
+                  that.setData({
+                    todo: null,
+                    materiallist: [],
+                    equiplist: []
+                  });
+                }
+              },
+              complete: function () {
+                wx.navigateTo({
+                  url: '../index',
                 })
-                that.setData({
-                  todo: null,
-                  materiallist: [],
-                  equiplist: []
-                });
               }
-            },
-            complete: function () {
-              wx.navigateTo({
-                url: '../index',
-              })
-            }
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
         }
-      }
-    })
+      })
+    }
   },
 
 
@@ -201,15 +256,14 @@ Page({
     app.admx.request({
       method: 'get',
       url: app.config.service.todo.replace("{subtodo_id}", that.data.subtodo_id),
-      data: {
-      },
       succ: function (res) {
         if (res) {
           console.log(res[0]);
           //如果返回了派出单
           that.setData({
             todo: res[0],
-            todolist: null
+            todolist: null,
+            isOwner: res[0].owner === that.data.owner ? false : true,
           });
           if (succCallBack) {
             succCallBack();
@@ -230,11 +284,7 @@ Page({
   //获取正在进行中的派工单
   _getTodo: function () {
     var that = this;
-    this._getDetailBySubid(function () {
-      console.log("----call back..........")
-      //that._getEquipList();
-     // that._getMaterialList();
-    })
+    this._getDetailBySubid()
   },
 
   //获取正在进行中的派工单的相关设备
