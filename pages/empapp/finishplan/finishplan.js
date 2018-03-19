@@ -121,6 +121,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: '查询中..',
+      mask: true
     })
     app.admx.request({
       url: app.config.service.getDeptplan,
@@ -246,6 +247,7 @@ Page({
     })
     wx.showLoading({
       title: '提交中...',
+      mask: true
     })
     app.admx.request({
       url: app.config.service.updateDeptplan,

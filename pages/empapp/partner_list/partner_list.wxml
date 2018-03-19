@@ -1,7 +1,7 @@
 <view class="container">
  
  <view class="item-people" wx:for="{{PartnerList}}"  wx:for-item= "item"  wx:key="id" >     
-     <image src="../../../../images/qq.png" style="border:1rpx #ccc solid" class="people"></image> 
+     <image src="../../../images/qq.png" style="border:1rpx #ccc solid" class="people"></image> 
     <view class="inform">
       <text class="name">{{item.partner_name}}</text>
       <text class="number">请求加入派工单{{item.partner_subtodo}}的任务</text>

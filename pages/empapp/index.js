@@ -73,13 +73,14 @@ Page({
     var that = this;
     wx.showLoading({
       title: '正在加载',
+      mask: true
     });
     app.admx.request({
       url: app.config.service.getAllClaimed,
-      data: {},
+      data: {
+        //claim_id:"0be2e827-85a6-4c24-aece-11eaeaeaf072"
+      },
       succ: function (res) {
-
-        console.log("success fasong");
         console.log(res);
         if (res.list[0]) {//如果返回了派出工
           that.setData({
@@ -104,6 +105,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: '正在加载',
+      mask: true
     });
     app.admx.request({
       url: app.config.service.getTodoByState,
@@ -140,7 +142,7 @@ Page({
           //得到派工单号
           var todocode = res.result;        //子派工单号
           wx.navigateTo({
-            url: './todo/todo?code=' + todocode//         code +'&owner=' + that.data.appuserinfo.serialNo + '&owner_name=' + that.data.appuserinfo.name //测试用
+            url: './todo/todo?code=' + todocode + '&owner=' + that.data.appuserinfo.serialNo//         code +'&owner=' + that.data.appuserinfo.serialNo + '&owner_name=' + that.data.appuserinfo.name //测试用
           })
         } else {
           wx.showModal({

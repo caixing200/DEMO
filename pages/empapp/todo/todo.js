@@ -9,7 +9,7 @@ Page({
     submitting: false,
     inNum: '',
     owner: '',
-    ownerName: '',
+    isHistory: '',
   },
 
   onLoad: function (options) {
@@ -17,19 +17,29 @@ Page({
     const that = this;
     that.setData({
       owner: options.owner,
-      ownerName: options.owner_name
     }, () => {
       that._getTodo(options.code);
     })
 
   },
 
-
+  //检测是否应用历史数据
+  checkHistory: function(data){
+    const that = this;
+    let isHistory = '';
+    if ((data.subtodo_process != '') && (data.subtodo_taskname != '') && (data.subtodo_technology_id != '')) {
+      isHistory = '1';
+    } else {
+      isHistory = '0';
+    }
+    return isHistory;
+  },
   //根据子派工单号，得到派工单相关信息(getTodoByQrcode)2.0
   _getTodo: function (code) {
     var that = this;
     wx.showLoading({
       title: 'loading',
+      mask: true
     })
     app.admx.request({
       url: app.config.service.getToDoByqrcode,
@@ -42,7 +52,22 @@ Page({
           that.setData({
             todo: res[0],          //对象 包含所有信息  
             todocode: code,          //派工单号，将小程序的code直接传给todocode  
-            inNum: res[0].subtodo_plannumber
+            inNum: res[0].subtodo_plannumber,
+            isHistory: that.checkHistory(res[0]),
+          },()=>{
+            if(that.data.todo.owner === that.data.owner){
+              wx.showModal({
+                content: '您已经领取此派工单',
+                showCancel: false,
+                success: function(res){
+                  if(res.confirm){
+                    wx.navigateBack({
+                     delta: 1 
+                    })
+                  }
+                }
+              })
+            }
           })
         } else {
           wx.showModal({
@@ -71,12 +96,7 @@ Page({
       });
       return
     }*/
-    let isHistory = '';
-    if ((that.data.todo.subtodo_process != '') && (that.data.todo.subtodo_taskname != '') && (that.data.todo.subtodo_technology_id != '')) {
-      isHistory = '0';
-    } else {
-      isHistory = '0';
-    }
+    
 
     that.setData({
       'subtodo.subtodo_process': e.detail.value.process ? e.detail.value.process : that.data.todo.subtodo_process,
@@ -87,7 +107,7 @@ Page({
       'subtodo.subtodo_code': that.data.todo.subtodo_code,
       'subtodo.subtodo_id': that.data.todo.subtodo_id,
       // 'subtodo.ratio': e.detail.value.ratio ? e.detail.value.ratio : that.data.todo.ratio,
-      'subtodo.isHistory': isHistory
+      'subtodo.isHistory': that.data.isHistory
 
 
     })

@@ -76,13 +76,30 @@ var config = {
     //addworking: `${host}/newtodo/uploadsubtodoData`,
     //index.js 根据设备编号查设备信息
 
-    getEquipByCode: `${apiUrlBase}/equip/getbycode`,
+    getEquipByCode: `${host}/newtodo/bindEquip2Todo`,
+    //获取设备列表
+    getEquipListBySubtodoId: `${host}/newtodo/getEquipListBySubtodoId`,
+    //删除设备
+    removeEquip: `${host}/newtodo/removeEquip`,
+
+    //扫码获取物料信息
+    getMaterialBySubcode: `${host}/newtodo/getMaterialBySubcode`,
+    //获取物料列表
+    getMaterialListBySubcode: `${host}/newtodo/getMaterialListBySubcode`,
+    //删除物料
+    removeMaterial: `${host}/newtodo/removeMaterial`,
+    //更新物料信息
+    updateMaterial: `${host}/newtodo/updateMaterial`,
+
+    //获取二维码
+    getSubtodoQrcode: `${host}/newtodo/getSubtodoQrcode`,
+
     //index.js 根据物料编号查物料信息
     getMaterialByCode: `${apiUrlBase}/material/getbycode`,
     //添加相关设备
-    addEquip: `${host}/todo/addequip`,
+    addEquip: `${host}/newtodo/addequip`,
     //添加相关物料
-    addMaterial: `${host}/todo/addmaterial`,
+    addMaterial: `${host}/newtodo/addMaterial`,
     
     
     //查询报工详情

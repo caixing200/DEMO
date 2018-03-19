@@ -3,7 +3,8 @@ Page({
   data: {
     focus: false,
     power: null,
-    inputValue: ''
+    inputValue: '',
+    btnStatus: 1
   },
   onLoad: function () {
     var power = app.Session.get().user.power;
@@ -20,66 +21,106 @@ Page({
       })
     }
   },
+  onShow: function(){
+    const that = this;
+    that.data.btnStatus = 1
+  },
   //员工报工系统
   menu_1: function () {
-    wx.navigateTo({
-      url: '../empapp/index'
-    })
+    const that = this;
+    if (that.data.btnStatus === 1){
+      that.data.btnStatus = 2
+      wx.navigateTo({
+        url: '../empapp/index'
+      })
+    }
   },
 
   //派工单审核
   menu_7: function () {
-    wx.navigateTo({
-      url: '../empapp/review/review'
-    })
+    const that = this;
+    if (that.data.btnStatus === 1) {
+      that.data.btnStatus = 2
+      wx.navigateTo({
+        url: '../empapp/review/review'
+      })
+    }
   },
 
   //部门计划报工（！！）
   menu_9: function () {
-    wx.navigateTo({
-      url: '../empapp/finishplan/finishplan'
-    })
+    const that = this;
+    if (that.data.btnStatus === 1) {
+      that.data.btnStatus = 2
+      wx.navigateTo({
+        url: '../empapp/finishplan/finishplan'
+      })
+    }
   },
 
   //销售订单
   menu_2: function () {
-    wx.navigateTo({
-      url: '../leaderapp/orders/orders'
-    })
+    const that = this;
+    if (that.data.btnStatus === 1) {
+      that.data.btnStatus = 2
+      wx.navigateTo({
+        url: '../leaderapp/orders/orders'
+      })
+    }
   },
   //生产计划
   menu_3: function () {
-    wx.navigateTo({
-      url: '../leaderapp/plan/plan'
-    })
+    const that = this;
+    if (that.data.btnStatus === 1) {
+      that.data.btnStatus = 2
+      wx.navigateTo({
+        url: '../leaderapp/plan/plan'
+      })
+    }
   },
   
   //设备状态
   menu_4: function () {
-    wx.navigateTo({
-      url: '../leaderapp/status/status'
-    })
+    const that = this;
+    if (that.data.btnStatus === 1) {
+      that.data.btnStatus = 2
+      wx.navigateTo({
+        url: '../leaderapp/status/status'
+      })
+    }
   },
 
   //人员绩效
   menu_5: function () {
-    wx.navigateTo({
-      url: '../leaderapp/perform/vary/vary'
-    })
+    const that = this;
+    if (that.data.btnStatus === 1) {
+      that.data.btnStatus = 2
+      wx.navigateTo({
+        url: '../leaderapp/perform/vary/vary'
+      })
+    }
   },
 
   //生产计划
   menu_6: function () {
-    wx.navigateTo({
-      url: '../leaderapp/tracing/tracing'
-    })
+    const that = this;
+    if (that.data.btnStatus === 1) {
+      that.data.btnStatus = 2
+      wx.navigateTo({
+        url: '../leaderapp/tracing/tracing'
+      })
+    }
   },
   
   //个人信息
   menu_8: function () {
-    wx.navigateTo({
-      url: '../mine/mine'
-    })
+    const that = this;
+    if (that.data.btnStatus === 1) {
+      that.data.btnStatus = 2
+      wx.navigateTo({
+        url: '../mine/mine'
+      })
+    }
   }
 
 })

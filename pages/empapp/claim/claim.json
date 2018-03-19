@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "报工",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "disableScroll": true
 }

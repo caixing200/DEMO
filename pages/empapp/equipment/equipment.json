@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "添加设备",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "disableScroll": true
 }

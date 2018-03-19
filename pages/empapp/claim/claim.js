@@ -38,36 +38,11 @@ Page({
         content: '页面加载错误'
       })
     }
-    // var disqualifiedNum = e.detail.value.disqualifiedNum;
-    // if (disqualifiedNum.length == 0) {
-    //   wx.showModal({
-    //     content: "请输入不合格数量",
-    //     showCancel: false
-    //   });
-    //   return
-    // }
-    // var qualifiedNum = e.detail.value.qualifiedNum;
-    // if (qualifiedNum.length == 0) {
-    //   wx.showModal({
-    //     content: "请输入合格数量",
-    //     showCancel: false
-    //   });
-    //   return
-    // }
-    // if (isNaN(disqualifiedNum)) {
-    //   wx.showModal({
-    //     content: "不合格数量只能输入数字",
-    //     showCancel: false
-    //   });
-    //   return
-    // }
-    // if (isNaN(qualifiedNum)) {
-    //   wx.showModal({
-    //     content: "合格数量只能输入数字",
-    //     showCancel: false
-    //   });
-    //   return
-    // }
+
+    if (!that.checkInput(e.detail.value)) {
+      return
+    }
+
     var claimListStr = getList(e.detail.value);
 
     function getList(data) {
@@ -129,12 +104,56 @@ Page({
     //   }
     // })
   },
+  //输入验证
+  checkInput: function (data) {
+    const that = this;
+    if (typeof data === 'object') {
+      let qualifiedNum = 'qualifiedNum';
+      let disqualifiedNum = 'disqualifiedNum';
+      for (let i = 0; i < that.data.partner.length; i++) {
+        const qk = qualifiedNum + i;
+        const dk = disqualifiedNum + i;
+        if (data[qk] == '') {
+          wx.showModal({
+            content: '请输入合格数',
+            showCancel: false
+          })
+          return
+        }
+        if (isNaN(data[qk])) {
+          wx.showModal({
+            content: '合格数只能输入数字',
+            showCancel: false
+          })
+          return
+        }
+        if (data[dk] == '') {
+          wx.showModal({
+            content: '请输入不合格数',
+            showCancel: false
+          })
+          return
+        }
+        if (isNaN(data[dk])) {
+          wx.showModal({
+            content: '不合格数只能输入数字',
+            showCancel: false
+          })
+          return
+        }
+      }
+      return true
+    } else {
+      return false
+    }
+  },
 
   //获取要报工子派工单信息（复用）
   _getDetailBySubid: function () {
     var that = this;
     wx.showLoading({
       title: '正在加载',
+      mask: true
     });
     app.admx.request({
       method: 'get',
@@ -164,6 +183,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: '正在加载',
+      mask: true
     });
     app.admx.request({
       url: app.config.service.getPartenList,
@@ -171,6 +191,7 @@ Page({
         subtodo_id: that.data.subtodo_id,
       },
       succ: function (res) {
+        wx.hideLoading();
         console.log(res);
         if (res[0]) {
           that.setData({
@@ -182,9 +203,9 @@ Page({
           });
         }
       },
-      complete: function (res) {
-        wx.hideLoading();
-      }
+      // complete: function (res) {
+      //   wx.hideLoading();
+      // }
     })
   },
 
@@ -208,9 +229,12 @@ Page({
             title: '报工成功'
           })
           setTimeout(function () {
-            wx.redirectTo({
-              url: '/pages/empapp/index',
-            });
+            // wx.redirectTo({
+            //   url: '/pages/empapp/index',
+            // });
+            wx.navigateBack({
+              delta: 2
+            })
           }, 1000)
 
         } else {

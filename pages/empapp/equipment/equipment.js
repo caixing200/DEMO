@@ -88,6 +88,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: 'loading',
+      mask: true
     })
     app.admx.request({
       url: app.config.service.getEquipByCode,

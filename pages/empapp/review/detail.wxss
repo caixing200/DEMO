@@ -1,3 +1,7 @@
+.container {
+  position: relative;
+}
+
 .sao-white {
   width: 48rpx;
   height: 40rpx;
@@ -224,9 +228,11 @@
   text-overflow: hidden;
   white-space: nowrap;
 }
+
 .title-bar {
   border-bottom: 1rpx solid #e5e5e5;
 }
+
 .examinestate0 {
   margin: 0rpx 0;
   line-height: 50rpx;
@@ -248,6 +254,11 @@
   width: 140rpx;
   border: 1rpx solid orange;
   border-radius: 10rpx;
+}
+
+.isexamine {
+  border: 1rpx solid #04c38e;
+  color: #04c38e;
 }
 
 .examinestateTxt {
@@ -280,7 +291,7 @@
   justify-content: center;
   position: absolute;
   left: 490rpx;
-  top: 230rpx;
+  top: 310rpx;
 }
 
 .confirm {
@@ -295,10 +306,11 @@
   justify-content: center;
   position: absolute;
   left: 625rpx;
-  top: 230rpx;
+  top: 310rpx;
   background-color: #04c38e;
   color: #fff;
 }
+
 .confirm1 {
   margin: 19rpx 0;
   font-size: 26rpx;
@@ -310,8 +322,57 @@
   display: flex;
   justify-content: center;
   position: absolute;
-  left: 550rpx;
-  top: 230rpx;
+  left: 625rpx;
+  top: 310rpx;
   background-color: #04c38e;
   color: #fff;
+}
+
+.inputView {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.inputBox {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  width: 80%;
+  height: 30%;
+  transform: translate(-50%,-50%);
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+.inp {
+  height: 30%;
+  line-height: 120rpx;
+  vertical-align: top;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+.inpTxt {
+  display: inline-block;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.inputs {
+  display: inline-block;
+  height: 80rpx;
+  line-height: 80rpx;
+  overflow: visible;
+  width: 250rpx;
+}
+.btnBox {
+   margin-top: 10rpx; 
+  display: flex;
+}
+.buttons {
+  flex: 1;
+  padding: 30rpx 60rpx;
+}
+.buttons button{
+  line-height: 2;
 }

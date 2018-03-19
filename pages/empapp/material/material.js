@@ -4,98 +4,104 @@ Page({
   data: {
     code: null,
     material: null,
-    materialcode: 'W',
-    claimid: null,
+    materialcode: '',
+    subtodo_id: null,
     batchno: null,
-    peruse : null,
+    peruse: null,
     submitting: false
   },
   onLoad: function (options) {
     console.log(options);
-    if (options == null) {
-      wx.showModal({
-        showCancel: false,
-        content: '页面加载错误',
-      })
-      return;
-    }
-    if (options.claimid) {
-      this.setData({
-        claimid: options.claimid
-      })
-    }
+    const that = this;
     if (options.code) {//如果是扫描过来的有code
-      this.setData({
-        materialcode: options.code
+      that.setData({
+        subtodo_id: options.subtodo_id,
+        isCode: true,
+        subtodo_plannumber: options.subtodo_plannumber
+      }, () => {
+        that._getMaterialByCode(options.code);
       })
-      this._getMaterialByCode(options.code);
+    } else {
+      const data = {};
+      data.material_code = options.material_code;
+      data.material_name = options.material_name;
+      data.m_model = options.m_model;
+      data.subtodo_m_id = options.subtodo_m_id;
+      that.setData({
+        material: data,
+        isCode: false
+      });
+      console.log(that.data.material)
     }
   },
   //当手动输入设备编号时，自动设备信息
-  autoFill: function (e) {
-    var code = e.detail.value;
-    if (code.length == 0) {
-      this.setData({
-        materialcode: 'W'
-      })
-    }
-    console.log(code);
-    if (code && code.length >= 7) {
-      this.setData({
-        inputCode: code
-      })
-      this._getMaterialByCode(code)
-    }
-  },
+  // autoFill: function (e) {
+  //   var code = e.detail.value;
+  //   if (code.length == 0) {
+  //     this.setData({
+  //       materialcode: ''
+  //     })
+  //   }
+  //   console.log(code);
+  //   if (code && code.length >= 7) {
+  //     this.setData({
+  //       inputCode: code
+  //     })
+  //     this._getMaterialByCode(code)
+  //   }
+  // },
   //记录批次号信息
-  batchnoInput:function(e){
+  batchnoInput: function (e) {
     this.setData({
-      batchno: e.detail.value
+      batchno: e.detail.value.batchno
     });
   },
 
   //记录单件用量
-  peruseInput:function(e){
+  peruseInput: function (e) {
     this.setData({
-      peruse: e.detail.value
+      peruse: e.detail.value.peruse
     });
 
   },
   //扫批次号
-  scanBatchno: function () {
-    console.log("--scanBatchno");
-    var that = this;
-    wx.scanCode({
-      success: (res) => {
-        console.log(res)
-        that.setData({
-          batchno: res.result
-        });
-      },
-      fail: (res) => {
-        wx.showModal({
-          content: '请扫批次号',
-          showCancel: false
-        })
-      }
-    });
-  },
+  // scanBatchno: function () {
+  //   console.log("--scanBatchno");
+  //   var that = this;
+  //   wx.scanCode({
+  //     success: (res) => {
+  //       console.log(res)
+  //       that.setData({
+  //         batchno: res.result
+  //       });
+  //     },
+  //     fail: (res) => {
+  //       wx.showModal({
+  //         content: '请扫批次号',
+  //         showCancel: false
+  //       })
+  //     }
+  //   });
+  // },
   //点击确定
   doSubmit: function (e) {
+    console.log(e);
     var that = this;
     if (this.data.submitting) {
       return;
     }
-    if (that.data.claimid == '' || that.data.claimid == null) {
+    const batchno = e.detail.value.batchno;
+    if (batchno === '') {
       wx.showModal({
-        content: '页面加载错误',
+        content: "请填写批次号",
         showCancel: false
       });
       return
     }
-    if (that.data.material == null || that.data.material.id == null) {
+    const peruse = e.detail.value.peruse;
+    if (peruse === '') {
       wx.showModal({
-        content: "没有找到物料信息",
+        content: "请填写单件用量",
         showCancel: false
       });
       return
@@ -111,48 +117,117 @@ Page({
     this.setData({
       submitting: true
     })
-    app.admx.request({
-      url: app.config.service.addMaterial,
-      data: {
-        materialid: that.data.material.id,
-        claimid: that.data.claimid,
-        batchno: that.data.batchno
-      },
-      succ: function (res) {
-        if (res.primarykey && res.primarykey > 0) {
-          app.refreshCofing.materiallist = true;
-          console.log("---back");
-          console.log(app.refreshCofing);
-          wx.navigateBack();
-        } else {
-          wx.showModal({
-            content: "操作失败",
-            showCancel: false
+    if (that.data.isCode) {
+      // const ratio = ((that.data.subtodo_plannumber - 0) / (peruse - 0)).toFixed(3);
+      const ratio = ((peruse - 0)/1).toFixed(3);
+      // console.log(that.data.subtodo_plannumber);
+      // console.log(peruse);
+      // console.log(ratio);
+      app.admx.request({
+        url: app.config.service.addMaterial,
+        data: {
+          batchno: batchno,
+          m_model: that.data.material.m_model,
+          subtodo_id: that.data.subtodo_id,
+          m_id: that.data.material.m_id,
+          m_num: peruse,
+          m_ratio: ratio
+        },
+        succ: function (res) {
+          console.log(res);
+          if (!res) {
+            wx.showModal({
+              content: '物料添加成功',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  app.refreshCofing.materiallist = true;
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+              }
+            })
+          } else {
+            wx.showModal({
+              content: '物料添加失败，请重试',
+              showCancel: false
+            })
+          }
+          // if (res.primarykey && res.primarykey > 0) {
+          //   app.refreshCofing.materiallist = true;
+          //   console.log("---back");
+          //   console.log(app.refreshCofing);
+          //   wx.navigateBack();
+          // } else {
+          //   wx.showModal({
+          //     content: "操作失败",
+          //     showCancel: false
+          //   })
+          // }
+        },
+        complete: function (res) {
+          that.setData({
+            submitting: false
           })
         }
-      },
-      complete: function (res) {
-        that.setData({
-          submitting: false
-        })
-      }
-    })
+      })
+    } else {
+      app.admx.request({
+        url: app.config.service.updateMaterial,
+        data: {
+          subtodo_m_id: that.data.material.subtodo_m_id,
+          batchno: batchno,
+          m_num: peruse
+        },
+        succ: function (res) {
+          console.log(res);
+          if (!res) {
+            wx.showModal({
+              content: '物料修改成功',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  app.refreshCofing.materiallist = true;
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+              }
+            })
+          } else {
+            wx.showModal({
+              content: '物料修改失败，请重试',
+              showCancel: false
+            })
+          }
+        },
+        complete: function (res) {
+          that.setData({
+            submitting: false
+          })
+        }
+      })
+    }
+
   },
-  //根据设备物料查设备信息
+  //获取物料信息
   _getMaterialByCode: function (code) {
     var that = this;
     wx.showLoading({
       title: 'loading',
+      mask: true
     })
     app.admx.request({
-      url: app.config.service.getMaterialByCode,
+      url: app.config.service.getMaterialBySubcode,
       data: {
-        code: code
+        m_code: code
       },
       succ: function (res) {
-        if (res.list[0]) {//如果返回了派出工
+        console.log(res);
+        if (res[0]) {
           that.setData({
-            material: res.list[0]
+            material: res[0]
           });
         } else {
           wx.showModal({

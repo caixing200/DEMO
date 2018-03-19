@@ -30,6 +30,7 @@ Page({
         if (res.confirm) {
           wx.showLoading({
             title: '操作中...',
+            mask: true
           })
           app.admx.request({
             url: app.config.service.updatePartner,
@@ -64,6 +65,7 @@ Page({
         if (res.confirm) {
           wx.showLoading({
             title: '操作中...',
+            mask: true
           })
           app.admx.request({
             url: app.config.service.updatePartner,
@@ -95,6 +97,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: '正在加载',
+      mask: true
     });
     app.admx.request({
       url: app.config.service.PartnerList,//辅工的请求列表输出为主工的

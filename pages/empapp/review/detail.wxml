@@ -33,9 +33,8 @@
       <view class="list" style="display:flex;flex-direction:column;">
         <text wx:if="{{item.state == 0}}" class="examinestate0"><text class='examinestateView'>待审核</text>
         <text class='examinestateTxt'>已报工</text></text>
-        <block wx:if="{{item.state == 1}}">
-          <text class="examinestate1">已审核</text>
-        </block>
+        <text wx:if="{{item.state == 1}}" class="examinestate0"><text class='examinestateView isexamine'>已审核</text>
+        <text class='examinestateTxt'>已报工</text></text>
         <block>
           <text class="number-title">报工人：{{item.claim_person}}</text>
           <text class='title-bar'></text>
@@ -49,12 +48,20 @@
             <text>计划数：{{item.plan_num !== ''?item.plan_num:'无数据'}}</text>
           </view>
           <view class="overtime">
-            <text wx:if="{{item.state == '0'}}">报工合格数：{{item.claim_ok !== ''?item.claim_ok:'无数据'}}</text>
-            <text wx:else>审核合格数：{{item.exam_ok !== ''?item.exam_ok:'无数据'}}</text>
+            <text>报工合格数：{{item.claim_ok !== ''?item.claim_ok:'0'}}</text>
+            <!-- <text wx:else>审核合格数：{{item.exam_ok !== ''?item.exam_ok:'无数据'}}</text> -->
           </view>
           <view class="overtime">
-            <text wx:if="{{item.state == '0'}}">报工不合格数：{{item.claim_ng !== ''?item.claim_ng:'无数据'}}</text>
-            <text wx:else>审核不合格数：{{item.exam_ng !== ''?item.exam_ng:'无数据'}}</text>
+            <text>报工不合格数：{{item.claim_ng !== ''?item.claim_ng:'0'}}</text>
+            <!-- <text wx:else>审核不合格数：{{item.exam_ng !== ''?item.exam_ng:'无数据'}}</text> -->
+          </view>
+          <view class="overtime">
+            <!-- <text wx:if="{{item.state == '0'}}">报工合格数：{{item.claim_ok !== ''?item.claim_ok:'无数据'}}</text> -->
+            <text>审核合格数：{{item.exam_ok !== ''?item.exam_ok:'0'}}</text>
+          </view>
+          <view class="overtime">
+            <!-- <text wx:if="{{item.state == '0'}}">报工不合格数：{{item.claim_ng !== ''?item.claim_ng:'无数据'}}</text> -->
+            <text>审核不合格数：{{item.exam_ng !== ''?item.exam_ng:'0'}}</text>
           </view>
         </block>
 
@@ -78,7 +85,28 @@
     </view>
   </view>
 
-
+  <view class='inputView' wx:if='{{!inputViewHide}}'>
+    <view class='inputBox'>
+      <form bindsubmit="formSubmit">
+        <view class='inp'>
+          <text class='inpTxt'>审核合格数：</text>
+          <input class='inputs' type='number' name='exam_ok' placeholder='请输入' maxlength='10' focus='true'></input>
+        </view>
+        <view class='inp'>
+          <text class='inpTxt'>审核不合格数：</text>
+          <input class='inputs' type='number' name='exam_ng' placeholder='请输入' maxlength='10'></input>
+        </view>
+        <view class='btnBox'>
+          <view class='buttons'>
+            <button bindtap='closeInputView'>关闭</button>
+          </view>
+          <view class='buttons'>
+            <button form-type='submit' style='background-color:#04c38e;color:#fff;'>确认</button>
+          </view>
+        </view>
+      </form>
+    </view>
+  </view>
 
 
 </view>

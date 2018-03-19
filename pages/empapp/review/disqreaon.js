@@ -99,6 +99,7 @@ Page({
     console.log(that.data.disqnum);
     wx.showLoading({ //弹出消息框-操作中
       title: '操作中...',
+      mask: true
     })
     app.admx.request({  //发起请求
       url: app.config.service.postAuditClaim, //把请求传到后端，地址

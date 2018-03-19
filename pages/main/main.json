@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "智造云管家",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "disableScroll": true
 }

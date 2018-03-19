@@ -98,7 +98,7 @@
       <!-- 合格数量 -->
       <view class="item">
         <text class="item-name">合格数量</text>
-        <input id='input1' hidden='{{!submitCover}}' placeholder='请输入' focus='true' class="item-value" name="qualifiedNum" type="number" maxlength="10" value='{{eligibilityNum}}'></input>
+        <input id='input1' hidden='{{!submitCover}}' placeholder='请输入' class="item-value" name="qualifiedNum" type="number" maxlength="10" value='{{eligibilityNum}}'></input>
       </view>
 
       <!-- 不合格数量 -->
@@ -110,7 +110,7 @@
     </view>
     <view class="btn-box">
       <button class="btn" form-type="submit" hover-class="other-button-hover">提交</button>
-      <view class='btnCover' hidden='{{submitCover}}'></view>
+       <view class='btnCover' hidden='{{submitCover}}'></view> 
     </view>
   </form>
 </view>

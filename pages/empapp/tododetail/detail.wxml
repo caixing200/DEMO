@@ -1,8 +1,8 @@
 <!--已报工页面-->
 
 <view class="container">
-  <block wx:for="{{claim}}">
-    <view style='border-bottom:1rpx solid #e5e5e5;'>
+  <block wx:for="{{claim}}" wx:key="{{index}}">
+    <view style='border-bottom:1rpx solid #e5e5e5;margin-top:20rpx;'>
       <view class="order-number">
         <text>子派工单号：{{item.subtodo_code}}</text>
         <view class="examinestate0" wx:if="{{item.state==0}}">
@@ -28,11 +28,10 @@
     </view>
 
 
-    <view style='border-bottom:1rpx solid #e5e5e5;margin-bottom:20rpx;'>
+    <view style='border-bottom:1rpx solid #e5e5e5;margin-top:12rpx;'>
       <view class="baogong">
         <text class="pep">报工人:{{item.claim_person}}</text>
-        <view class="withdraw" bindtap="withdraw" wx:if="{{item.state==0&&item.claim_person!=username}}">
-          <text>撤回</text>
+        <view class="withdraw" data-claim_id='{{item.claim_id}}' data-subtodo_id='{{item.subtodo_id}}' bindtap="withdraw" wx:if="{{item.state==0&&isOwner}}">撤回
         </view>
         <text class="state">已报工</text>
       </view>
@@ -50,17 +49,17 @@
           <view>
             <text>报工合格数：{{item.claim_ok}}</text>
           </view>
-          <view style="margin-bottom:0;">
+          <view>
             <text>不合格数：{{item.claim_ng}}</text>
           </view>
-          <view wx:if="{{item.exam_state==1}}">
-            <text>审核合格数：{{item.exam_ok}}</text>
+          <view>
+            <text>审核合格数：{{item.exam_ok?item.exam_ok:'未审核'}}</text>
           </view>
-          <view wx:if="{{item.exam_state==1}}">
-            <text>不合格数：{{item.exam_ng}}</text>
+          <view>
+            <text>不合格数：{{item.exam_ng?item.exam_ng:'未审核'}}</text>
           </view>
-          <view wx:if="{{item.exam_state==1}}">
-            <text>审核人：{{item.exam_person}}</text>
+          <view>
+            <text>审核人：{{item.exam_person?item.exam_person:'未审核'}}</text>
           </view>
         </view>
       </view>

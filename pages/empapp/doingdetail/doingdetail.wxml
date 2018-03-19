@@ -5,64 +5,88 @@
       <text class="name">{{appuserinfo.name}}</text>
       <text class="number">工号：{{appuserinfo.serialNo}}</text>
     </view>
-    <image class="user" src="../../../../images/partner.png" style="width:30px;height:30px;padding-left:150px"bindtap="partner"></image>     
-    <image class="getmore" src="../../../../images/getmore.png"></image>
+    <image class="user" src="../../../images/partner.png" style="width:30px;height:30px;padding-left:150px" bindtap="partner"></image>
+    <!-- <image class="getmore" src="../../../../images/getmore.png"></image> -->
   </view>
 
   <!--进行中派工单详细页面TAB-->
   <scroll-view scroll-y style="height: 950rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
     <!--<block wx:if="{{todo != null}}">-->
-      <view class="base">
-        <text class="base-title1">子派工单号:{{todo.subtodo_code}}</text>
-        <view class="qrcode" bindtap='createQRcode'></view>
-        <view class="cancel {{state === '1'?'':'is-cancel'}}" bindtap="cancel" data-state='{{state}}'>{{state === '1'?'取消':'已取消'}}</view>
-      </view>
+    <view class="base">
+      <text class="base-title1">子派工单号:{{todo.subtodo_code}}</text>
+      <view class="qrcode" bindtap='createQRcode'></view>
+      <view class="cancel {{state === '1'?'':'is-cancel'}}" bindtap="cancel" data-state='{{state}}'>{{state === '1'?'取消':'已取消'}}</view>
+    </view>
 
-      <view class="detail">  
-        <view><text>工序名称：{{todo.subtodo_process}}</text></view>
-        <view><text>生产任务：{{todo.subtodo_taskname}}</text></view>
-        <view><text>计划数：{{todo.subtodo_plannumber}}</text></view>                                  
-        <view wx:if="{{todo.claim_ok != ''}}"><text>报工合格数：{{todo.claim_ok}}</text></view>
-        <view wx:if="{{todo.exam_ok != ''}}"><text>审核合格数：{{todo.exam_ok}}</text></view>
-        <view><text>涉及产品：{{todo.product_name}}/{{todo.product_code}}</text></view>
+    <view class="detail">
+      <view>
+        <text>工序名称：{{todo.subtodo_process}}</text>
       </view>
+      <view>
+        <text>生产任务：{{todo.subtodo_taskname}}</text>
+      </view>
+      <view>
+        <text>计划数：{{todo.subtodo_plannumber}}</text>
+      </view>
+      <view wx:if="{{todo.claim_ok != ''}}">
+        <text>报工合格数：{{todo.claim_ok}}</text>
+      </view>
+      <view wx:if="{{todo.exam_ok != ''}}">
+        <text>审核合格数：{{todo.exam_ok}}</text>
+      </view>
+      <view>
+        <text>涉及产品：{{todo.product_name}}/{{todo.product_code}}</text>
+      </view>
+    </view>
 
-     <view class="detail">
-        <view><text>工艺文件号：{{todo.subtodo_technology_id}}</text></view>
-     </view>
-<!--   
+    <view class="detail">
+      <view>
+        <text>工艺文件号：{{todo.subtodo_technology_id}}</text>
+      </view>
+    </view>
+    <!--   
      <view class="lookmaterial">
        <view ><text>本次计划物料清单（留空）</text></view>
        <view class="look" bindtap="look"><text>查看</text></view>
      </view> -->
-    
-      <view class="care pbj">
-        <view class="about-sb" bindtap='getEquipList'>
-          相关设备<view class="iconBox {{equiplist[0]?'iconDeg':''}}"></view>
-        </view>
-        <!-- <view class="write-btn ccp" bindtap="inputEquip">
+
+    <view class="care pbj">
+      <view class="about-sb" bindtap='getEquipList'>
+        相关设备
+        <view class="iconBox {{equiplist[0]?'iconDeg':''}}"></view>
+      </view>
+      <!-- <view class="write-btn ccp" bindtap="inputEquip">
           <image src="../../../../images/write-dark.png"></image>
           <text>手动输入</text>
         </view> -->
-        <view class="sao-btn ccp" bindtap="scanEquip">
-          <image src="../../../../images/sao-dark.png"></image>
-          <text>扫描</text>
-        </view>
+      <view class="sao-btn ccp" bindtap="scanEquip">
+        <image src="../../../images/sao-dark.png"></image>
+        <text>扫描</text>
       </view>
-      <view class="care-box">
-        <block><!--wx:if="{{equiplist != null}}"--> 
+    </view>
+    <view class="care-box">
+      <block>
+        <!--wx:if="{{equiplist != null}}"-->
         <movable-area wx:for="{{equiplist}}" wx:key="id" style="height:160rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
-          <movable-view style="height:100%;width:120%;" direction='horizontal' inertia='true'>
-            <view class="mView num"><text>设备{{index + 1}}</text></view>
-            <view class="mView content">
-              <view><text>设备编号：{{item.equipcode}}</text></view>
-              <view><text>设备名称：{{item.equipname}}</text></view>
-              <view><text>规格型号：{{item.model}}</text></view>
+          <movable-view style="height:100%;width:120%;" direction='horizontal' inertia='true' x='{{moveX}}'>
+            <view class="mView num">
+              <text>设备{{index + 1}}</text>
             </view>
-            <view class='mView deletes'>删除</view>
+            <view class="mView content">
+              <view>
+                <text>设备编号：{{item.equip_code}}</text>
+              </view>
+              <view>
+                <text>设备名称：{{item.equip_name}}</text>
+              </view>
+              <view>
+                <text>规格型号：{{item.equip_model}}</text>
+              </view>
+            </view>
+            <view class='mView deletes' data-equipid='{{item.subtodo_equip_id}}' bindtap='deleteEquip'>删除</view>
           </movable-view>
         </movable-area>
-          <!-- <view class="about" wx:for="{{equiplist}}" wx:key="id">
+        <!-- <view class="about" wx:for="{{equiplist}}" wx:key="id">
             <view class="num"><text>设备{{index + 1}}</text></view>
             <view class="content">
               <view><text>设备编号：{{item.equipcode}}</text></view>
@@ -70,27 +94,58 @@
               <view><text>规格型号：{{item.model}}</text></view>
             </view>
           </view> -->
-        </block>
-        <!-- <view class="del" data-addressid="{{item.address.ID}}" data-index="{{index}}" catchtap="delAddress">删除</view> 本来就有-->
-      </view>
+      </block>
+      <!-- <view class="del" data-addressid="{{item.address.ID}}" data-index="{{index}}" catchtap="delAddress">删除</view> 本来就有-->
+    </view>
 
-      <view class="care pbj">
-        <view class="about-sb" bindtap='getMaterialList'>
-          相关物料<view class="iconBox {{materiallist[0]?'iconDeg':''}}"></view>
-        </view>
-        <!-- <view class="write-btn ccp" bindtap="inputMaterial">
+    <view class="care pbj">
+      <view class="about-sb" bindtap='getMaterialList'>
+        相关物料
+        <view class="iconBox {{materiallist[0]?'iconDeg':''}}"></view>
+      </view>
+      <!-- <view class="write-btn ccp" bindtap="inputMaterial">
           <image src="../../../../images/write-dark.png"></image>
           <text>手动输入</text>   
         </view> -->
-        <view class="sao-btn ccp" bindtap="scanMaterial">
-          <image src="../../../../images/sao-dark.png"></image>
-          <text>扫描</text>
-        </view>
+      <view class="sao-btn ccp" bindtap="scanMaterial">
+        <image src="../../../images/sao-dark.png"></image>
+        <text>扫描</text>
       </view>
+    </view>
 
-      <view class="care-box">
-        <block><!--wx:if="{{materiallist != null}}-->
-          <view class="about" wx:for="{{materiallist}}" wx:key="id">
+    <view class="care-box">
+      <block>
+        <!--wx:if="{{materiallist != null}}-->
+        <movable-area wx:for="{{materiallist}}" wx:key="id" style="height:300rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
+          <movable-view style="height:100%;width:135%;" direction='horizontal' inertia='true' x='{{moveX}}'>
+            <view class="mView num">
+              <text>物料{{index + 1}}</text>
+            </view>
+            <view class="mView content">
+              <view>
+                <text>物料编号：{{item.m_code}}</text>
+              </view>
+              <view>
+                <text>物料名称：{{item.m_name}}</text>
+              </view>
+              <view>
+                <text>规格型号：{{item.m_model}}</text>
+              </view>
+              <view>
+                <text>批次号：{{item.batchno}}</text>
+              </view>
+              <view>
+                <text>单件用量：{{item.m_num}}</text>
+              </view>
+              <view>
+                <text>此派工单应领取数：{{(item.m_num-0)*(todo.subtodo_plannumber-0)}}</text>
+              </view>
+            </view>
+            <view class='mView deletes deletes_m' data-mid='{{item.subtodo_m_id}}' bindtap='deleteMaterial'>删除</view>
+            <view class='mView changes' data-subtodo_m_id='{{item.subtodo_m_id}}' data-m_code='{{item.m_code}}' data-m_name='{{item.m_name}}' data-m_model='{{item.m_model}}' bindtap='updateMaterial'>修改</view>
+          </movable-view>
+        </movable-area>
+        <!-- <view class="about" wx:for="{{materiallist}}" wx:key="id">
             <view class="num"><text>物料{{index + 1}}</text></view>
             <view class="content">
               <view><text>物料编号：{{item.mcode}}</text></view>
@@ -98,17 +153,22 @@
               <view><text>规格型号：{{item.model}}</text></view>
               <view><text>批次号：{{item.batchno}}</text></view>
             </view>
-          </view>
-        </block>
-      </view>
+          </view> -->
+      </block>
+    </view>
 
 
-   
+
   </scroll-view>
-  <view class="report-btn" bindtap="claim" hidden='{{isOwner}}'><!--wx:if="{{todo != null}}" -->
+  <view class="report-btn" bindtap="claim" hidden='{{isOwner}}'>
+    <!--wx:if="{{todo != null}}" -->
     <text>报工</text>
-  </view> 
-
+  </view>
+  <view class='imageView' hidden='{{isImage}}' catchtap='closeImage'>
+    <view class='imageBox'>
+      <image class='images' src='{{imagePath}}'></image>
+    </view>
+  </view>
 </view>
 
 
@@ -118,4 +178,4 @@
       <image class="sao-white" src="../../images/sao-white.png"></image>
       <text>扫描派工单</text>
     </view>
--->      
+-->

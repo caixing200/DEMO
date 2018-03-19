@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "不合格原因",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "disableScroll": true
 }

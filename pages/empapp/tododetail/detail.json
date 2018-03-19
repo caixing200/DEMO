@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "派工单详情",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "disableScroll": true
 }

@@ -71,8 +71,8 @@
 
 .pep{
   font-size: 32rpx;
-  font-weight: 500;
   color: #1a1a1a;
+  font-weight: 900;
 }
 
 .state{
@@ -131,7 +131,7 @@
   margin:0rpx 0;
   color:orange;
   font-size:30rpx;
-  line-height:58rpx;
+  line-height:50rpx;
   height:50rpx;
   width:145rpx;
   border:1rpx solid orange;
@@ -146,7 +146,7 @@
   margin:0rpx 0;
   color:green;
   font-size:30rpx;
-  line-height:58rpx;
+  line-height:50rpx;
   height:50rpx;
   width:145rpx;
   border:1rpx solid green;
@@ -161,7 +161,7 @@
   margin:10rpx 0;
   color:white;
   font-size:30rpx;
-  line-height:58rpx;
+  line-height:50rpx;
   height:50rpx;
   width:125rpx;
   border:1rpx solid red;

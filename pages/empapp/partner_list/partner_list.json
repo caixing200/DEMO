@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "工友请求列表",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "disableScroll": true
 }

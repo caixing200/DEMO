@@ -1,3 +1,8 @@
+.container {
+  height: 100%;
+  overflow: hidden;
+}
+
 .card{ 
   height: 180rpx;
   width: 706rpx;

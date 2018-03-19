@@ -56,7 +56,7 @@
 
     <view class="mainbtn" >
       <view class="sao-btn-main" bindtap="scanTodo">
-        <image class="sao-white" src="../../../../images/sao-white.png"></image>
+        <image class="sao-white" mode='aspectFit' src="../../../images/sao.png"></image>
         <text>扫描派工单</text>
       </view>
     </view>

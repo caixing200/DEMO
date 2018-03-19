@@ -19,60 +19,346 @@ Page({
     todolist: {},
     materiallist: [],
     scrollViewHeight: 400,
-    equiplist: [{
-      equipcode: '111',
-      equipname: 'aaa',
-      model: 'adfad'
-    },
-    {
-      equipcode: '222',
-      equipname: 'aaa',
-      model: 'adfad'
-    },
-    {
-      equipcode: '333',
-      equipname: 'aaa',
-      model: 'adfad'
-    },
-    {
-      equipcode: '444',
-      equipname: 'aaa',
-      model: 'adfad'
-    },
-    {
-      equipcode: '555',
-      equipname: 'aaa',
-      model: 'adfad'
-    },
-    {
-      equipcode: '666',
-      equipname: 'aaa',
-      model: 'adfad'
-    }],
+    equiplist: [],
     equiplistBox: [],
     isOwner: true,
+    moveX: 0,
+    isImage: true,
   },
-  getEquipList: function (e) {
+
+  // 设备相关功能
+  //扫设备
+  scanEquip: function () {
+    var that = this;
+    if(that.data.state === '1'){
+      wx.scanCode({
+        success: (res) => {
+          console.log(res)
+          if (res.scanType == 'QR_CODE') {
+            //得到设备编号
+            var code = res.result;
+            code = 'E000112';//测试用
+            that._getEquipByCode(code, that.data.todo.subtodo_id);
+          }
+        },
+        fail: (res) => {
+          wx.showModal({
+            content: '请扫设备二维码',
+            showCancel: false
+          })
+        }
+      });
+    }else {
+      wx.showToast({
+        title: '无法操作',
+        mask: true,
+        icon: 'loading',
+        duration: 1000
+      })
+    }
+  },
+  //获取正在进行中的派工单的相关设备
+  // _getEquipList: function () {
+  //   var that = this;
+  //   app.admx.request({
+  //     url: app.config.service.equiplist,
+  //     data: {
+  //       claimid: that.data.todo.claimid
+  //     },
+  //     succ: function (res) {
+  //       if (res.list) {//如果返回了派出工
+  //         that.setData({
+  //           equiplist: res.list
+  //         });
+  //       }
+  //     }
+  //   })
+  // },
+  //根据设备编号查设备
+  _getEquipByCode: function (code, id) {
+    if (code.indexOf("E") != 0) {
+      wx.showToast({
+        title: '请扫正确的设备二维码'
+      })
+      return;
+    }
+    var that = this;
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+    console.log(code);
+    app.admx.request({
+      url: app.config.service.getEquipByCode,
+      data: {
+        equip_code: code,
+        subtodo_id: id
+      },
+      succ: function (res) {
+        console.log(res);
+        if (!res) {//
+          //succCallBack(res.list[0]);
+          wx.showModal({
+            content: '已成功添加设备',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                that.resetEquipList()
+              }
+            }
+          })
+        } else {
+          wx.showModal({
+            content: '设备信息不存在',
+            showCancel: false
+          })
+        }
+      },
+      complete: function () {
+        wx.hideLoading();
+      }
+    })
+  },
+  //获取设备列表
+  getEquipList: function () {
     const that = this;
-    if (that.data.equiplist.length>0){
+    if (that.data.equiplist.length > 0) {
       that.setData({
-        equiplistBox: that.data.equiplist,
         equiplist: []
       })
+    } else {
+      that.resetEquipList()
+    }
+  },
+  //刷新设备列表
+  resetEquipList: function () {
+    const that = this;
+    wx.showLoading({
+      title: 'loading',
+      mask: true
+    })
+    app.admx.request({
+      url: app.config.service.getEquipListBySubtodoId,
+      data: {
+        subtodo_id: that.data.todo.subtodo_id
+      },
+      succ: function (res) {
+        console.log(res);
+        if (res) {//如果返回了派出工
+          that.setData({
+            equiplist: res,
+            moveX: 0
+          });
+        }
+        if (res.length == 0) {
+          wx.showToast({
+            title: '没有设备',
+            icon: 'loading',
+            duration: 800
+          })
+        }
+      }
+    })
+  },
+  //删除设备
+  deleteEquip: function (e) {
+    const that = this;
+    console.log(e);
+    if(that.data.state === '1'){
+      app.admx.request({
+        url: app.config.service.removeEquip,
+        data: {
+          subtodo_equip_id: e.target.dataset.equipid
+        },
+        succ: function (res) {
+          console.log(res);
+          if (!res) {//如果返回了派出工
+            wx.showModal({
+              content: '成功删除设备',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  that.resetEquipList()
+                }
+              }
+            })
+          } else {
+            wx.showModal({
+              content: '删除设备失败',
+              showCancel: false
+            })
+          }
+        }
+      })
     }else {
+      wx.showToast({
+        title: '无法操作',
+        mask: true,
+        icon: 'loading',
+        duration: 1000
+      })
+    }
+  },
+
+  //物料相关功能
+  //扫物料
+  scanMaterial: function () {
+    var that = this;
+    if(that.data.state === '1'){
+      wx.scanCode({
+        success: (res) => {
+          console.log(res)
+          if (res.scanType == 'QR_CODE') {
+            //得到物料编号
+            var code = res.result;
+            code = 'W000142';
+            wx.navigateTo({
+              url: '../material/material?code=' + code + "&subtodo_id=" + that.data.todo.subtodo_id + '&subtodo_plannumber=' + that.data.todo.subtodo_plannumber
+            })
+          }
+        },
+        fail: (res) => {
+          wx.navigateTo({
+            url: './material/material'
+          })
+        }
+      });
+    }else {
+      wx.showToast({
+        title: '无法操作',
+        mask: true,
+        icon: 'loading',
+        duration: 1000
+      })
+    }
+  },
+  //获取正在进行中的派工单的物料列表
+  _getMaterialList: function () {
+    var that = this;
+    app.admx.request({
+      url: app.config.service.materiallist,
+      data: {
+        claimid: that.data.todo.claimid
+      },
+      succ: function (res) {
+        if (res.list) {//如果返回了派出工
+          that.setData({
+            materiallist: res.list
+          });
+        }
+      }
+    })
+  },
+  //获取物料列表
+  getMaterialList: function () {
+    const that = this;
+    if (that.data.materiallist.length > 0) {
       that.setData({
-        equiplist: that.data.equiplistBox
+        materiallist: []
+      })
+    } else {
+      that.resetMateriallist()
+    }
+  },
+  //刷新物料列表
+  resetMateriallist: function () {
+    const that = this;
+    wx.showLoading({
+      title: 'loading',
+      mask: true
+    })
+    app.admx.request({
+      url: app.config.service.getMaterialListBySubcode,
+      data: {
+        subtodo_id: that.data.todo.subtodo_id
+      },
+      succ: function (res) {
+        console.log(res);
+        if (res) {//如果返回了派出工
+          that.setData({
+            materiallist: res,
+            moveX: 0
+          });
+        }
+        if (res.length == 0) {
+          wx.showToast({
+            title: '没有物料',
+            icon: 'loading',
+            duration: 800
+          })
+        }
+      }
+    })
+  },
+  //删除物料
+  deleteMaterial: function (e) {
+    const that = this;
+    console.log(e);
+    if(that.data.state === '1'){
+      app.admx.request({
+        url: app.config.service.removeMaterial,
+        data: {
+          subtodo_m_id: e.target.dataset.mid
+        },
+        succ: function (res) {
+          console.log(res);
+          if (!res) {//如果返回了派出工
+            wx.showModal({
+              content: '成功删除物料',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  that.resetMateriallist()
+                }
+              }
+            })
+          } else {
+            wx.showModal({
+              content: '删除物料失败',
+              showCancel: false
+            })
+          }
+        }
+      })
+    }else {
+      wx.showToast({
+        title: '无法操作',
+        mask: true,
+        icon: 'loading',
+        duration: 1000
+      })
+    }
+  },
+  //更新物料
+  updateMaterial: function (e) {
+    const that = this;
+    if (that.data.state === '1'){
+      wx.navigateTo({
+        url: '../material/material?material_code=' + e.target.dataset.m_code + '&subtodo_m_id=' + e.target.dataset.subtodo_m_id + '&material_name=' + e.target.dataset.m_name + '&m_model=' + e.target.dataset.m_model,
+      })
+    }else {
+      wx.showToast({
+        title: '无法操作',
+        mask: true,
+        icon: 'loading',
+        duration: 1000
       })
     }
     
   },
-  getMaterialList: function (e) {
-    const that = this;
-  },
+
+  //二维码功能
   createQRcode: function (e) {
     const that = this;
-    wx.previewImage({
-      urls: ['data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAADSAQAAAAAX4qPvAAAA30lEQVR42u2YwQ3FIAxDIzFAR2J1RmIAJBcSQxH9fwI3h6ricbJip6kZKwHlama52qskWcaommDWmb95ybPqD2f9JN4sfWwy7yWq97FNs9FV//QUZMtjGY3qvf2nx1YmU7ifea3HsGofT6OKNJsTqitUxiBHpe/EGZN4Gq1X431xhpXEkclxTZ6xb+KzxijhaDFx5sd0VmjWwm1m2uzJZD+ONrqgzo4ZzuxhnymzfMYxuHWbOFu7EzZ7nXuVMItMpscOzZTZXKA4yOXZ9s/KN4OE2VDS7MlkRlGbvzyV2Q3XUKHNNHiSFQAAAABJRU5ErkJggg=='],
+    that.setData({
+      isImage: false,
+      imagePath: app.config.service.getSubtodoQrcode + '/' + that.data.todo.subtodo_code,
+    })
+  },
+  closeImage: function(){
+    const that = this;
+    that.setData({
+      isImage: true
     })
   },
   onLoad: function (options) {
@@ -106,82 +392,19 @@ Page({
 
 
   onShow: function (options) {
-    console.log("---onshow:" + app.refreshCofing);
-    console.log(app.refreshCofing);                     //全局变量，如果手动输入信息
-    if (app.refreshCofing.todolist) {
-      this._getDetailBySubid();
-      app.refreshCofing.todolist = false;
-    }
-    if (app.refreshCofing.equiplist) {
-      app.refreshCofing.equiplist = false;
-      this._getEquipList();
-    }
+    const that = this;
     if (app.refreshCofing.materiallist) {
+      that.resetMateriallist();
       app.refreshCofing.materiallist = false;
-      this._getMaterialList();
+    }
+    if (that.data.equiplist.length > 0 && that.data.todo.subtodo_id) {
+      that.resetEquipList()
     }
   },
 
-  //扫设备
-  scanEquip: function () {
-    var that = this;
-    wx.scanCode({
-      success: (res) => {
-        console.log(res)
-        if (res.scanType == 'QR_CODE') {
-          //得到设备编号
-          var code = res.result;
-          that._getEquipByCode(code, that.addEquipment);
-        }
-      },
-      fail: (res) => {
-        wx.showModal({
-          content: '请扫设备二维码',
-          showCancel: false
-        })
-      }
-    });
-  },
 
-  //扫物料
-  scanMaterial: function () {
-    var that = this;
-    wx.scanCode({
-      success: (res) => {
-        console.log(res)
-        if (res.scanType == 'QR_CODE') {
-          //得到物料编号
-          var code = res.result;
-          wx.navigateTo({
-            url: './material/material?code=' + code + "&claimid=" + that.data.todo.claimid
-          })
-        }
-      },
-      fail: (res) => {
-        wx.navigateTo({
-          url: './material/material'
-        })
-      }
-      /*
-        success: (res) => {
-        console.log(res)
-        if (res.scanType == 'QR_CODE') {
-          //得到物料编号
-          var code = res.result;
-          wx.navigateTo({
-            url: './material/material?code=' + code + "&claimid=" + that.data.todo.claimid
-          })
-        }
-      },
-      fail: (res) => {
-        wx.showModal({
-          content: '请扫物料二维码',
-          showCancel: false
-        })
-      }
-      */
-    });
-  },
+
+
 
   //点“报工按扭”（将子派工单ID，以及填写的本次计划数传给报工页面）
   claim: function (e) {
@@ -214,6 +437,7 @@ Page({
           if (res.confirm) {
             wx.showLoading({
               title: '操作中...',
+              mask: true
             })
             app.admx.request({
               url: app.config.service.cancelClaim,
@@ -221,22 +445,31 @@ Page({
                 subtodo_id: that.data.subtodo_id,
               },
               succ: function (res) {
-                if (res.effect > 0) {
+                if (!res) {
                   wx.showToast({
-                    title: '取消成功'
+                    title: '取消成功',
+                    mask: true,
+                    duration: 1000,
+                    success: function(){
+                      setTimeout(function(){
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      },1000)
+                    }
                   })
-                  that.setData({
-                    todo: null,
-                    materiallist: [],
-                    equiplist: []
-                  });
+                }else {
+                  wx.showModal({
+                    content: '操作失败，请重试',
+                    showCancel: false
+                  })
                 }
               },
-              complete: function () {
-                wx.navigateTo({
-                  url: '../index',
-                })
-              }
+              // complete: function () {
+              //   wx.navigateTo({
+              //     url: '../index',
+              //   })
+              // }
             })
           } else if (res.cancel) {
             console.log('用户点击取消')
@@ -252,6 +485,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: '正在加载',
+      mask: true
     });
     app.admx.request({
       method: 'get',
@@ -287,75 +521,7 @@ Page({
     this._getDetailBySubid()
   },
 
-  //获取正在进行中的派工单的相关设备
-  _getEquipList: function () {
-    var that = this;
-    app.admx.request({
-      url: app.config.service.equiplist,
-      data: {
-        claimid: that.data.todo.claimid
-      },
-      succ: function (res) {
-        if (res.list) {//如果返回了派出工
-          that.setData({
-            equiplist: res.list
-          });
-        }
-      }
-    })
-  },
 
-  //获取正在进行中的派工单的物料列表
-  _getMaterialList: function () {
-    console.log("-------------_getMaterialList");
-    var that = this;
-    app.admx.request({
-      url: app.config.service.materiallist,
-      data: {
-        claimid: that.data.todo.claimid
-      },
-      succ: function (res) {
-        if (res.list) {//如果返回了派出工
-          that.setData({
-            materiallist: res.list
-          });
-        }
-      }
-    })
-  },
-
-  //根据设备编号查设备
-  _getEquipByCode: function (code, succCallBack) {
-    if (code.indexOf("E") != 0) {
-      wx.showToast({
-        title: '请扫正确的设备二维码'
-      })
-      return;
-    }
-    var that = this;
-    wx.showLoading({
-      title: '加载中...'
-    })
-    app.admx.request({
-      url: app.config.service.getEquipByCode,
-      data: {
-        code: code
-      },
-      succ: function (res) {
-        if (res.list[0]) {//如果返回了派出工
-          succCallBack(res.list[0]);
-        } else {
-          wx.showModal({
-            content: '设备信息不存在',
-            showCancel: false
-          })
-        }
-      },
-      complete: function () {
-        wx.hideLoading();
-      }
-    })
-  },
 
   //添加相关设备
   addEquipment: function (equip) {

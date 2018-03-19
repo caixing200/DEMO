@@ -68,7 +68,7 @@
   margin:0rpx 0;
   color:orange;
   font-size:30rpx;
-  line-height:58rpx;
+  line-height:50rpx;
   height:50rpx;
   width:145rpx;
   border:1rpx solid orange;
@@ -83,7 +83,7 @@
   margin:0rpx 0;
   color:green;
   font-size:30rpx;
-  line-height:58rpx;
+  line-height:50rpx;
   height:50rpx;
   width:145rpx;
   border:1rpx solid green;
@@ -216,5 +216,12 @@
   height: 25rpx;
   position: absolute;
   right: 20rpx;
-  align-items: center;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  /* align-items: center; */
+}
+.user {
+  position: absolute;
+  right: 30rpx;
+  top: 40rpx;
 }

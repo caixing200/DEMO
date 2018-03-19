@@ -51,7 +51,7 @@ App       ({
     //调用API从本地缓存中获取数据
     wx.getSystemInfo({
       success: function (res) {
-        console.log(res)
+        //console.log(res)
         that.globalData.systemInfo = res;
       },
     });
@@ -83,7 +83,7 @@ App       ({
     this.admx.request({
       url: this.config.service.getcompinfo,
       succ: function (res) {
-        console.log("--32");
+        console.log("获取公司信息");
         console.log(res);
         if (res.list[0]) {
           that.globalData.company = res.list[0]

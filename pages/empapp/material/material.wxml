@@ -5,29 +5,30 @@
       <!-- 物料编号 -->
       <view class="item">
         <text class="item-name">系统物料号</text>
-        <input class="item-inp" value="{{materialcode}}" type="number" auto-focus bindinput="autoFill"></input>
+        <text class="item-value">{{material.material_code}}</text>
+        <!-- <input class="item-inp" value="{{material.material_code}}" type="number" auto-focus bindinput="autoFill"></input> -->
       </view>
 
       <!-- 物料名称 -->
       <view class="item">
         <text class="item-name">物料名称</text>
-        <text class="item-value">{{material.mname}}</text>
+        <text class="item-value">{{material.material_name}}</text>
       </view>
 
       <view class="item">
         <text class="item-name">规格型号</text>
-        <text class="item-value">{{material.model}}</text>
+        <text class="item-value">{{material.m_model}}</text>
       </view>
 
       <!-- 计划产量 -->
       <view class="item" >
         <text class="item-name">批次号</text>
-        <input class="item-inp" bindinput="batchnoInput" name="batchno" value="{{batchno}}"></input>
+        <input class="item-inp" bindinput="batchnoInput" name="batchno" value="{{batchno}}" placeholder='请输入批次号'></input>
       </view>
 
       <view class="item" style="border:none;">
         <text class="item-name">单件用量</text>
-        <input class="item-inp" bindinput="peruseInput" name="peruse" value="{{peruse}}"></input>
+        <input class="item-inp" type='number' bindinput="peruseInput" name="peruse" value="{{peruse}}" placeholder='请输入单件用量'></input>
       </view>
     
     </view>
@@ -35,7 +36,7 @@
 
 
     <view class="border"></view>
-    <view class="push-box" bindtap="scanBatchno">
+    <!-- <view class="push-box" bindtap="scanBatchno">
       <view class="item" style="border:none;" >
         <view class="code-box">
           <image class="code" src="../../../images/code.png"></image>
@@ -46,7 +47,7 @@
           <text>扫描</text>
         </view>
       </view>
-    </view>
+    </view> -->
     <view class="btn-box">
       <button class="btn" form-type="submit" hover-class="other-button-hover">保存</button>
     </view>

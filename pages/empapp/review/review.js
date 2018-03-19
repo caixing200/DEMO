@@ -84,6 +84,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: 'loading',
+      mask: true
     })
     app.admx.request({
       url: app.config.service.ReviewDetail,
@@ -98,7 +99,7 @@ Page({
             //app.globalData.detailData = res;
             //app.globalData.detailData[0].state = '1';//测试用
             wx.navigateTo({
-              url: './detail?code=' + code + '&navStatus=2',
+              url: './detail?code=' + code + '&navStatus=2&state=0',
             })
           } else {
             wx.showModal({
@@ -125,6 +126,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: 'loading',
+      mask: true
     })
     app.admx.request({
       url: app.config.service.getToDoByqrcode,
@@ -177,6 +179,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: '正在加载',
+      mask: true
     });
     app.admx.request({
       url: app.config.service.ReviewList,

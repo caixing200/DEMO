@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/login/login",
-
     "pages/main/main",
     "pages/mine/change/password/password",
     "pages/mine/mine",
