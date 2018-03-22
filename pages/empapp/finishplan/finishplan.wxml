@@ -8,12 +8,27 @@
     </view>
   </view>
 
-  <view class="base">
+  <view class="push-box" bindtap="scanTodoCode">
+    <view class="item" style="border:none;">
+      <view class="code-box">
+        <text>扫描子派工单号</text>
+      </view>
+      <view class="sao-box">
+        <image class="sao" src="../../../images/sao-gray.png"></image>
+        <text>扫描</text>
+      </view>
+    </view>
+  </view>
+  <view class="border"></view> 
+  <view class="base" style='border-top:1rpx solid #e5e5e5;border-bottom:1rpx solid #e5e5e5;'>
     <text class="plan-title">部门计划号：{{plan.dept_todocode?plan.dept_todocode:'请扫码'}}</text>
-    <!--生产计划编号-->
+    <view class='detail-status' hidden='{{plan?false:true}}'>
+      <text wx:if="{{plan.dept_end}}" style='border:1rpx solid #04c38e;color:#04c38e'>已审核</text>
+      <text wx:else style='border:1rpx solid #FFA64D;color:#FFA64D'>未审核</text>
+    </view>
   </view>
 
-  <view class="detail" style="border-bottom:none; color:#888;">
+  <view class="detail" style="color:#888;" hidden='{{plan?false:true}}'>
 
     <view class='detail-txt'>
       <view class='detail-title'>
@@ -72,24 +87,11 @@
         <text>审核合格数：</text>
       </view>
       <view class='detail-content detail-content-other'>
-        <text>{{plan?plan.dept_end:'请扫码'}}</text>
+        <text>{{plan.dept_end?plan.dept_end:'请审核'}}</text>
       </view>
     </view>
-    <view class='detail-cover' hidden='{{plan?true:false}}'></view>
   </view>
 
-  <view class="border"></view>
-  <view class="push-box" bindtap="scanTodoCode">
-    <view class="item" style="border:none;">
-      <view class="code-box">
-        <text>扫描派工单号</text>
-      </view>
-      <view class="sao-box">
-        <image class="sao" src="../../../images/sao-gray.png"></image>
-        <text>扫描</text>
-      </view>
-    </view>
-  </view>
 
 
   <form bindsubmit="dosubmit">
@@ -110,7 +112,7 @@
     </view>
     <view class="btn-box">
       <button class="btn" form-type="submit" hover-class="other-button-hover">提交</button>
-       <view class='btnCover' hidden='{{submitCover}}'></view> 
+      <view class='btnCover' hidden='{{submitCover}}'></view>
     </view>
   </form>
 </view>

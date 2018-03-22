@@ -7,7 +7,9 @@ Page({
     btnStatus: 1
   },
   onLoad: function () {
+    const that = this;
     var power = app.Session.get().user.power;
+    power = that.filtrMenu(power);
     console.log("power:" + power);
     console.log(power);
     if (power == null || power.length == 0) {
@@ -21,14 +23,27 @@ Page({
       })
     }
   },
-  onShow: function(){
+  onShow: function () {
     const that = this;
     that.data.btnStatus = 1
+  },
+  //过滤菜单
+  filtrMenu: function (data) {
+    const that = this;
+    const tempArr = [];
+    for (let i = 0; i < data.length; i++) {
+      const index = data[i].orderby
+      if (index === '4' || index === '5') {
+        continue;
+      }
+      tempArr.push(data[i])
+    }
+    return tempArr
   },
   //员工报工系统
   menu_1: function () {
     const that = this;
-    if (that.data.btnStatus === 1){
+    if (that.data.btnStatus === 1) {
       that.data.btnStatus = 2
       wx.navigateTo({
         url: '../empapp/index'
@@ -78,7 +93,7 @@ Page({
       })
     }
   },
-  
+
   //设备状态
   menu_4: function () {
     const that = this;
@@ -111,7 +126,7 @@ Page({
       })
     }
   },
-  
+
   //个人信息
   menu_8: function () {
     const that = this;

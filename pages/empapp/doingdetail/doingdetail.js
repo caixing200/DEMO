@@ -37,8 +37,13 @@ Page({
           if (res.scanType == 'QR_CODE') {
             //得到设备编号
             var code = res.result;
-            code = 'E000112';//测试用
+            //code = 'E000112';//测试用
             that._getEquipByCode(code, that.data.todo.subtodo_id);
+          }else {
+            wx.showModal({
+              content: '不是正确的二维码',
+               showCancel: false
+            })
           }
         },
         fail: (res) => {
@@ -78,7 +83,10 @@ Page({
   _getEquipByCode: function (code, id) {
     if (code.indexOf("E") != 0) {
       wx.showToast({
-        title: '请扫正确的设备二维码'
+        title: '请扫正确的设备二维码',
+        mask: true,
+        icon: 'loading',
+        duration: 2000
       })
       return;
     }
@@ -140,7 +148,7 @@ Page({
     app.admx.request({
       url: app.config.service.getEquipListBySubtodoId,
       data: {
-        subtodo_id: that.data.todo.subtodo_id
+        subtodo_id: that.data.subtodo_id
       },
       succ: function (res) {
         console.log(res);
@@ -151,10 +159,13 @@ Page({
           });
         }
         if (res.length == 0) {
-          wx.showToast({
-            title: '没有设备',
-            icon: 'loading',
-            duration: 800
+          // wx.showToast({
+          //   title: '没有设备',
+          //   icon: 'loading',
+          //   duration: 800
+          // })
+          that.setData({
+            equiplist: []
           })
         }
       }
@@ -211,9 +222,23 @@ Page({
           if (res.scanType == 'QR_CODE') {
             //得到物料编号
             var code = res.result;
-            code = 'W000142';
+            if (code.indexOf("W") != 0) {
+              wx.showToast({
+                title: '请扫正确的设备二维码',
+                mask: true,
+                icon: 'loading',
+                duration: 2000
+              })
+              return;
+            }
+            //code = 'W000142';
             wx.navigateTo({
               url: '../material/material?code=' + code + "&subtodo_id=" + that.data.todo.subtodo_id + '&subtodo_plannumber=' + that.data.todo.subtodo_plannumber
+            })
+          } else {
+            wx.showModal({
+              content: '不是正确的二维码',
+              showCancel: false
             })
           }
         },
@@ -270,7 +295,7 @@ Page({
     app.admx.request({
       url: app.config.service.getMaterialListBySubcode,
       data: {
-        subtodo_id: that.data.todo.subtodo_id
+        subtodo_id: that.data.subtodo_id
       },
       succ: function (res) {
         console.log(res);
@@ -281,10 +306,13 @@ Page({
           });
         }
         if (res.length == 0) {
-          wx.showToast({
-            title: '没有物料',
-            icon: 'loading',
-            duration: 800
+          // wx.showToast({
+          //   title: '没有物料',
+          //   icon: 'loading',
+          //   duration: 800
+          // })
+          that.setData({
+            materiallist: []
           })
         }
       }
@@ -367,8 +395,10 @@ Page({
       subtodo_id: options.code,
       owner: options.owner,
       state: options.state
+    },()=>{
+      that.resetEquipList();
+      that.resetMateriallist();
     })
-    console.log(app.Session.get());
     console.log(options);
     app.getUserInfo(function (wxUserInfo) {
       var session = app.Session.get();
@@ -397,9 +427,9 @@ Page({
       that.resetMateriallist();
       app.refreshCofing.materiallist = false;
     }
-    if (that.data.equiplist.length > 0 && that.data.todo.subtodo_id) {
-      that.resetEquipList()
-    }
+    // if (that.data.equiplist.length > 0 && that.data.todo.subtodo_id) {
+    //   // that.resetEquipList()
+    // }
   },
 
 

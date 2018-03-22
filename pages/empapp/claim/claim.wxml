@@ -21,7 +21,7 @@
 
     <!-- 生产任务 -->
     <view class="item">
-      <text class="item-name">生产任务（留空）</text>
+      <text class="item-name">生产任务</text>
       <text class="item-value">{{todo.subtodo_taskname}}</text>
     </view>
 

@@ -92,7 +92,7 @@
 
       <!-- 派工单计划数量 -->
       <view class="item">
-        <text class="item-name">计划数</text>
+        <text class="item-name">总计划数</text>
         <input class="item-inp" name="num" type="number" value='{{todo.todo_num}}' placeholder='请输入计划数' bindinput='userInput' data-id='4'></input>
       </view>
 

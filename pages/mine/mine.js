@@ -37,7 +37,7 @@ Page({
   //退出登录
   logout:function(){
     app.Session.clear();
-    wx.redirectTo({
+    wx.reLaunch({
       url: '../login/login',
     })
   }

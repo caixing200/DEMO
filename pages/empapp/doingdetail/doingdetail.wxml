@@ -67,12 +67,16 @@
     <view class="care-box">
       <block>
         <!--wx:if="{{equiplist != null}}"-->
-        <movable-area wx:for="{{equiplist}}" wx:key="id" style="height:160rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
-          <movable-view style="height:100%;width:120%;" direction='horizontal' inertia='true' x='{{moveX}}'>
+        <view wx:for="{{equiplist}}" wx:key="id" style="height:160rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
+          <view style="height:100%;width:100%;">
             <view class="mView num">
-              <text>设备{{index + 1}}</text>
+              <view class='flexs' style='width:100%;height:100%;'>
+                <view class='flexBox'>设</view>
+                <view class='flexBox'>备</view>
+                <view class='flexBox'>{{index + 1}}</view>
+              </view>
             </view>
-            <view class="mView content">
+            <view class="mView content" style='width:80%;'>
               <view>
                 <text>设备编号：{{item.equip_code}}</text>
               </view>
@@ -83,9 +87,11 @@
                 <text>规格型号：{{item.equip_model}}</text>
               </view>
             </view>
-            <view class='mView deletes' data-equipid='{{item.subtodo_equip_id}}' bindtap='deleteEquip'>删除</view>
-          </movable-view>
-        </movable-area>
+            <view class='mView deletes' style='padding:20rpx 0;'>
+              <view class='delete'  data-equipid='{{item.subtodo_equip_id}}' bindtap='deleteEquip'>删除</view>
+            </view>
+          </view>
+        </view>
         <!-- <view class="about" wx:for="{{equiplist}}" wx:key="id">
             <view class="num"><text>设备{{index + 1}}</text></view>
             <view class="content">
@@ -116,12 +122,16 @@
     <view class="care-box">
       <block>
         <!--wx:if="{{materiallist != null}}-->
-        <movable-area wx:for="{{materiallist}}" wx:key="id" style="height:300rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
-          <movable-view style="height:100%;width:135%;" direction='horizontal' inertia='true' x='{{moveX}}'>
+        <view wx:for="{{materiallist}}" wx:key="id" style="height:300rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
+          <view style="height:100%;width:100%;">
             <view class="mView num">
-              <text>物料{{index + 1}}</text>
+              <view class='flexs' style='width:100%;height:100%;padding:60rpx 0;'>
+                <view class='flexBox'>物</view>
+                <view class='flexBox'>料</view>
+                <view class='flexBox'>{{index + 1}}</view>
+              </view>
             </view>
-            <view class="mView content">
+            <view class="mView content" style='width:67%;'>
               <view>
                 <text>物料编号：{{item.m_code}}</text>
               </view>
@@ -141,10 +151,14 @@
                 <text>此派工单应领取数：{{(item.m_num-0)*(todo.subtodo_plannumber-0)}}</text>
               </view>
             </view>
-            <view class='mView deletes deletes_m' data-mid='{{item.subtodo_m_id}}' bindtap='deleteMaterial'>删除</view>
-            <view class='mView changes' data-subtodo_m_id='{{item.subtodo_m_id}}' data-m_code='{{item.m_code}}' data-m_name='{{item.m_name}}' data-m_model='{{item.m_model}}' bindtap='updateMaterial'>修改</view>
-          </movable-view>
-        </movable-area>
+            <view class='mView deletes deletes_m' style='padding:60rpx 0;'>
+              <view class='delete' data-mid='{{item.subtodo_m_id}}' bindtap='deleteMaterial' style='height:100%;line-height:2.3'>删除</view>
+            </view>
+            <view class='mView changes' style='padding:60rpx 0;margin-left:12rpx;'>
+              <view class='change' data-subtodo_m_id='{{item.subtodo_m_id}}' data-m_code='{{item.m_code}}' data-m_name='{{item.m_name}}' data-m_model='{{item.m_model}}' bindtap='updateMaterial' style='height:100%;line-height:2.3'>修改</view>
+            </view>
+          </view>
+        </view>
         <!-- <view class="about" wx:for="{{materiallist}}" wx:key="id">
             <view class="num"><text>物料{{index + 1}}</text></view>
             <view class="content">
