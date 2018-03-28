@@ -1,0 +1,15 @@
+page {
+  overflow-y: auto !important;
+}
+.item {
+  padding: 17rpx 0 !important;
+}
+.footer {
+  border: 60rpx solid #f1f5f6;
+}
+.btn-box {
+  position: fixed;
+  bottom: 10rpx;
+  margin-top: 0;
+  z-index: 999;
+}

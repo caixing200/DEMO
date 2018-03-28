@@ -243,9 +243,9 @@ Page({
           }
         },
         fail: (res) => {
-          wx.navigateTo({
-            url: './material/material'
-          })
+          // wx.navigateTo({
+          //   url: './material/material'
+          // })
         }
       });
     }else {
@@ -527,7 +527,7 @@ Page({
           that.setData({
             todo: res[0],
             todolist: null,
-            isOwner: res[0].owner === that.data.owner ? false : true,
+            isOwner: res[0].owner === that.data.owner ? false : true,//测试用
           });
           if (succCallBack) {
             succCallBack();

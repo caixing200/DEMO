@@ -7,7 +7,7 @@
       <text class="number">工号：{{appuserinfo.serialNo}}</text>
     </view>
   </view>
-
+  <view class="border"></view> 
   <view class="push-box" bindtap="scanTodoCode">
     <view class="item" style="border:none;">
       <view class="code-box">

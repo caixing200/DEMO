@@ -91,13 +91,13 @@ Page({
       return;
     }
     const batchno = e.detail.value.batchno;
-    if (batchno === '') {
-      wx.showModal({
-        content: "请填写批次号",
-        showCancel: false
-      });
-      return
-    }
+    // if (batchno === '') {
+    //   wx.showModal({
+    //     content: "请填写批次号",
+    //     showCancel: false
+    //   });
+    //   return
+    // }
     const peruse = e.detail.value.peruse;
     if (peruse === '') {
       wx.showModal({

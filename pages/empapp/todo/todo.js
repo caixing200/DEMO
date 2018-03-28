@@ -24,10 +24,10 @@ Page({
   },
 
   //检测是否应用历史数据
-  checkHistory: function(data){
+  checkHistory: function (data) {
     const that = this;
     let isHistory = '';
-    if ((data.subtodo_process != '') && (data.subtodo_taskname != '') && (data.subtodo_technology_id != '')) {
+    if ((data.subtodo_process != '') && (data.subtodo_taskname != '')) {
       isHistory = '1';
     } else {
       isHistory = '0';
@@ -48,31 +48,69 @@ Page({
       },
       succ: function (res) {
         console.log(res);
-        if (res[0]) {
+        if (res.length === 1) {
           that.setData({
             todo: res[0],          //对象 包含所有信息  
             todocode: code,          //派工单号，将小程序的code直接传给todocode  
             inNum: res[0].subtodo_plannumber,
             isHistory: that.checkHistory(res[0]),
-          },()=>{
-            if(that.data.todo.owner === that.data.owner){
-              wx.showModal({
-                content: '您已经领取此派工单',
-                showCancel: false,
-                success: function(res){
-                  if(res.confirm){
-                    wx.navigateBack({
-                     delta: 1 
-                    })
-                  }
-                }
-              })
-            }
           })
+        } else if (res.length > 1) {
+          var state = res[1].result;
+          var showTxt = '';
+          switch (state) {
+            case '-1':
+              showTxt = '';
+              break;
+            case '0':
+              showTxt = '';
+              break;
+            case '1':
+              if (that.data.owner === res[0].owner){
+                showTxt = '你已经领取了此子派工单';
+              }else {
+                showTxt = '你已经申请加入此子派工单';
+              }
+              break;
+            case '2':
+              showTxt = '你已经领取了此子派工单';
+              break;
+            case '3':
+              showTxt = '该子派工单已经报工';
+              break;
+            case '4':
+              showTxt = '该子派工单已经被审核';
+              break;
+          }
+          if (showTxt) {
+            wx.showModal({
+              content: showTxt,
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+              }
+            })
+          } else {
+            that.setData({
+              todo: res[0],          //对象 包含所有信息  
+              todocode: code,          //派工单号，将小程序的code直接传给todocode  
+              inNum: res[0].subtodo_plannumber,
+              isHistory: that.checkHistory(res[0]),
+            })
+          }
         } else {
           wx.showModal({
-            content: '派工单不存在或已失效',
-            showCancel: false
+            content: '子派工单不存在或已失效',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                wx.navigateBack()
+              }
+            }
           })
         }
       },
@@ -96,7 +134,7 @@ Page({
       });
       return
     }*/
-    
+
 
     that.setData({
       'subtodo.subtodo_process': e.detail.value.process ? e.detail.value.process : that.data.todo.subtodo_process,
@@ -130,14 +168,14 @@ Page({
       });
       return
     }
-    var technologyid = that.data.subtodo.subtodo_technology_id || '';
-    if (technologyid.length == 0) {
-      wx.showModal({
-        content: "请输入工艺文件号",
-        showCancel: false
-      });
-      return
-    }
+    // var technologyid = that.data.subtodo.subtodo_technology_id || '';
+    // if (technologyid.length == 0) {
+    //   wx.showModal({
+    //     content: "请输入工艺文件号",
+    //     showCancel: false
+    //   });
+    //   return
+    // }
 
     var sum = that.data.subtodo.todo_num || '';
     if (sum.length == 0) {
@@ -159,6 +197,13 @@ Page({
     if (num.length == 0) {
       wx.showModal({
         content: "请输入本次生产计划数量",
+        showCancel: false
+      });
+      return
+    }
+    if (num === '0') {
+      wx.showModal({
+        content: "本次生产计划数量需大于0",
         showCancel: false
       });
       return
@@ -209,9 +254,9 @@ Page({
         app.refreshCofing.todolist = true;       //标志位：已经生成一条子派工单信息
         if (!res) {
           let titleTxt = '';
-          if(state){
+          if (state) {
             titleTxt = '加入申请已发送';
-          }else {
+          } else {
             titleTxt = '派工单成功添加';
           }
           wx.showToast({

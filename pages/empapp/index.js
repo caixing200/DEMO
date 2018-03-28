@@ -141,6 +141,7 @@ Page({
         if (res.scanType == 'QR_CODE') {
           //得到派工单号
           var todocode = res.result;        //子派工单号
+          //todocode = "Z18032200006";
           wx.navigateTo({
             url: './todo/todo?code=' + todocode + '&owner=' + that.data.appuserinfo.serialNo//         code +'&owner=' + that.data.appuserinfo.serialNo + '&owner_name=' + that.data.appuserinfo.name //测试用
           })
@@ -153,10 +154,10 @@ Page({
       },
 
       fail: (res) => {
-        wx.showModal({
-          content: '请扫派工单二维码',
-          showCancel: false
-        })
+        // wx.showModal({
+        //   content: '请扫派工单二维码',
+        //   showCancel: false
+        // })
       }
     });
 

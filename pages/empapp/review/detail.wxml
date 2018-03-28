@@ -69,7 +69,7 @@
           <text class="modify" bindtap="modify" data-claim_ok='{{item.claim_ok}}' data-claim_ng='{{item.claim_ng}}' data-claim_id='{{item.claim_id}}'>修正</text>
           <text class="confirm" bindtap="confirm" data-claim_id='{{item.claim_id}}'>确认</text>
         </block>
-        <block wx:if="{{item.state == 1}}">
+        <block wx:if="{{item.state == 1 && item.audit == appuserinfo.serialNo}}">
           <text class="confirm1" bindtap="rebackClaim" data-claim_id='{{item.claim_id}}'>反审核</text>
         </block>
 

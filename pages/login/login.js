@@ -87,12 +87,14 @@ Page({
           }
         },
         complete: function (res) {
+          wx.hideLoading();
           console.log('....complete');
           that.setData({
             submitting: false
           })
         },
         fail: function (res) {
+          wx.hideLoading();
           console.log(res);
           wx.showModal({
             content: "登录失败",

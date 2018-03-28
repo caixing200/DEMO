@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="border"></view>
+  <!-- <view class="border"></view> -->
   <view class="sub sub-box">
     <!-- 派工单号 -->
     <view class="item">
@@ -32,7 +32,6 @@
     </view>
   </view>
 
-
   <form bindsubmit="claim">
     <!--通过遍历获取n个user_name-->
     <block wx:for="{{partner}}" wx:for-item="item" wx:key="id">
@@ -58,9 +57,10 @@
         </view>
       </view>
     </block>
-
+    <view class='footer'></view>
     <view class="btn-box">
       <button class="btn" form-type="submit" hover-class="other-button-hover">提交</button>
     </view>
   </form>
+
 </view>
