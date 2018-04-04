@@ -86,8 +86,8 @@
 
       <!--工艺文件号-->
       <view class="item">
-        <text class="item-name">工艺文件号</text>
-        <input class="item-inp" name="technologyid" value='{{todo.subtodo_technology_id}}' placeholder='请输入工艺文件号' bindinput='userInput' data-id='3'></input>
+        <text class="item-name">工序文件号</text>
+        <input class="item-inp" name="technologyid" value='{{todo.subtodo_technology_id}}' placeholder='请输入工序文件号' bindinput='userInput' data-id='3'></input>
       </view>
 
       <!-- 派工单计划数量 -->

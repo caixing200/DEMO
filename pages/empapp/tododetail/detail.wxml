@@ -1,70 +1,74 @@
 <!--已报工页面-->
 
 <view class="container">
-  <block wx:for="{{claim}}" wx:key="{{index}}">
-    <view style='border-bottom:1rpx solid #e5e5e5;margin-top:20rpx;'>
-      <view class="order-number">
-        <text>子派工单号：{{item.subtodo_code}}</text>
-        <view class="examinestate0" wx:if="{{item.state==0}}">
-          <text>待审核</text>
-        </view>
-        <view class="examinestate1" wx:if="{{item.state==1}}">
-          <text>已审核</text>
-        </view>
+  <view style='height:20%;'>
+    <view class="order-number">
+      <text>子派工单号：{{ownerItem.subtodo_code}}</text>
+      <view class="withdraw" data-claim_id='{{ownerItem.claim_id}}' data-subtodo_id='{{ownerItem.subtodo_id}}' data-partner_id='{{partner_id}}' bindtap="withdraw">撤回
       </view>
-      <view class="plan-bg">
-        <view class="plan-detail" style="border:none;">
-          <view>
-            <text>工序名称：{{item.subtodo_process}}</text>
-          </view>
-          <view>
-            <text>生产任务名称：{{item.subtodo_taskname}}</text>
-          </view>
-          <view style="margin-bottom:0;">
-            <text>计划数：{{item.subtodo_plannumber}}</text>
-          </view>
+    </view>
+    <view class="plan-bg">
+      <view class="plan-detail" style="border:none;">
+        <view>
+          <text>工序名称：{{ownerItem.subtodo_process}}</text>
+        </view>
+        <view>
+          <text>生产任务名称：{{ownerItem.subtodo_taskname}}</text>
+        </view>
+        <view style="margin-bottom:0;">
+          <text>计划数：{{ownerItem.subtodo_plannumber}}</text>
         </view>
       </view>
     </view>
+  </view>
+  <view style='height: 80%;overflow:hidden;'>
+    <scroll-view scroll-y style='height:100%;'>
+      <block wx:for="{{claim}}" wx:key="{{index}}">
+        <view style='border-bottom:1rpx solid #e5e5e5;margin-top:12rpx;'>
+          <view class="baogong">
+            <text class="pep">报工人:{{item.claim_person}}</text>
+            <view class="examinestate0" wx:if="{{item.state==0}}">
+              <text>待审核</text>
+            </view>
+            <view class="examinestate1" wx:if="{{item.state==1}}">
+              <text>已审核</text>
+            </view>
+            <text class="state">已报工</text>
+          </view>
+          <view class="plan-bg">
+            <view class="plan-detail" style="border:none;">
+              <view>
+                <text>工作开始时间：{{item.start_time}} </text>
+              </view>
+              <view>
+                <text>报工时间：{{item.claim_time}}</text>
+              </view>
+              <view>
+                <text>计划数：{{item.subtodo_plannumber}}</text>
+              </view>
+              <view>
+                <text>报工合格数：{{item.claim_ok}}</text>
+              </view>
+              <view>
+                <text>不合格数：{{item.claim_ng}}</text>
+              </view>
+              <view>
+                <text>审核合格数：{{item.exam_ok?item.exam_ok:'未审核'}}</text>
+              </view>
+              <view>
+                <text>不合格数：{{item.exam_ng?item.exam_ng:'未审核'}}</text>
+              </view>
+              <view>
+                <text>审核人：{{item.exam_person?item.exam_person:'未审核'}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
 
 
-    <view style='border-bottom:1rpx solid #e5e5e5;margin-top:12rpx;'>
-      <view class="baogong">
-        <text class="pep">报工人:{{item.claim_person}}</text>
-        <view class="withdraw" data-claim_id='{{item.claim_id}}' data-subtodo_id='{{item.subtodo_id}}' bindtap="withdraw" wx:if="{{item.state==0&&isOwner}}">撤回
-        </view>
-        <text class="state">已报工</text>
-      </view>
-      <view class="plan-bg">
-        <view class="plan-detail" style="border:none;">
-          <view>
-            <text>工作开始时间：{{item.start_time}} </text>
-          </view>
-          <view>
-            <text>报工时间：{{item.claim_time}}</text>
-          </view>
-          <view>
-            <text>计划数：{{item.subtodo_plannumber}}</text>
-          </view>
-          <view>
-            <text>报工合格数：{{item.claim_ok}}</text>
-          </view>
-          <view>
-            <text>不合格数：{{item.claim_ng}}</text>
-          </view>
-          <view>
-            <text>审核合格数：{{item.exam_ok?item.exam_ok:'未审核'}}</text>
-          </view>
-          <view>
-            <text>不合格数：{{item.exam_ng?item.exam_ng:'未审核'}}</text>
-          </view>
-          <view>
-            <text>审核人：{{item.exam_person?item.exam_person:'未审核'}}</text>
-          </view>
-        </view>
-      </view>
-    </view>
-  </block>
 
   <!-- <view class="care pbz">
     <view class="about-sb">

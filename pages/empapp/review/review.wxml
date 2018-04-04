@@ -1,12 +1,12 @@
 <view class="container">
 
-   <view class="item-people">
+  <view class="item-people">
     <image style="border:1rpx #ccc solid;" class="people" src="{{wxUserInfo.avatarUrl}}"></image>
     <view class="inform">
       <text class="name">{{appuserinfo.name}}</text>
       <text class="number">工号：{{appuserinfo.serialNo}}</text>
     </view>
-  </view>   
+  </view>
 
 
   <view class="tab bj">
@@ -14,51 +14,73 @@
     <navigator class="{{tabActiveClass[1]}}" hover-class="other-navigator-hover" bindtap="tabShowFinished">已审核</navigator>
   </view>
 
-  <scroll-view scroll-y style="height: 950rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  <view class='scrollView'>
+    <scroll-view scroll-y style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
 
-<!--审核中-->
-  <block wx:for="{{doinglist}}"  wx:for-item="item" wx:key="id">
-    <view class="complete-list"  wx:if="{{tabActiveClass[0]}}" ><!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
-      <navigator class="list"  url="./detail?code={{item.subtodo_code}}&navStatus=1&state=0">
-        <view class="list-text" style="display:flex;flex-direction:column;">
-          <block>
-            <text class="number-title">子派工单号:{{item.subtodo_code}}</text>
-            <text class='number-title-border'></text>
-            <view class="overtime"><text>工序名称：{{item.subtodo_process}}</text></view>
-            <view class="overtime"><text>生产任务：{{item.subtodo_taskname}}</text></view>
-            <view class="overtime"><text>计划数：{{item.subtodo_plannumber}}</text></view>
-            <view class="overtime"><text>涉及产品：{{item.product_name}}{{item.product_code}}</text></view>
-          </block>
+      <!--审核中-->
+      <block wx:for="{{doinglist}}" wx:for-item="item" wx:key="id">
+        <view class="complete-list" wx:if="{{tabActiveClass[0]}}">
+          <!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
+          <navigator class="list" url="./detail?code={{item.subtodo_code}}&navStatus=1&state=0">
+            <view class="list-text" style="display:flex;flex-direction:column;">
+              <block>
+                <text class="number-title">子派工单号:{{item.subtodo_code}}</text>
+                <text class='number-title-border'></text>
+                <view class="overtime">
+                  <text>工序名称：{{item.subtodo_process}}</text>
+                </view>
+                <view class="overtime">
+                  <text>生产任务：{{item.subtodo_taskname}}</text>
+                </view>
+                <view class="overtime">
+                  <text>计划数：{{item.subtodo_plannumber}}</text>
+                </view>
+                <view class="overtime">
+                  <text>涉及产品：{{item.product_name}}{{item.product_code}}</text>
+                </view>
+              </block>
+            </view>
+            <image src="../../../../images/getmore.png"></image>
+          </navigator>
         </view>
-          <image src="../../../../images/getmore.png"></image>
-      </navigator>  
-    </view>  
-  </block> 
-<!--已审核-->
-  <block wx:for="{{doinglist}}"  wx:for-item="item" wx:key="id">
-   <view class="complete-list"  wx:if="{{tabActiveClass[1]}}" ><!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
-    <navigator class="list"  url="./detail?code={{item.subtodo_code}}&navStatus=1&state=1">  
-      <view class="list-text" style="display:flex;flex-direction:column;">
-        <block>
-          <text class="number-title">子派工单号:{{item.subtodo_code}}</text>
-          <text class='number-title-border'></text>
-          <view class="overtime"><text>工序名称：{{item.subtodo_process}}</text></view>
-          <view class="overtime"><text>生产任务：{{item.subtodo_taskname}}</text></view>
-          <view class="overtime"><text>计划数：{{item.subtodo_plannumber}}</text></view>
-          <view class="overtime"><text>涉及产品：{{item.product_name}}{{item.product_code}}</text></view>
-        </block>
-      </view>
-        <image src="../../../../images/getmore.png"></image>
-      </navigator>      
-    </view>  
-  </block>  
-   </scroll-view>
+      </block>
+      <!--已审核-->
+      <block wx:for="{{doinglist}}" wx:for-item="item" wx:key="id">
+        <view class="complete-list" wx:if="{{tabActiveClass[1]}}">
+          <!--wx:if="{{todolist != null}}"wx:for="{{todolist}}" wx:key="todoid"-->
+          <navigator class="list" url="./detail?code={{item.subtodo_code}}&navStatus=1&state=1">
+            <view class="list-text" style="display:flex;flex-direction:column;">
+              <block>
+                <text class="number-title">子派工单号:{{item.subtodo_code}}</text>
+                <text class='number-title-border'></text>
+                <view class="overtime">
+                  <text>工序名称：{{item.subtodo_process}}</text>
+                </view>
+                <view class="overtime">
+                  <text>生产任务：{{item.subtodo_taskname}}</text>
+                </view>
+                <view class="overtime">
+                  <text>计划数：{{item.subtodo_plannumber}}</text>
+                </view>
+                <view class="overtime">
+                  <text>涉及产品：{{item.product_name}}{{item.product_code}}</text>
+                </view>
+              </block>
+            </view>
+            <image src="../../../../images/getmore.png"></image>
+          </navigator>
+        </view>
+      </block>
+      <view class='placeholder'></view>
+    </scroll-view>
+  </view>
 
-    <view class="mainbtn" >
-      <view class="sao-btn-main" bindtap="scanTodo">
-        <image class="sao-white" mode='aspectFit' src="../../../images/sao.png"></image>
-        <text>扫描派工单</text>
-      </view>
+
+  <view class="mainbtn">
+    <view class="sao-btn-main" bindtap="scanTodo">
+      <image class="sao-white" mode='aspectFit' src="../../../images/sao.png"></image>
+      <text>扫描派工单</text>
     </view>
+  </view>
 
-   </view>
+</view>

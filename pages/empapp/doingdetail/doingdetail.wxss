@@ -33,6 +33,9 @@
 .scrollView {
   height: 80%;
 }
+.scrollView-no {
+  height: 88%;
+}
 .item-people{
   display: block !important;
   height: 12%;

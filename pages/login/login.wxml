@@ -10,11 +10,11 @@
   <form bindsubmit="doLogin">
     <view class="idbox">
       <text>工号：</text>
-      <input name='accout' type="text" style="width:100%" auto-focus />
+      <input name='accout' type="text" style="width:100%" auto-focus placeholder='请输入工号'/>
     </view>
     <view class="idbox">
       <text>密码：</text>
-      <input name="password" style="width:100%" password="true" />
+      <input name="password" style="width:100%" password="true" placeholder='请输入密码'/>
     </view>
     <view class="btn-box">
       <button class="btn" form-type="submit" hover-class="other-button-hover">登录</button>

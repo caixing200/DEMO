@@ -10,13 +10,13 @@
   </view>
 
   <!--进行中派工单详细页面TAB-->
-  <view class='scrollView'>
+  <view class='{{!isOwner?"scrollView":"scrollView-no"}}'>
     <scroll-view scroll-y style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
       <!--<block wx:if="{{todo != null}}">-->
       <view class="base">
         <text class="base-title1">子派工单号:{{todo.subtodo_code}}</text>
         <view class="qrcode" bindtap='createQRcode'></view>
-        <view class="cancel {{state === '1'?'':'is-cancel'}}" bindtap="cancel" data-state='{{state}}'>{{state === '1'?'取消':'已取消'}}</view>
+        <view class="cancel {{state === '1'?'':'is-cancel'}} {{isOwner?'is-cancel':''}}" bindtap="cancel" data-state='{{state}}'>{{state === '1'?'取消':'已取消'}}</view>
       </view>
 
       <view class="detail">
@@ -123,7 +123,7 @@
       <view class="care-box">
         <block>
           <!--wx:if="{{materiallist != null}}-->
-          <view wx:for="{{materiallist}}" wx:key="id" style="height:260rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
+          <view wx:for="{{materiallist}}" wx:key="id" style="height:300rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
             <view style="height:100%;width:100%;">
               <view class="mView num">
                 <view class='flexs' style='width:100%;height:100%;padding:60rpx 0;'>
@@ -143,6 +143,9 @@
                   <text>规格型号：{{item.m_model}}</text>
                 </view>
                 <view>
+                  <text>计量单位：{{item.m_num}}</text>
+                </view>
+                <view>
                   <text>批次号：{{item.batchno}}</text>
                 </view>
                 <view>
@@ -153,7 +156,7 @@
               </view> -->
               </view>
               <view class='mView changes' style=''>
-                <view class='change' data-subtodo_m_id='{{item.subtodo_m_id}}' data-m_code='{{item.m_code}}' data-m_name='{{item.m_name}}' data-m_model='{{item.m_model}}' bindtap='updateMaterial' style=''>修改</view>
+                <view class='change' data-subtodo_m_id='{{item.subtodo_m_id}}' data-m_code='{{item.m_code}}' data-m_name='{{item.m_name}}' data-m_model='{{item.m_model}}' data-batchno='{{item.batchno}}' data-m_num='{{item.m_num}}' bindtap='updateMaterial'>修改</view>
               </view>
               <view class='mView deletes deletes_m' style=''>
                 <view class='delete' data-mid='{{item.subtodo_m_id}}' bindtap='deleteMaterial' style=''>删除</view>
@@ -176,7 +179,7 @@
 
   <view class="report-btn">
     <!--wx:if="{{todo != null}}" -->
-    <view class='btnView' bindtap="claim" hidden='{{isOwner}}'>报工</view>
+    <view class='btnView' bindtap="claim" hidden='{{isOwner}}' data-partner_id='{{partner_id}}'>报工</view>
   </view>
   <view class='imageView' hidden='{{isImage}}' catchtap='closeImage'>
     <view class='imageBox'>

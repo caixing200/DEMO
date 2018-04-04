@@ -38,8 +38,7 @@ var config = {
     PartnerList: `${host}/newtodo/getCurrentPartnerList`,
     //工友请求列表
     updatePartner: `${host}/newtodo/updatePartner`,
-//请求列表中同意/拒绝选择PartnerList
-
+    //请求列表中同意/拒绝选择PartnerList
 
     getPartenList:`${host}/newtodo/getPartenList`,
     //得到子派工多人的报工信息

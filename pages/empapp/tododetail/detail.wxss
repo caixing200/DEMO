@@ -1,86 +1,87 @@
-.base image{
+.base image {
   width: 16rpx;
   height: 25rpx;
   justify-content: center;
 }
 
-.plan-detail{
+.plan-detail {
   color: #353535;
   font-size: 26rpx;
   padding: 20rpx 20rpx 20rpx 0;
-  background-color: #ffffff;
+  background-color: #fff;
   border-top: 1rpx solid #e5e5e5;
 }
 
-.detail-bg{
-  background-color: #ffffff;
+.detail-bg {
+  background-color: #fff;
   margin-bottom: 20rpx;
 }
 
-.plan-detail view{
+.plan-detail view {
   margin-bottom: 10rpx;
 }
 
-.order-number image{
+.order-number image {
   width: 40rpx;
   height: 40rpx;
   margin-right: 20rpx;
+  
 }
 
-.order-number{
+.order-number {
   padding: 20rpx;
-  background-color: #ffffff;
+  background-color: #fff;
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  border-left:10rpx solid #1bc898;
-  border-bottom: 1rpx solid #e5e5e5; 
+  border-left: 10rpx solid #1bc898;
+  border-bottom: 1rpx solid #e5e5e5;
   font-size: 30rpx;
   font-weight: 500;
   color: #1a1a1a;
+  position: relative;
 }
 
-.order-box{
+.order-box {
   margin: 20rpx 0;
-  border-bottom:1rpx solid #e5e5e5; 
-  background-color: #ffffff;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #fff;
 }
 
-.plan-bg{
-  background-color: #ffffff;
+.plan-bg {
+  background-color: #fff;
   padding-left: 30rpx;
-  
+  border-bottom:0.5px solid #e5e5e5;
 }
 
-.care-titbox{
+.care-titbox {
   padding: 24rpx 20rpx;
 }
 
-.status{
+.status {
   font-size: 26rpx;
   color: #999;
 }
 
-.report-detail{
+.report-detail {
   font-size: 26rpx;
-  color: #888888; 
+  color: #888;
   margin: 20rpx 0 20rpx 30rpx;
-  
 }
 
-.pep{
+.pep {
   font-size: 32rpx;
   color: #1a1a1a;
   font-weight: 900;
 }
 
-.state{
+.state {
   font-size: 26rpx;
   color: #999;
 }
 
-.baogong{
+.baogong {
   line-height: 70rpx;
   display: flex;
   flex-direction: row;
@@ -88,25 +89,26 @@
   padding: 0 30rpx;
   border-bottom: 1rpx solid #e5e5e5;
   background-color: #fff;
+  position: relative;
 }
 
-.pbz{
+.pbz {
   line-height: 88rpx;
   padding-left: 30rpx;
   border-bottom: 1rpx solid #e5e5e5;
-
 }
-.about-sb image{
+
+.about-sb image {
   width: 16rpx;
   height: 25rpx;
 }
 
-.text-btn{
+.text-btn {
   color: #6a7fa5;
   padding: 20rpx 0 10rpx;
 }
 
-.display{
+.display {
   font-size: 28rpx;
   color: #6a7fa5;
   display: flex;
@@ -114,62 +116,73 @@
   align-items: center;
   justify-content: center;
   line-height: 88rpx;
-  margin-left: 20rpx; 
+  margin-left: 20rpx;
   border-top: 1rpx solid #e5e5e5;
 }
 
-.display-box{
-  background-color: #ffffff; 
+.display-box {
+  background-color: #fff;
 }
 
-.display image{
+.display image {
   width: 25rpx;
   height: 16rpx;
   margin-left: 10rpx;
 }
-.examinestate0{
-  margin:0rpx 0;
-  color:orange;
-  font-size:30rpx;
-  line-height:50rpx;
-  height:50rpx;
-  width:145rpx;
-  border:1rpx solid orange;
-  border-radius:10rpx;
-  display:flex;
-  justify-content:center;
-  position:absolute;
-  left:550rpx;
 
+.examinestate0 {
+  position: absolute;
+  top: 50%;
+  left: 460rpx;
+  transform: translate(0, -50%);
+  margin: 0;
+  color: orange;
+  font-size: 30rpx;
+  height: 50rpx;
+  width: 145rpx;
+  border: 1rpx solid orange;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.examinestate1{
-  margin:0rpx 0;
-  color:green;
-  font-size:30rpx;
-  line-height:50rpx;
-  height:50rpx;
-  width:145rpx;
-  border:1rpx solid green;
-  border-radius:10rpx;
-  display:flex;
-  justify-content:center;
-  position:absolute;
-  left:550rpx;
 
+.examinestate1 {
+  position: absolute;
+  top: 50%;
+  left: 460rpx;
+  transform: translate(0, -50%);
+  margin: 0;
+  color: green;
+  font-size: 30rpx;
+  height: 50rpx;
+  width: 145rpx;
+  border: 1rpx solid green;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.withdraw{
-  margin:10rpx 0;
-  color:white;
-  font-size:30rpx;
-  line-height:50rpx;
-  height:50rpx;
-  width:125rpx;
-  border:1rpx solid red;
-  border-radius:10rpx;
-  display:flex;
-  justify-content:center;
-  position:absolute;
-  left:510rpx;
-  background-color:red;
 
+.withdraw {
+  position: absolute;
+  top: 55%;
+  left: 590rpx;
+  transform: translate(0,-50%);
+  color: white;
+  font-size: 30rpx;
+  height: 50rpx;
+  width: 125rpx;
+  border: 1rpx solid red;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+}
+
+.container {
+  display: block !important;
+  height: 100%;
+  overflow: hidden;
 }

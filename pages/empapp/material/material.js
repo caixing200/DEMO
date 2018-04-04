@@ -27,9 +27,13 @@ Page({
       data.material_name = options.material_name;
       data.m_model = options.m_model;
       data.subtodo_m_id = options.subtodo_m_id;
+      data.batchno = options.batchno;
+      data.m_num = options.m_num;
       that.setData({
         material: data,
-        isCode: false
+        isCode: false,
+        batchno: data.batchno,
+        peruse: data.m_num
       });
       console.log(that.data.material)
     }

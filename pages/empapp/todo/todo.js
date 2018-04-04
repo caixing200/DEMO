@@ -1,4 +1,4 @@
-101 //扫描派工单后，填写子派工单信息
+//扫描派工单后，填写子派工单信息
 var app = getApp();
 var utils = app.admx.utils;
 
@@ -58,6 +58,7 @@ Page({
         } else if (res.length > 1) {
           var state = res[1].result;
           var showTxt = '';
+          var userShowTxt = res[1].message;
           switch (state) {
             case '-1':
               showTxt = '';
@@ -67,19 +68,20 @@ Page({
               break;
             case '1':
               if (that.data.owner === res[0].owner){
-                showTxt = '你已经领取了此子派工单';
+                showTxt = '你已经领取该子派工单';
               }else {
-                showTxt = '你已经申请加入此子派工单';
+                showTxt = userShowTxt;
               }
               break;
             case '2':
-              showTxt = '你已经领取了此子派工单';
+              showTxt = userShowTxt;
               break;
             case '3':
-              showTxt = '该子派工单已经报工';
+              showTxt = userShowTxt;
               break;
             case '4':
-              showTxt = '该子派工单已经被审核';
+              //showTxt = '该子派工单已经被审核';
+              showTxt = userShowTxt;
               break;
           }
           if (showTxt) {
@@ -226,19 +228,31 @@ Page({
 
     var ownerName = that.data.todo.owner_name;
     var ownerId = that.data.todo.owner;
-    if (ownerId != '' && ownerId != that.data.owner) {
-      wx.showModal({
-        content: '该派工单正在由' + ownerName + '执行，是否加入？',
-        success: function (res) {
-          if (res.confirm) {
-            that._postSubtodo(true);
-          } else if (res.cancel) {
-            wx.navigateBack({
-              delta: 1
-            });
+    if(ownerId != ''){
+      if (ownerId != that.data.owner) {
+        wx.showModal({
+          content: '该子派工单正在由' + ownerName + '执行，是否加入？',
+          success: function (res) {
+            if (res.confirm) {
+              that._postSubtodo(true);
+            } else if (res.cancel) {
+              wx.navigateBack({
+                delta: 1
+              });
+            }
           }
-        }
-      });
+        });
+      }else {
+        wx.showModal({
+          content: '你已经领取了该子派工单',
+          showCancel: false,
+          success: function(res){
+            if(res.confirm){
+              wx.navigateBack();
+            }
+          }
+        })
+      }
     } else {
       that._postSubtodo(false);
     }
@@ -257,7 +271,7 @@ Page({
           if (state) {
             titleTxt = '加入申请已发送';
           } else {
-            titleTxt = '派工单成功添加';
+            titleTxt = '子派工单成功添加';
           }
           wx.showToast({
             title: titleTxt,

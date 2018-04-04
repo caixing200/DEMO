@@ -9,12 +9,13 @@ Page({
     //app用存储的员工信息
     appuserinfo: null,
     //进行中的派工单信息
-    doinglist: {},
+    doinglist: [],
     //已报工的派工单信息 
-    donelist: {},
+    donelist: [],
     //存已完成/已取消的报工单列表    
     scrollViewHeight: 400,
-    tabActiveClass: ['active', '', '']
+    tabActiveClass: ['active', '', ''],
+    pageIndex: 1,
   },
 
   //数据赋值
@@ -43,34 +44,126 @@ Page({
     console.log(app.refreshCofing);
     this.tabShowOnGoing(null, app.config.ClaimState.ongoing);
   },
-
+  //下拉刷新
+  lower: function () {
+    const that = this;
+    let isGetList = null;
+    let index = null;
+    for (let i = 0; i < that.data.tabActiveClass.length; i++) {
+      if (that.data.tabActiveClass[i]) {
+        index = i;
+        break;
+      }
+    }
+    switch (index) {
+      case 0:
+        isGetList = (that.data.doinglist.length % 10) > 0 ? false : true;
+        if (isGetList) {
+          that.data.pageIndex++;
+          that._getTodolistByState(utils.extend({
+            state: app.config.ClaimState.ongoing,
+            currentPage: that.data.pageIndex
+          }));
+        } else {
+          wx.showToast({
+            title: '没有更多数据',
+            mask: true,
+            duration: 1000
+          })
+        }
+        break;
+      case 1:
+        isGetList = (that.data.donelist.length % 10) > 0 ? false : true;
+        if (isGetList) {
+          that.data.pageIndex++;
+          wx.showLoading({
+            title: '正在加载',
+            mask: true
+          });
+          app.admx.request({
+            url: app.config.service.getAllClaimed,
+            data: {
+              currentPage: that.data.pageIndex
+            },
+            succ: function (res) {
+              console.log(res);
+              if (res.list[0]) {//如果返回了派出工
+                that.setData({
+                  donelist: that.data.donelist.concat(res.list),
+                  doinglist: []
+                });
+              } else {
+                that.data.pageIndex--;
+                wx.showToast({
+                  title: '没有更多数据',
+                  mask: true,
+                  duration: 1000
+                })
+              }
+            },
+            complete: function (res) {
+              wx.hideLoading();
+            }
+          });
+        } else {
+          wx.showToast({
+            title: '没有更多数据',
+            mask: true,
+            duration: 1000
+          })
+        }
+        break;
+      case 2:
+        isGetList = (that.data.doinglist.length % 10) > 0 ? false : true;
+        if (isGetList) {
+          that.data.pageIndex++;
+          that._getTodolistByState(utils.extend({
+            state: app.config.ClaimState.canceled,
+            currentPage: that.data.pageIndex
+          }));
+        } else {
+          wx.showToast({
+            title: '没有更多数据',
+            mask: true,
+            duration: 1000
+          })
+        }
+        break;
+    }
+  },
   //进行中tab
   tabShowOnGoing: function (e, filter) {
-
+    const that = this;
     this.setData({
-      tabActiveClass: ['active', '', '']
+      tabActiveClass: ['active', '', ''],
+      pageIndex: 1
     });
     this._getTodolistByState(utils.extend({
-      state: app.config.ClaimState.ongoing
+      state: app.config.ClaimState.ongoing,
+      currentPage: that.data.pageIndex
     }, filter));
   },
 
   //已取消TAB
   tabShowCanncel: function (e, filter) {
+    const that = this;
     this.setData({
-      tabActiveClass: ['', '', 'active']
+      tabActiveClass: ['', '', 'active'],
+      pageIndex: 1
     });
     this._getTodolistByState(utils.extend({
-      state: app.config.ClaimState.canceled
+      state: app.config.ClaimState.canceled,
+      currentPage: that.data.pageIndex
     }, filter));
   },
 
   //已报工TAB（不传值获取所有已报工派工单信息）
   tabShowFinished: function (options) {
+    const that = this;
     this.setData({
-      tabActiveClass: ['', 'active', '']
+      tabActiveClass: ['', 'active', ''],
+      pageIndex: 1
     });
-    var that = this;
     wx.showLoading({
       title: '正在加载',
       mask: true
@@ -79,18 +172,19 @@ Page({
       url: app.config.service.getAllClaimed,
       data: {
         //claim_id:"0be2e827-85a6-4c24-aece-11eaeaeaf072"
+        currentPage: that.data.pageIndex
       },
       succ: function (res) {
         console.log(res);
         if (res.list[0]) {//如果返回了派出工
           that.setData({
             donelist: res.list,
-            doinglist: null
+            doinglist: []
           });
         } else {
           that.setData({
-            donelist: null,
-            doinglist: null
+            donelist: [],
+            doinglist: []
           });
         }
       },
@@ -114,13 +208,15 @@ Page({
         console.log("success fasong");
         console.log(option);
         console.log(res);
-        if (res.list) {//如果返回了派出工
+        if (res.list[0]) {//如果返回了派出工
           that.setData({
-            doinglist: res.list,
+            doinglist: that.data.pageIndex === 1 ? res.list : that.data.doinglist.concat(res.list),
+            donelist: []
           });
         } else {
           that.setData({
-            doinglist: null,
+            doinglist: [],
+            donelist: []
           });
         }
       },

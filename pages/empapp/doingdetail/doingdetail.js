@@ -224,7 +224,7 @@ Page({
             var code = res.result;
             if (code.indexOf("W") != 0) {
               wx.showToast({
-                title: '请扫正确的设备二维码',
+                title: '请扫正确的物料二维码',
                 mask: true,
                 icon: 'loading',
                 duration: 2000
@@ -362,7 +362,7 @@ Page({
     const that = this;
     if (that.data.state === '1'){
       wx.navigateTo({
-        url: '../material/material?material_code=' + e.target.dataset.m_code + '&subtodo_m_id=' + e.target.dataset.subtodo_m_id + '&material_name=' + e.target.dataset.m_name + '&m_model=' + e.target.dataset.m_model,
+        url: '../material/material?material_code=' + e.target.dataset.m_code + '&subtodo_m_id=' + e.target.dataset.subtodo_m_id + '&material_name=' + e.target.dataset.m_name + '&m_model=' + e.target.dataset.m_model + '&m_num=' + e.target.dataset.m_num + '&batchno=' + e.target.dataset.batchno,
       })
     }else {
       wx.showToast({
@@ -394,7 +394,8 @@ Page({
     that.setData({
       subtodo_id: options.code,
       owner: options.owner,
-      state: options.state
+      state: options.state,
+      partner_id: options.partner_id
     },()=>{
       that.resetEquipList();
       that.resetMateriallist();
@@ -440,7 +441,7 @@ Page({
   claim: function (e) {
     var that = this;
     wx.navigateTo({
-      url: '../claim/claim?code=' + that.data.subtodo_id     // + '&plannum=' + that.data.plannum  先放着这个问题
+      url: '../claim/claim?code=' + that.data.subtodo_id + '&partner_id=' + that.data.partner_id    // + '&plannum=' + that.data.plannum  先放着这个问题
     })
   },
 
@@ -460,7 +461,7 @@ Page({
   //点击取消报工按扭 (cancelClaim)
   cancel: function (e) {
     var that = this;
-    if (e.target.dataset.state === '1') {
+    if (e.target.dataset.state === '1' && !that.data.isOwner) {
       wx.showModal({
         content: '确定要取消本次派工单?',
         success: function (res) {
@@ -473,8 +474,11 @@ Page({
               url: app.config.service.cancelClaim,
               data: {
                 subtodo_id: that.data.subtodo_id,
+                cuser: that.data.todo.cuser
               },
               succ: function (res) {
+                console.log(res);
+                const cancelResult = res;
                 if (!res) {
                   wx.showToast({
                     title: '取消成功',

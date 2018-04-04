@@ -12,9 +12,9 @@ Page({
   },
   onLoad: function (options) {
     console.log(options);
-
     this.setData({
       subtodo_id: options.code,
+      partner_id: options.partner_id
     });
   },
   onShow: function () {
@@ -28,7 +28,7 @@ Page({
     console.log("----claim");
     console.log(e);
     var that = this;
-    if (this.data.submitting) {
+    if (that.data.submitting) {
       return;
     }
 
@@ -189,6 +189,7 @@ Page({
       url: app.config.service.getPartenList,
       data: {
         subtodo_id: that.data.subtodo_id,
+        partner_id: that.data.partner_id
       },
       succ: function (res) {
         wx.hideLoading();

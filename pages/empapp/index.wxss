@@ -1,3 +1,11 @@
+page {
+  height: 100%;
+}
+.container{
+  height: 100%;
+  overflow: hidden;
+}
+
 .sao-white{
   width: 48rpx;
   height: 40rpx;
@@ -18,7 +26,6 @@
   justify-content: center;
   background-color: #04c38e;
   border-radius: 44rpx;
-  margin-right: 121rpx;
 }
 
 .write-black{
@@ -44,17 +51,21 @@
 }
 
 .mainbtn{
-  display: flex;
+  /* display: flex;
   flex-direction: row; 
   padding-left: 231rpx;
   padding-right: 26rpx;
   position: absolute;
+  bottom: 20rpx; */
+  position: fixed;
   bottom: 20rpx;
+  left: 50%;
+  width: 288rpx;
+  height: 88rpx;
+  transform: translate(-50%,0);
 }
 
-.bj{
-  margin-bottom: 20rpx;
-}
+
 
 
 .qrcode image {
@@ -224,4 +235,36 @@
   position: absolute;
   right: 30rpx;
   top: 40rpx;
+}
+
+.container {
+  display: block !important;
+  height: 100%;
+}
+.scrollView {
+  height: 80%;
+}
+.item-people{
+  display: block !important;
+  height: 12%;
+  padding: 0 !important;
+  position: relative;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #ffffff;
+}
+.people {
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+}
+.inform {
+  position: absolute;
+  top: 24rpx;
+  left: 150rpx;
+}
+.bj {
+  height: 8%;
+}
+.placeholder {
+  height: 120rpx;
 }

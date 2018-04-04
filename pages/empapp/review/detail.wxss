@@ -48,18 +48,6 @@
   font-weight: 500;
 }
 
-.mainbtn {
-  display: flex;
-  flex-direction: row;
-  padding-left: 231rpx;
-  padding-right: 26rpx;
-  position: absolute;
-  bottom: 20rpx;
-}
-
-.bj {
-  margin-bottom: 20rpx;
-}
 
 .qrcode image {
   width: 55rpx;
@@ -375,4 +363,44 @@
 }
 .buttons button{
   line-height: 2;
+}
+.container {
+  display: block !important;
+  height: 100%;
+  overflow:hidden;
+}
+.scrollView {
+  height: 78%;
+}
+.scrollView-ok {
+  height: 88%;
+}
+.item-people{
+  display: block !important;
+  height: 12%;
+  padding: 0 !important;
+  position: relative;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #ffffff;
+}
+.people {
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+}
+.inform {
+  position: absolute;
+  top: 24rpx;
+  left: 150rpx;
+}
+.mainbtn{
+  position: fixed;
+  bottom: 20rpx;
+  left: 50%;
+  width: 288rpx;
+  height: 88rpx;
+  transform: translate(-50%,0);
+}
+page {
+  height: 100%;
 }
