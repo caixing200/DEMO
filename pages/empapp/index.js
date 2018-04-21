@@ -57,76 +57,79 @@ Page({
     }
     switch (index) {
       case 0:
-        isGetList = (that.data.doinglist.length % 10) > 0 ? false : true;
-        if (isGetList) {
-          that.data.pageIndex++;
-          that._getTodolistByState(utils.extend({
-            state: app.config.ClaimState.ongoing,
-            currentPage: that.data.pageIndex
-          }));
-        } else {
-          wx.showToast({
-            title: '没有更多数据',
-            mask: true,
-            duration: 1000
-          })
+        if (that.data.doinglist.length > 9) {
+          isGetList = (that.data.doinglist.length % 10) > 0 ? false : true;
+          if (isGetList) {
+            that._getTodolistByState(utils.extend({
+              state: app.config.ClaimState.ongoing,
+              currentPage: that.data.pageIndex
+            }));
+          } else {
+            wx.showToast({
+              title: '没有更多数据',
+              mask: true,
+              duration: 1000
+            })
+          }
         }
         break;
       case 1:
-        isGetList = (that.data.donelist.length % 10) > 0 ? false : true;
-        if (isGetList) {
-          that.data.pageIndex++;
-          wx.showLoading({
-            title: '正在加载',
-            mask: true
-          });
-          app.admx.request({
-            url: app.config.service.getAllClaimed,
-            data: {
-              currentPage: that.data.pageIndex
-            },
-            succ: function (res) {
-              console.log(res);
-              if (res.list[0]) {//如果返回了派出工
-                that.setData({
-                  donelist: that.data.donelist.concat(res.list),
-                  doinglist: []
-                });
-              } else {
-                that.data.pageIndex--;
-                wx.showToast({
-                  title: '没有更多数据',
-                  mask: true,
-                  duration: 1000
-                })
+        if (that.data.donelist.length > 9) {
+          isGetList = (that.data.donelist.length % 10) > 0 ? false : true;
+          if (isGetList) {
+            wx.showLoading({
+              title: '正在加载',
+              mask: true
+            });
+            app.admx.request({
+              url: app.config.service.getAllClaimed,
+              data: {
+                currentPage: that.data.pageIndex
+              },
+              succ: function (res) {
+                console.log(res);
+                if (res.list[0]) {//如果返回了派出工
+                  that.setData({
+                    donelist: that.data.donelist.concat(res.list),
+                    pageIndex: that.data.pageIndex+1,
+                    doinglist: []
+                  });
+                } else {
+                  wx.showToast({
+                    title: '没有更多数据',
+                    mask: true,
+                    duration: 1000
+                  })
+                }
+              },
+              complete: function (res) {
+                wx.hideLoading();
               }
-            },
-            complete: function (res) {
-              wx.hideLoading();
-            }
-          });
-        } else {
-          wx.showToast({
-            title: '没有更多数据',
-            mask: true,
-            duration: 1000
-          })
+            });
+          } else {
+            wx.showToast({
+              title: '没有更多数据',
+              mask: true,
+              duration: 1000
+            })
+          }
         }
         break;
       case 2:
-        isGetList = (that.data.doinglist.length % 10) > 0 ? false : true;
-        if (isGetList) {
-          that.data.pageIndex++;
-          that._getTodolistByState(utils.extend({
-            state: app.config.ClaimState.canceled,
-            currentPage: that.data.pageIndex
-          }));
-        } else {
-          wx.showToast({
-            title: '没有更多数据',
-            mask: true,
-            duration: 1000
-          })
+        if (that.data.doinglist.length > 9) {
+          isGetList = (that.data.doinglist.length % 10) > 0 ? false : true;
+          if (isGetList) {
+            that._getTodolistByState(utils.extend({
+              state: app.config.ClaimState.canceled,
+              currentPage: that.data.pageIndex
+            }));
+          } else {
+            wx.showToast({
+              title: '没有更多数据',
+              mask: true,
+              duration: 1000
+            })
+          }
         }
         break;
     }
@@ -134,64 +137,76 @@ Page({
   //进行中tab
   tabShowOnGoing: function (e, filter) {
     const that = this;
-    this.setData({
+    that.setData({
       tabActiveClass: ['active', '', ''],
-      pageIndex: 1
+      pageIndex: 1,
+      doinglist: [],
+      donelist: []
+    },()=>{
+      that._getTodolistByState(utils.extend({
+        state: app.config.ClaimState.ongoing,
+        currentPage: that.data.pageIndex
+      }, filter));
     });
-    this._getTodolistByState(utils.extend({
-      state: app.config.ClaimState.ongoing,
-      currentPage: that.data.pageIndex
-    }, filter));
   },
 
   //已取消TAB
   tabShowCanncel: function (e, filter) {
     const that = this;
-    this.setData({
+    that.setData({
       tabActiveClass: ['', '', 'active'],
-      pageIndex: 1
+      pageIndex: 1,
+      doinglist: [],
+      donelist: []
+    },()=>{
+      that._getTodolistByState(utils.extend({
+        state: app.config.ClaimState.canceled,
+        currentPage: that.data.pageIndex
+      }, filter));
     });
-    this._getTodolistByState(utils.extend({
-      state: app.config.ClaimState.canceled,
-      currentPage: that.data.pageIndex
-    }, filter));
   },
 
   //已报工TAB（不传值获取所有已报工派工单信息）
   tabShowFinished: function (options) {
     const that = this;
-    this.setData({
+    that.setData({
       tabActiveClass: ['', 'active', ''],
-      pageIndex: 1
-    });
-    wx.showLoading({
-      title: '正在加载',
-      mask: true
-    });
-    app.admx.request({
-      url: app.config.service.getAllClaimed,
-      data: {
-        //claim_id:"0be2e827-85a6-4c24-aece-11eaeaeaf072"
-        currentPage: that.data.pageIndex
-      },
-      succ: function (res) {
-        console.log(res);
-        if (res.list[0]) {//如果返回了派出工
-          that.setData({
-            donelist: res.list,
-            doinglist: []
-          });
-        } else {
-          that.setData({
-            donelist: [],
-            doinglist: []
-          });
+      pageIndex: 1,
+      doinglist: [],
+      donelist: []
+    },()=>{
+      wx.showLoading({
+        title: '正在加载',
+        mask: true
+      });
+      app.admx.request({
+        url: app.config.service.getAllClaimed,
+        data: {
+          //claim_id:"0be2e827-85a6-4c24-aece-11eaeaeaf072"
+          currentPage: that.data.pageIndex
+        },
+        succ: function (res) {
+          console.log(res);
+          if (res.list[0]) {//如果返回了派出工
+            that.setData({
+              donelist: res.list,
+              pageIndex: that.data.pageIndex+1,
+              doinglist: []
+            },()=>{
+              console.log(that.data.pageIndex);
+            });
+          } else {
+            that.setData({
+              donelist: [],
+              doinglist: []
+            });
+          }
+        },
+        complete: function (res) {
+          wx.hideLoading();
         }
-      },
-      complete: function (res) {
-        wx.hideLoading();
-      }
-    })
+      })
+    });
   },
 
   //获取所有正在进行中的派工单主要信息，同时可获取已取消信息（根据option不同） 
@@ -210,12 +225,22 @@ Page({
         console.log(res);
         if (res.list[0]) {//如果返回了派出工
           that.setData({
-            doinglist: that.data.pageIndex === 1 ? res.list : that.data.doinglist.concat(res.list),
+            doinglist: that.data.doinglist.concat(res.list),
+            pageIndex: that.data.pageIndex+1,
             donelist: []
+          },()=>{
+            console.log(that.data.pageIndex);
           });
         } else {
+          if(that.data.pageIndex !== 1){
+            wx.showToast({
+              title: '没有更多数据',
+              mask: true,
+              duration: 800,
+              icon: 'loading'
+            })
+          }
           that.setData({
-            doinglist: [],
             donelist: []
           });
         }

@@ -20,10 +20,10 @@
         <text class="item-value">{{material.m_model}}</text>
       </view>
 
-      <view class="item">
+      <!-- <view class="item">
         <text class="item-name">计量单位</text>
         <text class="item-value">{{material.m_model}}</text>
-      </view>
+      </view> -->
 
       <!-- 计划产量 -->
       <view class="item" >

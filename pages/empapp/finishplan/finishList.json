@@ -1,0 +1,7 @@
+{
+  "disableScroll":true,
+  "usingComponents":{
+    "useheader":"../../../component/useheader/useheader"
+  },
+  "navigationBarTitleText": "已审核列表"
+}

@@ -19,11 +19,22 @@ Page({
   },
   onLoad:function(){
     var that = this;
-    that.setData({
-      appuserinfo: app.Session.get().user,
-      wxUserInfo: app.Session.get().wxUserInfo,
-      company: app.globalData.company
+    app.getUserInfo(function (wxUserInfo) {
+      var session = app.Session.get();
+      session.wxUserInfo = wxUserInfo;
+      app.Session.set(session);
+      //更新数据
+      that.setData({
+        wxUserInfo: wxUserInfo,
+        appuserinfo: app.Session.get().user,
+        company: app.globalData.company
+      },()=>{
+        console.log(that.data.company)
+        console.log(that.data.wxUserInfo)
+        console.log(that.data.appuserinfo)
+      })
     });
+    
   },
  
   //修改密码

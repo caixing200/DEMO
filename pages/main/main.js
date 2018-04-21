@@ -9,6 +9,7 @@ Page({
   onLoad: function () {
     const that = this;
     var power = app.Session.get().user.power;
+    console.log(power);
     power = that.filtrMenu(power);
     console.log("power:" + power);
     console.log(power);

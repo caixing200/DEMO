@@ -10,11 +10,14 @@
   <form bindsubmit="doLogin">
     <view class="idbox">
       <text>工号：</text>
-      <input name='accout' type="text" style="width:100%" auto-focus placeholder='请输入工号'/>
+      <input class='{{isSaveAuthData?"saveAuthData":""}}' name='accout' type="text" style="width:100%" focus='{{!isSaveAuthData}}' placeholder='请输入工号' value='{{account}}' disabled='{{isSaveAuthData}}' bindinput='codingAccount' data-state='{{isSaveAuthData}}' bindtap='changeState'/>
     </view>
     <view class="idbox">
       <text>密码：</text>
-      <input name="password" style="width:100%" password="true" placeholder='请输入密码'/>
+      <input class='{{isSaveAuthData?"saveAuthData":""}}' name="password" style="width:100%" password="true" placeholder='请输入密码' value='{{pwd}}' disabled='{{isSaveAuthData}}' bindinput='codingPwd' data-state='{{isSaveAuthData}}' bindtap='changeState'/>
+    </view>
+    <view class='userAuthBtn'>
+      <switch class='AuthBtn' type='checkbox' bindchange="saveAuthData" color='#000' checked='{{isSaveAuthData}}'> 保存工号和密码</switch>
     </view>
     <view class="btn-box">
       <button class="btn" form-type="submit" hover-class="other-button-hover">登录</button>

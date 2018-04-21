@@ -15,14 +15,10 @@
     "pages/empapp/finishplan/disqreaon",
     "pages/empapp/material_list/material_list",
     "pages/empapp/doingdetail/doingdetail",
-    
     "pages/empapp/review/review",
     "pages/empapp/review/disqreaon",
     "pages/empapp/review/detail",
     "pages/empapp/partner_list/partner_list",
-    
-
-
     "pages/leaderapp/orders/filter_ongoing/filter",
     "pages/leaderapp/orders/filter_awaiting/filter",
     "pages/leaderapp/orders/filter_canceled/filter",
@@ -54,7 +50,8 @@
     "pages/leaderapp/tracing/plan/plan",
     "pages/leaderapp/tracing/todo/todo",
     "pages/leaderapp/tracing/tododetail/detail",
-    "pages/leaderapp/tracing/equipment/equipment"
+    "pages/leaderapp/tracing/equipment/equipment",
+    "pages/empapp/finishplan/finishList"
   ],
   "window": {
     "backgroundTextStyle": "light",

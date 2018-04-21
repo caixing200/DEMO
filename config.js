@@ -115,6 +115,10 @@ var config = {
     //提交部门计划合格数以及不合格数
     updateDeptplan: `${host}/newtodo/updateDeptplan`,
 
+    //获取已经审核的部门报工列表
+    getAuditDeptplanList: `${host}/newtodo/getAuditDeptplanList`,
+    cancelAuditDeptplan: `${host}/newtodo/cancelAuditDeptplan`,
+
     //--------leaderapp ------------
     //销售订单
     orderlist: `${host}/orders`,

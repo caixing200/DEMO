@@ -1,3 +1,30 @@
+.container {
+  display: block !important;
+  height: 100%;
+  overflow: hidden;
+}
+
+.item-people {
+  display: block !important;
+  height: 12%;
+  padding: 0 !important;
+  position: relative;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #fff;
+}
+
+.people {
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+}
+
+.inform {
+  position: absolute;
+  top: 24rpx;
+  left: 150rpx;
+}
+
 .code {
   width: 50rpx;
   height: 44rpx;
@@ -11,12 +38,9 @@
 }
 
 .push-box {
-  padding: 14rpx 20rpx;
-  border-top: 1rpx solid #e5e5e5;
-  border-bottom: 1rpx solid #e5e5e5;
+  padding: 12rpx 20rpx;
   background-color: #fff;
-  height: 68rpx;
-  display: flex;
+  height: 6%;
   flex-direction: row;
   justify-content: space-between;
   position: relative;
@@ -43,26 +67,31 @@
   flex-direction: row;
   font-size: 32rpx;
 }
+
 .detail {
-  position: relative
+  position: relative;
+  padding: 0;
 }
+
 .detail-status {
   width: 120rpx;
   position: relative;
   text-align: center;
   vertical-align: middle;
 }
-.detail-status text{
+
+.detail-status text {
   width: 100%;
-  height: 60rpx;
-  line-height: 60rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   display: inline-block;
   border-radius: 12rpx;
 }
 
-.detail view{
-  margin-bottom: 0;
+.detail view {
+  margin: 2rpx 0;
 }
+
 .detail-txt {
   overflow: hidden;
 }
@@ -88,12 +117,55 @@
 .detail-content-other {
   width: 73%;
 }
-.item-people {
-  border-bottom: 1rpx solid #e5e5e5;
-}
+
 .base {
   border: none;
   position: relative;
+  line-height: 1;
+  display: block;
+  padding: 6rpx 20rpx;
+}
+.setHeight {
+  height: 56.5%;
+}
+scroll-view {
+
+}
+.planListView {
+  /* margin: 6rpx 0; */
+  display: flex;
+  padding: 10rpx 0;
+  position: relative;
+  font-size: 26rpx;
+  border-bottom: 1rpx dashed #e5e5e5;
+}
+.planListTitle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.titleTxt {
+  margin: 4rpx 0;
+}
+.planListBody {
+  flex: 7;
+}
+.planListBtnBox {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  /* position: absolute;
+  right: 20rpx;
+  top: 50%;
+  width: 122rpx;
+  height: 62rpx;
+  transform: translate(0,-50%); */
+}
+.dub {
+  background-color: #eee;
 }
 .cover {
   position: absolute;
@@ -101,21 +173,70 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.5)
+  background-color: rgba(255, 255, 255, 0.5);
 }
-.sub{
+
+.sub {
   position: relative;
 }
+
+.sub-box {
+  border-top: none;
+}
+
+.sub .item {
+  padding: 10rpx 0;
+}
+
 .btn-box {
-  position: relative;
+  position: fixed;
+  bottom: 20rpx;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin-top: 0;
 }
+
+.btn {
+  margin-left: 0;
+}
+
 .btnCover {
   position: absolute;
   width: 716rpx;
   height: 88rpx;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   border-radius: 12rpx;
-  background-color: rgba(255, 255, 255, 0.5)
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.flootBtn {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 20rpx;
+  left: 50%;
+  width: 710rpx;
+  height: 88rpx;
+  transform: translate(-50%, 0);
+  /* border: 1rpx solid #000; */
+  border-radius: 12rpx;
+  text-align: center;
+  line-height: 88rpx;
+  color: #fff;
+  background-color: #04c38e;
+}
+.planListNoView {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  width: 70%;
+  height: 60rpx;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  line-height: 60rpx;
+  font-weight: 600;
+}
+.planListContent {
+  margin: 6rpx 0;
 }

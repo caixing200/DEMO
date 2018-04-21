@@ -123,7 +123,7 @@
       <view class="care-box">
         <block>
           <!--wx:if="{{materiallist != null}}-->
-          <view wx:for="{{materiallist}}" wx:key="id" style="height:300rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
+          <view wx:for="{{materiallist}}" wx:key="id" style="height:260rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
             <view style="height:100%;width:100%;">
               <view class="mView num">
                 <view class='flexs' style='width:100%;height:100%;padding:60rpx 0;'>
@@ -142,9 +142,9 @@
                 <view>
                   <text>规格型号：{{item.m_model}}</text>
                 </view>
-                <view>
+                <!-- <view>
                   <text>计量单位：{{item.m_num}}</text>
-                </view>
+                </view> -->
                 <view>
                   <text>批次号：{{item.batchno}}</text>
                 </view>

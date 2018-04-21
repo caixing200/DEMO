@@ -76,24 +76,24 @@
 
       <view class="item">
         <text class="item-name">工序名称</text>
-        <input class="item-inp" name="process" value='{{todo.subtodo_process}}' placeholder='请输入工序名称' bindinput='userInput' data-id='1'></input>
+        <input class="item-inp" name="process" value='{{todo.subtodo_process}}' disabled='{{todo.subtodo_process?true:""}}' placeholder='请输入工序名称' bindinput='userInput' data-id='1'></input>
       </view>
 
       <view class="item">
         <text class="item-name">生产任务</text>
-        <input class="item-inp" name="taskname" value='{{todo.subtodo_taskname}}' placeholder='请输入生产任务' bindinput='userInput' data-id='2'></input>
+        <input class="item-inp" name="taskname" value='{{todo.subtodo_taskname}}' disabled='{{todo.subtodo_taskname?true:""}}' placeholder='请输入生产任务' bindinput='userInput' data-id='2'></input>
       </view>
 
       <!--工艺文件号-->
       <view class="item">
         <text class="item-name">工序文件号</text>
-        <input class="item-inp" name="technologyid" value='{{todo.subtodo_technology_id}}' placeholder='请输入工序文件号' bindinput='userInput' data-id='3'></input>
+        <input class="item-inp" name="technologyid" value='{{todo.subtodo_technology_id}}' disabled='{{todo.subtodo_technology_id?true:""}}' placeholder='请输入工序文件号' bindinput='userInput' data-id='3'></input>
       </view>
 
       <!-- 派工单计划数量 -->
       <view class="item">
         <text class="item-name">总计划数</text>
-        <input class="item-inp" name="num" type="number" value='{{todo.todo_num}}' placeholder='请输入计划数' bindinput='userInput' data-id='4'></input>
+        <input class="item-inp" name="num" type="number" value='{{todo.todo_num>0?todo.todo_num:""}}' placeholder='请输入总计划数' bindinput='userInput' data-id='4'></input>
       </view>
 
       <!-- 比例-->
@@ -106,7 +106,7 @@
       <!-- 本次计划数量子派工单信息计划数量-->
       <view class="item" style="border:none;">
         <text class="item-name" style="width:180rpx;">本次计划数</text>
-        <input type="number" class="item-inp" name="plannumber" value='{{inNum}}' placeholder='请输入本次计划数' bindinput='userInput' data-id='5'></input>
+        <input type="number" class="item-inp" name="plannumber" value='' placeholder='请输入本次计划数' bindinput='userInput' data-id='5'></input>
       </view>
     </view>
 

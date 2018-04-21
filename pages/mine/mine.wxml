@@ -33,6 +33,11 @@
       <text class="item-name">公司名称</text>
       <text class="item-value">{{company.cname}}</text>
     </view>
+    <!-- 工号 -->
+    <view class="item" url="change/company/company">
+      <text class="item-name">工号</text>
+      <text class="item-value">{{appuserinfo.serialNo}}</text>
+    </view>
 
     <!-- 手机号 -->
     <view class="item" style="border:none;">

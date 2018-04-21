@@ -1,0 +1,25 @@
+<!--pages/empapp/finishplan/finishList.wxml-->
+<view class='container'>
+  <useheader list-hidden="true" use-data="{{useData}}"></useheader>
+  <view class='listView'>
+    <scroll-view style='height:100%' scroll-y="true" bindscrolltolower="getFinishList">
+      <block wx:for="{{finishList}}" wx:key="id">
+        <view class='listBox'>
+          <view class='listHeader'>
+            <view class='header'>部门计划号：{{item.deptplan_num}}</view>
+            <view class='headerTxt'>部门名称：{{item.dept_name}}</view>
+            <view class='headerTxt'>部门计划任务：{{item.dept_process}}</view>
+          </view>
+          <view class='listBody'>
+            <view class='bodyTxt'>部门计划数：{{item.dept_plannumber}}</view>
+            <view class='bodyTxt'>部门合格数：{{item.dept_ok}}</view>
+            <view class='bodyTxt'>部门不合格数：{{item.dept_ng}}</view>
+            <view class='bodyTxt'>本次报工合格数：{{item.claim_ok}}</view>
+            <view class='bodyTxt'>本次报工不合格数：{{item.claim_ng}}</view>
+            <view class='bodyBtn' hover-class='activeBtn' hover-start-time='0' hover-stay-time='100' hidden='{{cuser === item.cuser?false:true}}' data-qualitycheck_id='{{item.qualitycheck_id}}' data-deptplan_id='{{item.deptplan_id}}' data-index='{{index}}' bindtap='_unExamine'>反审核</view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+</view>

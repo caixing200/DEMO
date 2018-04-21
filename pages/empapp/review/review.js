@@ -15,6 +15,9 @@ Page({
     //存储已审核和审核中的派工单信息
     todolist: [],
     tabActiveClass: ['active', ''],
+    pageIndex: 1,
+    isGoing: '0',
+    doinglist: [],
   },
 
   //显示员工信息
@@ -35,7 +38,7 @@ Page({
         appuserinfo: app.Session.get().user
       })
     })
-    
+
   },
 
   //展示页面
@@ -93,7 +96,7 @@ Page({
       },
       succ: function (res) {
         console.log(res);
-        if (Array.isArray(res) && res.length>0) {
+        if (Array.isArray(res) && res.length > 0) {
           //res[0].claim_person = '23333333';//测试用
           if (res && (res[0].claim_person !== '')) {
             //app.globalData.detailData = res;
@@ -154,23 +157,30 @@ Page({
 
   //待审核tab
   tabShowOnGoing: function (e, filter) {
-
-    this.setData({
-      tabActiveClass: ['active', '']
+    const that = this;
+    that.setData({
+      tabActiveClass: ['active', ''],
+      pageIndex: 1
+    }, () => {
+      that._postAuditClaim(utils.extend({
+        state: app.config.ReviewState.ongoing,
+        currentPage: that.data.pageIndex
+      }, filter));
     });
-    this._postAuditClaim(utils.extend({
-      state: app.config.ReviewState.ongoing
-    }, filter));
   },
 
   //已审核TAB
   tabShowFinished: function (e, filter) {
-    this.setData({
-      tabActiveClass: ['', 'active']
+    const that = this;
+    that.setData({
+      tabActiveClass: ['', 'active'],
+      pageIndex: 1
+    }, () => {
+      that._postAuditClaim(utils.extend({
+        state: app.config.ReviewState.finished,
+        currentPage: that.data.pageIndex
+      }, filter));
     });
-    this._postAuditClaim(utils.extend({
-      state: app.config.ReviewState.finished
-    }, filter));
   },
 
   //获取审核中和已审核的派工单主要信息（根据option不同） 
@@ -188,16 +198,49 @@ Page({
         console.log("success fasong");
         console.log(option);
         console.log(res);
-        if (res.length>0) {//如果返回了派出工
-          that.setData({
-            doinglist: res,
-          },()=>{
-            app.globalData.todoData = res;
-          });
+        if (option.state === that.data.isGoing) {
+          if (res.length > 0) {//如果返回了派出工
+            that.setData({
+              doinglist: that.data.pageIndex === 1 ? res : that.data.doinglist.concat(res),
+              pageIndex: that.data.pageIndex + 1
+            }, () => {
+              app.globalData.todoData = res;
+            });
+          } else {
+            if (that.data.pageIndex === 1){
+              that.setData({
+                doinglist: []
+              })
+            }
+            wx.showToast({
+              title: that.data.pageIndex === 1?'没有数据...':'没有更多数据',
+              mask: true,
+              icon: 'loading',
+              duration: 800
+            })
+          }
         } else {
           that.setData({
-            doinglist: null,
-          });
+            isGoing: option.state,
+            doinglist: [],
+            pageIndex: 1
+          }, () => {
+            if (res.length > 0) {//如果返回了派出工
+              that.setData({
+                doinglist: res,
+                pageIndex: that.data.pageIndex + 1
+              }, () => {
+                app.globalData.todoData = res;
+              });
+            } else {
+              wx.showToast({
+                title: '没有数据...',
+                mask: true,
+                icon: 'loading',
+                duration: 800
+              })
+            }
+          })
         }
       },
       complete: function (res) {
@@ -206,6 +249,24 @@ Page({
     })
   },
 
+  lower: function(){
+    const that = this;
+    if (that.data.doinglist.length>9){
+      if(that.data.doinglist.length%10 === 0){
+        const options = {};
+        options.state = that.data.isGoing;
+        options.currentPage = that.data.pageIndex;
+        that._postAuditClaim(options);
+      }else {
+        wx.showToast({
+          title: '没有更多数据',
+          mask: true,
+          icon: 'loading',
+          duration: 800
+        })
+      }
+    }
+  },
 
 
 })

@@ -304,3 +304,8 @@ page {
   align-items: center;
   margin-top: 20rpx;
 }
+
+.activeBtn {
+  color: #DBDBEA !important;
+  background-color: #04A08E !important;
+}

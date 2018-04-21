@@ -1,0 +1,49 @@
+/* component/useheader/useheader.wxss */
+
+.item-people {
+  height: 100%;
+  display: block;
+  padding: 0;
+  position: relative;
+  border-bottom: 1rpx solid #e5e5e5;
+  background-color: #fff;
+}
+
+.inform {
+  position: absolute;
+  top: 24rpx;
+  left: 150rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  color: #353535;
+  font-size: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.number {
+  font-size: 28rpx;
+  color: #aaa;
+}
+
+.people {
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  margin-right: 20rpx;
+}
+
+.user {
+  position: absolute;
+  right: 30rpx;
+  top: 40rpx;
+  width: 60rpx;
+  height: 60rpx;
+  padding-left: 300rpx;
+}

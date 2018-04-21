@@ -7,7 +7,7 @@
       <text class="number">工号：{{appuserinfo.serialNo}}</text>
     </view>
   </view>
-  <view class="border"></view> 
+  <!-- <view class="border"></view>  -->
   <view class="push-box" bindtap="scanTodoCode">
     <view class="item" style="border:none;">
       <view class="code-box">
@@ -19,83 +19,117 @@
       </view>
     </view>
   </view>
-  <view class="border"></view> 
-  <view class="base" style='border-top:1rpx solid #e5e5e5;border-bottom:1rpx solid #e5e5e5;'>
-    <text class="plan-title">部门计划号：{{plan.dept_todocode?plan.dept_todocode:'请扫码'}}</text>
-    <view class='detail-status' hidden='{{plan?false:true}}'>
-      <text wx:if="{{plan.dept_end}}" style='border:1rpx solid #04c38e;color:#04c38e'>已审核</text>
-      <text wx:else style='border:1rpx solid #FFA64D;color:#FFA64D'>未审核</text>
-    </view>
-  </view>
+  <!-- <view class="border"></view>  -->
+  <view class="base {{plan?'setHeight':''}}" style='border-top:1rpx solid #e5e5e5;border-bottom:1rpx solid #e5e5e5;'>
+    <scroll-view scroll-y style='height: 100%' bindscrolltolower="lower">
+      <text class="plan-title">部门计划号：{{plan.dept_todocode?plan.dept_todocode:'请扫码'}}</text>
 
-  <view class="detail" style="color:#888;" hidden='{{plan?false:true}}'>
+      <view class="detail" style="color:#888;" hidden='{{plan?false:true}}'>
 
-    <view class='detail-txt'>
-      <view class='detail-title'>
-        <text>部门名称：</text>
-      </view>
-      <view class='detail-content'>
-        <text>{{plan.dept_name?plan.dept_name:'请扫码'}}</text>
-      </view>
-    </view>
-    <view class='detail-txt'>
-      <view class='detail-title'>
-        <text>计划名称：</text>
-      </view>
-      <view class='detail-content'>
-        <text>{{plan.dept_process?plan.dept_process:'请扫码'}}</text>
-      </view>
-    </view>
-    <view class='detail-txt'>
-      <view class='detail-title'>
-        <text>涉及产品：</text>
-      </view>
-      <view class='detail-content'>
-        <text wx:if="{{plan}}">{{plan.product_name}}/{{plan.product_typespec}}/{{plan.product_code}}</text>
-        <text wx:else>请扫码</text>
-      </view>
-    </view>
-    <!--<view><text>产品编号：{{plan.product_code}}</text></view>
+        <view class='detail-txt'>
+          <view class='detail-title'>
+            <text>部门名称：</text>
+          </view>
+          <view class='detail-content'>
+            <text>{{plan.dept_name?plan.dept_name:'请扫码'}}</text>
+          </view>
+        </view>
+        <view class='detail-txt'>
+          <view class='detail-title'>
+            <text>计划名称：</text>
+          </view>
+          <view class='detail-content'>
+            <text>{{plan.dept_process?plan.dept_process:'请扫码'}}</text>
+          </view>
+        </view>
+        <view class='detail-txt'>
+          <view class='detail-title'>
+            <text>涉及产品：</text>
+          </view>
+          <view class='detail-content'>
+            <text wx:if="{{plan}}">{{plan.product_name}}/{{plan.product_typespec}}/{{plan.product_code}}</text>
+            <text wx:else>请扫码</text>
+          </view>
+        </view>
+        <!--<view><text>产品编号：{{plan.product_code}}</text></view>
     <view><text>产品名称：{{plan.prodname}}</text></view>
     <view><text>规格/型号：{{plan.typespec}}</text></view>-->
-    <view class='detail-txt'>
-      <view class='detail-title'>
-        <text>计划数：</text>
+        <view class='detail-txt'>
+          <view class='detail-title'>
+            <text>计划数：</text>
+          </view>
+          <view class='detail-content'>
+            <text>{{plan.dept_plannumber?plan.dept_plannumber:'请扫码'}}</text>
+          </view>
+        </view>
+        <view class='detail-txt'>
+          <view class='detail-title detail-title-other'>
+            <text>计划结束日期：</text>
+          </view>
+          <view class='detail-content detail-content-other'>
+            <text>{{plan.dept_enddate?plan.dept_enddate:'请扫码'}}</text>
+          </view>
+        </view>
+        <view class='detail-txt'>
+          <view class='detail-title detail-title-other'>
+            <text>计划开始日期：</text>
+          </view>
+          <view class='detail-content detail-content-other'>
+            <text>{{plan.dept_startdate?plan.dept_startdate:'请扫码'}}</text>
+          </view>
+        </view>
+        <view class='detail-txt' style="margin-bottom:0;">
+          <view class='detail-title detail-title-other'>
+            <text>审核合格数：</text>
+          </view>
+          <view class='detail-content detail-content-other'>
+            <text>{{plan.dept_ok?plan.dept_ok:'请审核'}}</text>
+          </view>
+        </view>
+        <view class='detail-txt' style="margin-bottom:0;">
+          <view class='detail-title detail-title-other'>
+            <text>审核不合格数：</text>
+          </view>
+          <view class='detail-content detail-content-other'>
+            <text>{{plan.dept_ng?plan.dept_ng:'请审核'}}</text>
+          </view>
+        </view>
       </view>
-      <view class='detail-content'>
-        <text>{{plan.dept_plannumber?plan.dept_plannumber:'请扫码'}}</text>
-      </view>
-    </view>
-    <view class='detail-txt'>
-      <view class='detail-title detail-title-other'>
-        <text>计划结束日期：</text>
-      </view>
-      <view class='detail-content detail-content-other'>
-        <text>{{plan.dept_enddate?plan.dept_enddate:'请扫码'}}</text>
-      </view>
-    </view>
-    <view class='detail-txt'>
-      <view class='detail-title detail-title-other'>
-        <text>计划开始日期：</text>
-      </view>
-      <view class='detail-content detail-content-other'>
-        <text>{{plan.dept_startdate?plan.dept_startdate:'请扫码'}}</text>
-      </view>
-    </view>
-    <view class='detail-txt' style="margin-bottom:0;">
-      <view class='detail-title detail-title-other'>
-        <text>审核合格数：</text>
-      </view>
-      <view class='detail-content detail-content-other'>
-        <text>{{plan.dept_end?plan.dept_end:'请审核'}}</text>
-      </view>
-    </view>
+      <block wx:if='{{planList.length>0}}'>
+        <view wx:for="{{planList}}" wx:for-item="item" wx:key="itemKey" hidden='{{listHiddens[index]}}' class='planListView {{index%2 !=0 ? "dub":""}}'>
+          <view class='planListTitle'>
+            <view class='titleView'>
+              <view class='titleTxt'>报</view>
+              <view class='titleTxt'>工</view>
+              <view class='titleTxt'>{{index+1}}</view>
+            </view>
+          </view>
+          <view class='planListBody'>
+            <view class='planListContent'>报工人：{{item.cuser?item.cuser:'无数据'}}</view>
+            <view class='planListContent'>报工时间：{{item.cdate?item.cdate:'无数据'}}</view>
+            <view class='planListContent'>合格数：{{item.claim_ok?item.claim_ok:'无数据'}}</view>
+            <view class='planListContent'>不合格数：{{item.claim_ng?item.claim_ng:'无数据'}}</view>
+          </view>
+          <view class='planListBtnBox'>
+            <view class='detail-status' wx:if='{{item.qualitycheck_id}}'>
+              <text style='border:1rpx solid #04c38e;color:#04c38e'>已审核</text>
+              <text wx:if="{{item.owner === appuserinfo.serialNo}}" style='color:#fff;background-color:#04c38e;margin-top:20rpx;' data-qualitycheck_id='{{item.qualitycheck_id}}' data-deptplan_id='{{item.dept_id}}' data-index="{{index}}" bindtap='_unExamine'>反审核</text>
+            </view>
+            <view class='detail-status' wx:else>
+              <text style='border:1rpx solid #FFA64D;color:#FFA64D'>未审核</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view wx:if='{{plan && planList.length==0}}' class='planListNoView'>没有已经报工的部门计划</view>
+    </scroll-view>
   </view>
+
+
 
 
 
   <form bindsubmit="dosubmit">
-    <view class="border"></view>
     <view class="sub sub-box">
       <!-- 合格数量 -->
       <view class="item">
@@ -110,9 +144,11 @@
       </view>
       <view class='cover' hidden='{{submitCover}}'></view>
     </view>
-    <view class="btn-box">
+    <view class="btn-box" hidden='{{!submitCover}}'>
       <button class="btn" form-type="submit" hover-class="other-button-hover">提交</button>
       <view class='btnCover' hidden='{{submitCover}}'></view>
     </view>
+    <view class='flootBtn' hidden='{{submitCover}}' hover-class='activeBtn' hover-start-time='0' hover-stay-time='100' bindtap='goFinishList'>点击查看已审核列表</view>
   </form>
+
 </view>

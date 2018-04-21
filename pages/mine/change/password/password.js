@@ -13,19 +13,37 @@ Page({
     }
 
     var oldpwd = e.detail.value.oldpwd;
-    if (oldpwd.length == 0) {
-      wx.showModal({
-        content: "请输入原密码",
-        showCancel: false
-      });
-      return
-    }
-    var newpwd = e.detail.value.newpwd;
-    if (newpwd.length == 0) {
-      wx.showModal({
-        content: "请输入新密码",
-        showCancel: false
-      });
+    // if (oldpwd.length == 0) {
+    //   wx.showModal({
+    //     content: "请输入原密码",
+    //     showCancel: false
+    //   });
+    //   return
+    // }
+    var newpwd1 = e.detail.value.newpwd1;
+    // if (newpwd.length == 0) {
+    //   wx.showModal({
+    //     content: "请输入新密码",
+    //     showCancel: false
+    //   });
+    //   return
+    // }
+    var newpwd2 = e.detail.value.newpwd2;
+    // if (newpwd.length == 0) {
+    //   wx.showModal({
+    //     content: "请输入新密码",
+    //     showCancel: false
+    //   });
+    //   return
+    // }
+
+    if (newpwd1 !== newpwd2){
+      wx.showToast({
+        title: '新密码不一致',
+        mask: true,
+        icon: 'loading',
+        duration: 1000
+      })
       return
     }
     this.setData({
@@ -35,7 +53,7 @@ Page({
     app.admx.login.changePwd({
       data: {
         oldpwd: oldpwd,
-        newpwd:newpwd
+        newpwd:newpwd1
       },
       succ: function (res) {
         console.log(res);

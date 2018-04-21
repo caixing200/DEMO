@@ -9,9 +9,22 @@ Page({
    */
   data: {
     compname: "欢迎使用",
-    submitting: false
+    submitting: false,
+    isSaveAuthData: false,
+    account: '',
+    pwd: '',
   },
-
+  onLoad: function (options) {
+    const that = this;
+    const AuthData = wx.getStorageSync('userAuth');
+    if (AuthData) {
+      that.setData({
+        account: AuthData.account,
+        pwd: AuthData.password,
+        isSaveAuthData: true
+      })
+    }
+  },
   onShow: function (param) {
     console.log(app.globalData.company);
     if (app.globalData.company) {
@@ -34,14 +47,14 @@ Page({
       });
       return
     }
-    if (pwd.length == 0) {
-      wx.showModal({
-        content: "请输入密码",
-        showCancel: false
-      });
-      return
-    }
-    if (this.data.submitting) {
+    // if (pwd.length == 0) {
+    //   wx.showModal({
+    //     content: "请输入密码",
+    //     showCancel: false
+    //   });
+    //   return
+    // }
+    if (that.data.submitting) {
       wx.showModal({
         content: "正在处理,请勿多次点击",
         showCancel: false
@@ -106,7 +119,67 @@ Page({
 
 
 
-  }
-
-
+  },
+  saveAuthData: function (e) {
+    console.log(e);
+    const that = this;
+    if (e.detail.value) {
+      if (that.data.account){
+        that.setData({
+          isSaveAuthData: true
+        })
+        const userAuth = {};
+        userAuth.account = that.data.account;
+        userAuth.password = that.data.pwd;
+        wx.setStorageSync('userAuth', userAuth);
+      }else {
+        wx.showModal({
+          content: '请输入工号',
+          showCancel: false,
+          success: function(res){
+            if(res.confirm){
+              that.setData({
+                isSaveAuthData: false
+              })
+            }
+          }
+        })
+      }
+      
+    } else {
+      that.setData({
+        isSaveAuthData: false
+      })
+      wx.removeStorageSync('userAuth');
+    }
+  },
+  codingAccount: function (e) {
+    const that = this;
+    that.setData({
+      account: e.detail.value
+    })
+  },
+  codingPwd: function (e) {
+    const that = this;
+    that.setData({
+      pwd: e.detail.value
+    })
+  },
+  changeState: function(e){
+    const that = this;
+    if(e.target.dataset.state){
+      wx.showModal({
+        content: '是否取消保存工号和密码',
+        cancelText: '继续保存',
+        confirmText: '不保存',
+        success: function (res) {
+          if (res.confirm) {
+            that.setData({
+              isSaveAuthData: false
+            })
+          }
+        }
+      })
+    }
+  },
 });

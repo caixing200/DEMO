@@ -16,6 +16,11 @@ Page({
     eligibilityNum: '',
     disqualificationNum: '',
     todocode: '',
+    btnState: 1,
+    listHidden: false,
+    pageIndex: 1,
+    planList: [],
+    listHiddens: [],
   },
   //输入验证，2018.03.07废弃
   // inputCheck: function(e){
@@ -76,12 +81,68 @@ Page({
   //   }
   // },
 
+  goFinishList: function (e) {
+    const that = this;
+    if (that.data.btnState === 1) {
+      that.data.btnState = 2;
+      wx.navigateTo({
+        url: './finishList',
+      })
+    }
+  },
+  _unExamine: function (e) {
+    const that = this;
+    console.log(e);
+    wx.showLoading({
+      title: '数据加载中',
+      mask: true
+    })
+    app.admx.request({
+      url: app.config.service.cancelAuditDeptplan,
+      data: {
+        deptplan_id: e.target.dataset.deptplan_id,
+        qualitycheck_id: e.target.dataset.qualitycheck_id
+      },
+      succ: function (res) {
+        console.log(res);
+        if (!res) {
+          that.data.listHiddens[e.target.dataset.index] = true;
+          that.data.planList.splice(e.target.dataset.index,1);
+          that.setData({
+            //listHiddens: that.data.listHiddens,
+            planList: that.data.planList
+          }, () => {
+            wx.showModal({
+              content: '反审核成功',
+              showCancel: false,
+              // success: function (res) {
+              //   if (res.confirm) {
+              //     that._getPlanInfoByTodoCode(that.data.todocode)
+              //   }
+              // }
+            })
+          })
+        }
+      },
+      complete: function (res) {
+        wx.hideLoading();
+      }
+    })
+  },
+  //下拉刷新
+  lower: function () {
+    const that = this;
+    if (that.data.planList.length > 9) {
+      that._getPlanInfoByTodoCode(that.data.todocode);
+    }
+  },
 
   //获得员工信息
   onLoad: function (options) {
 
     console.log("---onshow:" + options);
     var that = this;
+
     console.log(app.Session.get());
     app.getUserInfo(function (wxUserInfo) {
       var session = app.Session.get();
@@ -95,6 +156,19 @@ Page({
     })
 
   },
+  onShow: function () {
+    console.log('show');
+    const that = this;
+    that.data.btnState = 1;
+    that.setData({
+      pageIndex: 1,
+      planList: []
+    }, () => {
+      if (that.data.todocode) {
+        that._getPlanInfoByTodoCode(that.data.todocode);
+      }
+    })
+  },
 
   //扫派工单
   scanTodoCode: function () {
@@ -105,8 +179,19 @@ Page({
         if (res.scanType == 'QR_CODE') {
           //得到物料编号，测试用
           //res.result = 'Z18030900002';
-          that.data.todocode = res.result;
-          that._getPlanInfoByTodoCode(that.data.todocode);
+          if (res.result.indexOf('Z') === 0) {
+            that.setData({
+              todocode: res.result
+            }, () => {
+              that._getPlanInfoByTodoCode(that.data.todocode);
+            })
+          } else {
+            wx.showModal({
+              content: '请扫子派工单二维码',
+              showCancel: false
+            })
+          }
+
         } else {
           wx.showModal({
             content: '请扫派工单二维码',
@@ -116,7 +201,18 @@ Page({
       }
     });
   },
-
+  _addKey: function (list) {
+    const that = this;
+    const tempArr = [];
+    for (let i = 0; i < list.length; i++) {
+      list[i].itemKey = i
+      tempArr.push(false);
+    };
+    that.setData({
+      listHiddens: tempArr
+    })
+    return list
+  },
   _getPlanInfoByTodoCode: function (todocode) {
     var that = this;
     wx.showLoading({
@@ -126,23 +222,43 @@ Page({
     app.admx.request({
       url: app.config.service.getDeptplan,
       data: {
-        subtodo_code: todocode
+        subtodo_code: todocode,
+        currentPage: that.data.pageIndex
       },
       succ: function (res) {
         console.log(res);
         // res[0].dept_end = '';
-        if (typeof res == 'object' && res.length>0) {
+        if (typeof res == 'object' && res.length > 0) {
+          let tempArr = [];
+          if(that.data.pageIndex === 1){
+            tempArr = that._addKey(that._trimData(res));
+          }else {
+            tempArr = that._addKey(that.data.planList.concat(that._trimData(res)));
+          }
           that.setData({
-            submitCover: res[0].dept_end === '' ? true : false,
+            listHidden: true,
+            submitCover: res[0] ? true : false,
             plan: res[0],
+            planList: tempArr,
             eligibilityNum: '',
             disqualificationNum: '',
+            pageIndex: that.data.pageIndex + 1
           });
         } else {
-          wx.showModal({
-            content: "没有找到生产计划信息",
-            showCancel: false
-          })
+          if(that.data.pageIndex === 1){
+            wx.showModal({
+              content: "没有找到生产计划信息",
+              showCancel: false
+            })
+          }else {
+            wx.showToast({
+              title: '没有更多信息',
+              mask: true,
+              duration: 800,
+              icon: 'loading'
+            })
+          }
+          
         }
       },
       complete: function (res) {
@@ -150,7 +266,16 @@ Page({
       }
     })
   },
-
+  _trimData: function (list) {
+    const that = this;
+    let tempArr = [];
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].qualitycheck_id) {
+        tempArr.push(list[i]);
+      }
+    }
+    return tempArr;
+  },
   //点击确定
   dosubmit: function (e) {
     console.log(e);
@@ -202,7 +327,7 @@ Page({
         showCancel: false
       });
       return
-    } 
+    }
     // else if (qualifiedNum > (that.data.plan.dept_plannumber - 0)) {
     //   wx.showModal({
     //     content: '合格数量不能大于计划数',
@@ -243,7 +368,8 @@ Page({
 
 
     this.setData({
-      submitting: true
+      submitting: true,
+      pageIndex: 1
     })
     wx.showLoading({
       title: '提交中...',
@@ -263,7 +389,7 @@ Page({
             content: "操作成功",
             showCancel: false,
             success: function (res) {
-              if(res.confirm){
+              if (res.confirm) {
                 that._getPlanInfoByTodoCode(that.data.todocode);
               }
             }

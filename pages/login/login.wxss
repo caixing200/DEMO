@@ -45,5 +45,18 @@
 }
 
 .btn-box {
-  margin-top: 90rpx;
+  margin-top: 40rpx;
+}
+
+.userAuthBtn {
+  height: 100rpx;
+  margin-top: 20rpx;
+  padding: 25rpx 0;
+}
+.AuthBtn {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+}
+.saveAuthData {
+  color: #999;
 }

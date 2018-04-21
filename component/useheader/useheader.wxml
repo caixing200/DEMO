@@ -1,0 +1,10 @@
+<!--component/useheader/useheader.wxml-->
+<!-- 用户头部 -->
+<view class="item-people">
+  <image style="border:1rpx #ccc solid;" class="people" src="{{useData.wxUserInfo.avatarUrl}}"></image>
+  <view class="inform">
+    <text class="name">{{useData.user.name}}</text>
+    <text class="number">工号：{{useData.user.serialNo}}</text>
+  </view>
+  <image class="user" src="../../images/partner.png" bindtap="partner" hidden='{{isListHidden}}'></image>
+</view>
