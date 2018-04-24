@@ -93,7 +93,7 @@
       <!-- 派工单计划数量 -->
       <view class="item">
         <text class="item-name">总计划数</text>
-        <input class="item-inp" name="num" type="number" value='{{todo.todo_num>0?todo.todo_num:""}}' placeholder='请输入总计划数' bindinput='userInput' data-id='4'></input>
+        <input class="item-inp" name="num" type="number" value='{{todo.todo_num}}' disabled='{{todo.todo_num>0?true:""}}' placeholder='请输入总计划数' bindinput='userInput' data-id='4'></input>
       </view>
 
       <!-- 比例-->
@@ -105,13 +105,13 @@
 
       <!-- 本次计划数量子派工单信息计划数量-->
       <view class="item" style="border:none;">
-        <text class="item-name" style="width:180rpx;">本次计划数</text>
-        <input type="number" class="item-inp" name="plannumber" value='' placeholder='请输入本次计划数' bindinput='userInput' data-id='5'></input>
+        <text class="item-name" style="width:180rpx;">计划数</text>
+        <input type="number" class="item-inp" name="plannumber" value='{{todo.subtodo_plannumber}}' placeholder='请输入本次计划数' bindinput='userInput' disabled='{{todo.subtodo_plannumber>0?true:""}}' data-id='5'></input>
       </view>
     </view>
 
     <view class="btn-box">
-      <button class="btn" form-type="submit" hover-class="other-button-hover">确定</button>
+      <button class="btn" form-type="submit" hover-class="other-button-hover">{{todo.subtodo_process?"领取":"确定"}}</button>
     </view>
   </form>
 </view>

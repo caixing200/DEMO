@@ -18,7 +18,6 @@ Page({
     });
   },
   onShow: function () {
-
     this._getDetailBySubid();
     this._getPartenList();
   },
@@ -42,7 +41,7 @@ Page({
     if (!that.checkInput(e.detail.value)) {
       return
     }
-
+    var claimNum = 0;
     var claimListStr = getList(e.detail.value);
 
     function getList(data) {
@@ -66,15 +65,24 @@ Page({
           + '|'
           + partner[i].partner_id;
         tempArr.push(tempStr);
+        claimNum += parseInt(data[qualifiedNumIndex]);
+        claimNum += parseInt(data[disqualifiedNumIndex]);
       }
       return tempArr.join(';')
     }
 
     console.log("-----")
     console.log(claimListStr);
-
+    console.log(claimNum);
+    console.log(that.data.todo.subtodo_plannumber);
+    let showTxt = '';
+    if (that.data.todo.subtodo_plannumber >= claimNum){
+      showTxt = '是否确认报工？';
+    }else {
+      showTxt = '报工总数大于计划数量，是否报工？';
+    }
     wx.showModal({
-      content: '是否确认报工?',
+      content: showTxt,
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')

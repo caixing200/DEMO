@@ -30,7 +30,7 @@ Page({
   //扫设备
   scanEquip: function () {
     var that = this;
-    if(that.data.state === '1'){
+    if (that.data.state === '1' && (that.data.todo.owner === that.data.appuserinfo.serialNo)){
       wx.scanCode({
         success: (res) => {
           console.log(res)
@@ -215,7 +215,7 @@ Page({
   //扫物料
   scanMaterial: function () {
     var that = this;
-    if(that.data.state === '1'){
+    if (that.data.state === '1' && (that.data.todo.owner === that.data.appuserinfo.serialNo)){
       wx.scanCode({
         success: (res) => {
           console.log(res)

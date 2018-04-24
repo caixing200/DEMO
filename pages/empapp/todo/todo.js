@@ -51,34 +51,8 @@ Page({
       },
       succ: function (res) {
         console.log(res);
-        if (that.data.subTodoState === 1){
-          if(res.length>0){
-            if(res[0].owner){
-              if (res[0].owner != that.data.owner) {
-                wx.showModal({
-                  content: '该子派工单正在由' + res[0].owner_name + '执行，是否加入？',
-                  success: function (res) {
-                    if (res.confirm) {
-                      that._postSubtodo(true);
-                    } else if (res.cancel) {
-                      wx.navigateBack();
-                    }
-                  }
-                });
-              }
-            }else {
-              that._postSubtodo(false);
-            }
-          }
-        }else {
-          if (res.length === 1) {
-            that.setData({
-              todo: res[0],          //对象 包含所有信息  
-              todocode: code,          //派工单号，将小程序的code直接传给todocode  
-              inNum: res[0].subtodo_plannumber,
-              isHistory: that.checkHistory(res[0]),
-            })
-          } else if (res.length > 1) {
+        if (that.data.subTodoState === 0) {
+          if (res.length > 0) {
             var state = res[1].result;
             var showTxt = '';
             var userShowTxt = res[1].message;
@@ -120,13 +94,36 @@ Page({
                 }
               })
             } else {
-              that.setData({
-                todo: res[0],          //对象 包含所有信息  
-                todocode: code,          //派工单号，将小程序的code直接传给todocode  
-                inNum: res[0].subtodo_plannumber,
-                isHistory: that.checkHistory(res[0]),
-              })
+              if (res[0].owner) {
+                if (res[0].owner != that.data.owner) {
+                  wx.showModal({
+                    content: '该子派工单正在由' + res[0].owner_name + '执行，是否加入？',
+                    success: function (data) {
+                      if (data.confirm) {
+                        that.setData({
+                          todo: res[0],//对象 包含所有信息  
+                          todocode: code,//派工单号，将小程序的code直接传给todocode  
+                          inNum: res[0].subtodo_plannumber,
+                          isHistory: that.checkHistory(res[0]),
+                          subTodoState: 1,
+                        })
+                      } else if (data.cancel) {
+                        wx.navigateBack();
+                      }
+                    }
+                  });
+                }
+              } else {
+                that.setData({
+                  todo: res[0],          //对象 包含所有信息  
+                  todocode: code,          //派工单号，将小程序的code直接传给todocode  
+                  inNum: res[0].subtodo_plannumber,
+                  isHistory: that.checkHistory(res[0]),
+                  subTodoState: 2,
+                })
+              }
             }
+
           } else {
             wx.showModal({
               content: '子派工单不存在或已失效',
@@ -138,8 +135,139 @@ Page({
               }
             })
           }
+        } else if (that.data.subTodoState === 1){
+          that._postSubtodo(false);
+        } else if (that.data.subTodoState === 2){
+          if (res.length > 0) {
+            if (res[0].owner) {
+              wx.showModal({
+                content: '该子派工单已被领取，请重新扫码',
+                showCancel: false,
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.navigateBack();
+                  }
+                }
+              })
+            } else {
+              that._postSubtodo(false);
+            }
+          }else {
+            wx.showModal({
+              content: '子派工单不存在或已失效',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  wx.navigateBack()
+                }
+              }
+            })
+          }
         }
-        
+
+
+
+
+        /////////////////////////////////////////////////////////////////////
+        // if (that.data.subTodoState === 1) {
+        //   if (res.length > 0) {
+        //     if (res[0].owner) {
+        //       wx.showModal({
+        //         content: '请重新扫码',
+        //         showCancel: false,
+        //         success: function (res) {
+        //           if (res.confirm) {
+        //             wx.navigateBack();
+        //           }
+        //         }
+        //       })
+        //     } else {
+        //       that._postSubtodo(false);
+        //     }
+        //   }
+        // } else if (that.data.subTodoState === 0) {
+        //   if (res.length > 1) {
+        //     var state = res[1].result;
+        //     var showTxt = '';
+        //     var userShowTxt = res[1].message;
+        //     switch (state) {
+        //       case '-1':
+        //         showTxt = '';
+        //         break;
+        //       case '0':
+        //         showTxt = '';
+        //         break;
+        //       case '1':
+        //         if (that.data.owner === res[0].owner) {
+        //           showTxt = '你已经领取该子派工单';
+        //         } else {
+        //           showTxt = userShowTxt;
+        //         }
+        //         break;
+        //       case '2':
+        //         showTxt = userShowTxt;
+        //         break;
+        //       case '3':
+        //         showTxt = userShowTxt;
+        //         break;
+        //       case '4':
+        //         //showTxt = '该子派工单已经被审核';
+        //         showTxt = userShowTxt;
+        //         break;
+        //     }
+        //     if (showTxt) {
+        //       wx.showModal({
+        //         content: showTxt,
+        //         showCancel: false,
+        //         success: function (res) {
+        //           if (res.confirm) {
+        //             wx.navigateBack({
+        //               delta: 1
+        //             })
+        //           }
+        //         }
+        //       })
+        //     } else {
+        //       if (res[0].owner) {
+        //         if (res[0].owner != that.data.owner) {
+        //           wx.showModal({
+        //             content: '该子派工单正在由' + res[0].owner_name + '执行，是否加入？',
+        //             success: function (res) {
+        //               if (res.confirm) {
+        //                 that.setData({
+        //                   todo: res[0],          //对象 包含所有信息  
+        //                   todocode: code,          //派工单号，将小程序的code直接传给todocode  
+        //                   inNum: res[0].subtodo_plannumber,
+        //                   isHistory: that.checkHistory(res[0]),
+        //                 })
+        //               } else if (res.cancel) {
+        //                 wx.navigateBack();
+        //               }
+        //             }
+        //           });
+        //         }
+        //       } else {
+        //         that.setData({
+        //           todo: res[0],          //对象 包含所有信息  
+        //           todocode: code,          //派工单号，将小程序的code直接传给todocode  
+        //           inNum: res[0].subtodo_plannumber,
+        //           isHistory: that.checkHistory(res[0]),
+        //         })
+        //       }
+        //     }
+        //   } else {
+        //     wx.showModal({
+        //       content: '子派工单不存在或已失效',
+        //       showCancel: false,
+        //       success: function (res) {
+        //         if (res.confirm) {
+        //           wx.navigateBack()
+        //         }
+        //       }
+        //     })
+        //   }
+        // }
+
       },
       complete: function (res) {
         wx.hideLoading();
@@ -252,51 +380,53 @@ Page({
       submitting: true
     })
 
-    var ownerName = that.data.todo.owner_name;
-    var ownerId = that.data.todo.owner;
-    if(ownerId != ''){
-      if (ownerId != that.data.owner) {
-        wx.showModal({
-          content: '该子派工单正在由' + ownerName + '执行，是否加入？',
-          success: function (res) {
-            if (res.confirm) {
-              that._postSubtodo(true);
-            } else if (res.cancel) {
-              wx.navigateBack({
-                delta: 1
-              });
-            }
-          }
-        });
-      }else {
-        wx.showModal({
-          content: '你已经领取了该子派工单',
-          showCancel: false,
-          success: function(res){
-            if(res.confirm){
-              wx.navigateBack();
-            }
-          }
-        })
-      }
-    } else {
-      if (that.data.subTodoState === 0){
-        that.setData({
-          subTodoState: 1
-        }, () => {
-          that._getTodo(that.data.code);
-        })
-      }
-    }
+    // var ownerName = that.data.todo.owner_name;
+    // var ownerId = that.data.todo.owner;
+    // if (ownerId != '') {
+    //   if (ownerId != that.data.owner) {
+    //     wx.showModal({
+    //       content: '该子派工单正在由' + ownerName + '执行，是否加入？',
+    //       success: function (res) {
+    //         if (res.confirm) {
+    //           that._postSubtodo(true);
+    //         } else if (res.cancel) {
+    //           wx.navigateBack({
+    //             delta: 1
+    //           });
+    //         }
+    //       }
+    //     });
+    //   } else {
+    //     wx.showModal({
+    //       content: '你已经领取了该子派工单',
+    //       showCancel: false,
+    //       success: function (res) {
+    //         if (res.confirm) {
+    //           wx.navigateBack();
+    //         }
+    //       }
+    //     })
+    //   }
+    // } else {
+    //   if (that.data.subTodoState === 0) {
+    //     that.setData({
+    //       subTodoState: 1
+    //     }, () => {
+    //       that._getTodo(that.data.code);
+    //     })
+    //   }
+    // }
+
+    that._getTodo(that.data.code);
   },
-  _trimZero: function(num){
+  _trimZero: function (num) {
     const that = this;
-    const numTxt = num+'';
+    const numTxt = num + '';
     let tempNum = '';
-    for(let i =0;i<numTxt.length;i++){
-      if(numTxt[i] == 0){
+    for (let i = 0; i < numTxt.length; i++) {
+      if (numTxt[i] == 0) {
         continue;
-      }else {
+      } else {
         tempNum = numTxt.slice(i);
         return tempNum
       }
@@ -314,12 +444,12 @@ Page({
         if (res) {
           let status = parseInt(res);
           let titleTxt = res.split(':')[1] || '';
-          if(status == 0){
+          if (status == 0) {
             wx.showToast({
               title: titleTxt,
               mask: true,
               duration: 1000,
-              success: function(){
+              success: function () {
                 setTimeout(function () {
                   wx.navigateBack()
                 }, 1000)
@@ -329,8 +459,8 @@ Page({
             wx.showModal({
               content: titleTxt,
               showCancel: false,
-              success: function(res){
-                if(res.confirm){
+              success: function (res) {
+                if (res.confirm) {
                   wx.navigateBack()
                 }
               }
@@ -340,8 +470,8 @@ Page({
           wx.showModal({
             content: '信息发送失败，请返回！',
             showCancel: false,
-            success: function(res){
-              if(res.confirm){
+            success: function (res) {
+              if (res.confirm) {
                 wx.navigateBack()
               }
             }

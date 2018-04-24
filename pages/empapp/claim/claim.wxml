@@ -26,9 +26,21 @@
     </view>
 
     <!-- 计划产量 -->
-    <view class="item" style="border:none;">
-      <text class="item-name">本次计划数</text>
+    <view class="item">
+      <text class="item-name">计划数</text>
       <text class="item-value">{{todo.subtodo_plannumber}}</text>
+    </view>
+
+    <!-- 报工合格数 -->
+    <view class="item">
+      <text class="item-name">报工合格数</text>
+      <text class="item-value">{{todo.claim_ok>0?todo.claim_ok:'0'}}</text>
+    </view>
+
+    <!-- 审核合格数 -->
+    <view class="item" style="border:none;">
+      <text class="item-name">审核合格数</text>
+      <text class="item-value">{{todo.exam_ok>0?todo.exam_ok:'0'}}</text>
     </view>
   </view>
 

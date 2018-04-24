@@ -1,6 +1,7 @@
 .base image{
   width: 16rpx;
   height: 25rpx;
+  
 }
 
 .plan-title{
