@@ -1,0 +1,16 @@
+/* component/getUserInfoData.wxss */
+
+.getUserData {
+  height: 100%;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dataBox {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 400rpx;
+  transform: translate(-50%,-50%);
+}
+

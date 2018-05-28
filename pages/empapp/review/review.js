@@ -27,7 +27,7 @@ Page({
     var that = this;
     app.globalData.detailData = null;
     app.globalData.todoData = null;
-    console.log(app.Session.get());
+    
     app.getUserInfo(function (wxUserInfo) {
       var session = app.Session.get();
       session.wxUserInfo = wxUserInfo;

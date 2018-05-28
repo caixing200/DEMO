@@ -3,11 +3,11 @@
 <view class="container">
   
    <view class="top">
-    <text>审核合格数</text><input placeholder='请输入' type='number' value='{{qnum}}' bindinput='bindOkInput' maxlength='10'></input>
+    <text>审核合格数</text><input placeholder='请输入' type='digit' value='{{qnum}}' bindinput='bindOkInput' maxlength='10'></input>
   </view>
 
    <view class="top">
-    <text>不合格数</text><input placeholder='请输入' type='number' value='{{disqnum}}' bindinput='bindNgInput' maxlength='10'></input>
+    <text>不合格数</text><input placeholder='请输入' type='digit' value='{{disqnum}}' bindinput='bindNgInput' maxlength='10'></input>
    </view>
 
 

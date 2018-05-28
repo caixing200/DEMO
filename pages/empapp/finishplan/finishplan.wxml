@@ -134,13 +134,13 @@
       <!-- 合格数量 -->
       <view class="item">
         <text class="item-name">合格数量</text>
-        <input id='input1' hidden='{{!submitCover}}' placeholder='请输入' class="item-value" name="qualifiedNum" type="number" maxlength="10" value='{{eligibilityNum}}'></input>
+        <input id='input1' hidden='{{!submitCover}}' placeholder='请输入' class="item-value" name="qualifiedNum" type="digit" maxlength="10" value='{{eligibilityNum}}'></input>
       </view>
 
       <!-- 不合格数量 -->
       <view class="item" style="border:none;">
         <text class="item-name" style="width:180rpx;">不合格数量</text>
-        <input id='input2' hidden='{{!submitCover}}' placeholder='请输入' class="item-value" name="disqualifiedNum" type="number" maxlength="10" value='{{disqualificationNum}}'></input>
+        <input id='input2' hidden='{{!submitCover}}' placeholder='请输入' class="item-value" name="disqualifiedNum" type="digit" maxlength="10" value='{{disqualificationNum}}'></input>
       </view>
       <view class='cover' hidden='{{submitCover}}'></view>
     </view>

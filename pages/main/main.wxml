@@ -10,4 +10,10 @@
       </navigator>
     </view>
   </scroll-view>
+  
+  <view class="getUserData" hidden='{{isUserInfo}}'>
+    <view class='dataBox'>
+      <button open-type='getUserInfo' lang='zh_CN' bindgetuserinfo="_setUserInfo">点我开始使用</button>
+    </view>
+  </view>
 </view>

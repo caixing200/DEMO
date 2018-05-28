@@ -4,6 +4,7 @@ page {
 .container{
   height: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .sao-white{
@@ -267,4 +268,20 @@ page {
 }
 .placeholder {
   height: 120rpx;
+}
+.getUserData {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dataBox {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  width: 400rpx;
+  transform: translate(-50%,-50%);
 }

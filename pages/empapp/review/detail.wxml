@@ -91,11 +91,11 @@
       <form bindsubmit="formSubmit">
         <view class='inp'>
           <text class='inpTxt'>审核合格数：</text>
-          <input class='inputs' type='number' name='exam_ok' placeholder='请输入' maxlength='10' focus='true'></input>
+          <input class='inputs' type='digit' name='exam_ok' placeholder='请输入' maxlength='10' focus='true'></input>
         </view>
         <view class='inp'>
           <text class='inpTxt'>审核不合格数：</text>
-          <input class='inputs' type='number' name='exam_ng' placeholder='请输入' maxlength='10'></input>
+          <input class='inputs' type='digit' name='exam_ng' placeholder='请输入' maxlength='10'></input>
         </view>
         <view class='btnBox'>
           <view class='buttons'>

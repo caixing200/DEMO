@@ -33,7 +33,7 @@
 
       <view class="item" style="border:none;">
         <text class="item-name">单件用量</text>
-        <input class="item-inp" type='number' bindinput="peruseInput" name="peruse" value="{{peruse}}" placeholder='请输入单件用量'></input>
+        <input class="item-inp" type='digit' bindinput="peruseInput" name="peruse" value="{{peruse}}" placeholder='请输入单件用量'></input>
       </view>
     
     </view>

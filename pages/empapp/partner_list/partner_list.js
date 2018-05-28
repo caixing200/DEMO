@@ -7,11 +7,12 @@ Page({
     //app用存储的员工信息
     appuserinfo: null,
     //存工友信息
-    PartnerList: {},
+    PartnerList: [],
     // PartnerList: [{partner_id:202, partner_name: '王五', partner_subtodo: 'Z1234567', partner_state: 0 },
     //               {partner_id:101, partner_name: '张三', partner_subtodo: 'Z1234567', partner_state: 1}, 
     //               {partner_id:303, partner_name: '李四', partner_subtodo: 'Z1234567', partner_state: 2}],
     scrollViewHeight: 400,
+    pageIndex: 1,
   },
   onShow: function () {
 
@@ -40,10 +41,15 @@ Page({
             },
             succ: function (res) {
               if(!res){
-                that._getCurrentPartnerList();
+                that.setData({
+                  pageIndex: 1,
+                  PartnerList: []
+                },()=>{
+                  that._getCurrentPartnerList();
+                })
               }else {
                 wx.showModal({
-                  content: '未能将对方加入订单身产，请重试',
+                  content: '未能将对方加入订单生产，请重试',
                   showCancel: false
                 })
               }
@@ -56,6 +62,22 @@ Page({
     })
   },
 
+  //下拉刷新
+  loadList: function(){
+    const that = this;
+    if(that.data.PartnerList.length>9){
+      if (that.data.PartnerList.length%10 === 0){
+        that._getCurrentPartnerList();
+      }else {
+        wx.showToast({
+          title: '没有更多数据',
+          mask: true,
+          duration: 800
+        })
+      }
+    }
+    
+  },
   //点“拒绝”按钮
   refuse: function (e) {
     const that = this;
@@ -76,7 +98,12 @@ Page({
             succ: function (res) {
               console.log(res)
               if(!res){
-                that._getCurrentPartnerList();
+                that.setData({
+                  pageIndex: 1,
+                  PartnerList: [],
+                },()=>{
+                  that._getCurrentPartnerList();
+                })
               }else {
                 wx.showModal({
                   content: '未能拒绝对方，请重试',
@@ -102,13 +129,15 @@ Page({
     app.admx.request({
       url: app.config.service.PartnerList,//辅工的请求列表输出为主工的
       data: {
+        currentPage: that.data.pageIndex
       },
       succ: function (res) {
         console.log(res);//
         if (res[0]) {
           //如果返回了派出单
           that.setData({
-            PartnerList: res,
+            PartnerList: that.data.PartnerList.concat(res),
+            pageIndex: that.data.pageIndex + 1
           });
         } else {
           that.setData({

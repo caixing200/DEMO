@@ -58,11 +58,15 @@ App       ({
 
     this.getCompnayInfo();
   },
+  onShow: function(){
+    const that = this;
+
+  },
   // lazy loading openid
   getUserInfo: function (cb) {
     var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.wxUserInfo)
+    if (that.globalData.userInfo) {
+      typeof cb == "function" && cb(that.globalData.wxUserInfo);
     } else {
       //调用登录接口
       wx.login({
@@ -90,6 +94,11 @@ App       ({
         }
       }
     });
+  },
+
+  //定期获取session
+  getSession: function(){
+    
   }
 
 })

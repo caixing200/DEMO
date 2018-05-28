@@ -352,21 +352,21 @@ Page({
     var num = that.data.subtodo.subtodo_plannumber || '';
     if (num.length == 0) {
       wx.showModal({
-        content: "请输入本次生产计划数量",
+        content: "请输入生产计划数量",
         showCancel: false
       });
       return
     }
     if (num === '0') {
       wx.showModal({
-        content: "本次生产计划数量需大于0",
+        content: "生产计划数量需大于0",
         showCancel: false
       });
       return
     }
     if (isNaN(num)) {
       wx.showModal({
-        content: "本次生产计划数量只能输入数字",
+        content: "生产计划数量只能输入数字",
         showCancel: false
       });
       return

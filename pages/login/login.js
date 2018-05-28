@@ -13,6 +13,7 @@ Page({
     isSaveAuthData: false,
     account: '',
     pwd: '',
+    sessionTimer: null,
   },
   onLoad: function (options) {
     const that = this;
@@ -66,60 +67,96 @@ Page({
         title: '加载中',
         mask: true
       })
-      app.admx.login.login({
-        url: app.config.service.loginUrl,
-        data: {
-          "account": account,
-          "password": pwd
-        },
-        succ: function (res) {
-
-          console.log("--login success");
-          console.log(res);
-          // var power = app.Session.get().user.power;
-          var power = res.user.power;
-          if (power == null || power.length == 0) {
-            wx.showModal({
-              showCancel: false,
-              content: '权限没有设置'
-            })
-            return;
-          } else {
-            if (power.length == 1) {
-              if (power[0].id == 1) {
-                wx.redirectTo({
-                  url: '../empapp/index'
-                })
-              }
-            } else {//如果权限多于一个跳转到主页面让去选择菜单
-              wx.redirectTo({
-                url: '../main/main'
-              })
-            }
-
-          }
-        },
-        complete: function (res) {
-          wx.hideLoading();
-          console.log('....complete');
-          that.setData({
-            submitting: false
-          })
-        },
-        fail: function (res) {
-          wx.hideLoading();
-          console.log(res);
-          wx.showModal({
-            content: "登录失败",
-            showCancel: false
-          });
-        }
-      });
+      that.userLogin(account, pwd);
     }
-
-
-
   },
+
+  userLogin: function (account, pwd){
+    const that = this;
+    app.admx.login.login({
+      url: app.config.service.loginUrl,
+      data: {
+        "account": account,
+        "password": pwd
+      },
+      succ: function (res) {
+
+        console.log("--login success");
+        console.log(res);
+        console.log(app.Session.get());
+        console.log(account);
+        console.log(pwd);
+        // var power = app.Session.get().user.power;
+        var power = res.user.power;
+        if (power == null || power.length == 0) {
+          wx.showModal({
+            showCancel: false,
+            content: '权限没有设置'
+          })
+          return;
+        } else {
+          that.getSession();
+          wx.redirectTo({
+            url: '../main/main'
+          })
+          // if (power.length == 1) {
+          //   if (power[0].id == 1) {
+          //     wx.redirectTo({
+          //       url: '../empapp/index'
+          //     })
+          //   }
+          // } else {//如果权限多于一个跳转到主页面让去选择菜单
+          //   wx.redirectTo({
+          //     url: '../main/main'
+          //   })
+          // }
+
+        }
+      },
+      complete: function (res) {
+        wx.hideLoading();
+        console.log('....complete');
+        that.setData({
+          submitting: false
+        })
+      },
+      fail: function (res) {
+        wx.hideLoading();
+        console.log(res);
+        wx.showModal({
+          content: "登录失败",
+          showCancel: false
+        });
+      }
+    });
+  },
+  getSession: function(){
+    const that = this;
+    clearTimeout(that.data.sessionTimer);
+    that.data.sessionTimer = setTimeout(function(){
+      that.updateSession();
+    },7000000);
+  },
+  updateSession: function(){
+    const that = this;
+    const userAuth = app.Session.get().userAuth;
+    console.log(userAuth);
+    app.admx.login.login({
+      url: app.config.service.loginUrl,
+      data: {
+        "account": userAuth.account,
+        "password": userAuth.password
+      },
+      succ: function (res) {
+        console.log(res);
+        that.getSession();
+      },
+      complete: function (res) {
+        wx.hideLoading();
+      }
+    });
+  },
+
   saveAuthData: function (e) {
     console.log(e);
     const that = this;

@@ -16,15 +16,14 @@ Page({
     scrollViewHeight: 400,
     tabActiveClass: ['active', '', ''],
     pageIndex: 1,
+    isUserInfo: true
   },
 
   //数据赋值
   onLoad: function (options) {
 
-    console.log("---onshow:" + options);
+    console.log("---onLoad:" + options);
     var that = this;
-    console.log(app.Session.get());
-
     app.getUserInfo(function (wxUserInfo) {
       var session = app.Session.get();
       session.wxUserInfo = wxUserInfo;
@@ -43,6 +42,20 @@ Page({
     console.log("---onshow:" + app.refreshCofing);
     console.log(app.refreshCofing);
     this.tabShowOnGoing(null, app.config.ClaimState.ongoing);
+  },
+  //获取用户信息
+  _setUserInfo: function (data) {
+    const that = this;
+    console.log(data);
+    app.globalData.wxUserInfo = data.detail.userInfo;
+    app.getUserInfo(function (wxUserInfo) {
+      var session = app.Session.get();
+      session.wxUserInfo = wxUserInfo;
+      app.Session.set(session);
+    });
+    that.setData({
+      isUserInfo: true
+    })
   },
   //下拉刷新
   lower: function () {

@@ -59,4 +59,5 @@
   <view class="btn-box">
     <button class="btn" hover-class="other-button-hover" bindtap="logout">退出登录</button>
   </view>
+
 </view>

@@ -1,5 +1,5 @@
 <view class="container">
- 
+ <scroll-view scroll-y='true' style='height:100%;' bindscrolltolower='loadList'>
  <view class="item-people" wx:for="{{PartnerList}}"  wx:for-item= "item"  wx:key="id" >     
      <image src="../../../images/qq.png" style="border:1rpx #ccc solid" class="people"></image> 
     <view class="inform">
@@ -25,6 +25,7 @@
        <text>已拒绝</text>
     </view>  
  </view>
+</scroll-view>
 </view>
 
  <!-- <view class="item-people">

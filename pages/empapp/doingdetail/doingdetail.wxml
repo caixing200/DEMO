@@ -123,8 +123,8 @@
       <view class="care-box">
         <block>
           <!--wx:if="{{materiallist != null}}-->
-          <view wx:for="{{materiallist}}" wx:key="id" style="height:260rpx;width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
-            <view style="height:100%;width:100%;">
+          <view wx:for="{{materiallist}}" wx:key="id" style="width:100%;border-bottom: 1rpx dashed #e5e5e5;margin-bottom: 10rpx;">
+            <view style="height:100%;width:100%;overflow: hidden;">
               <view class="mView num">
                 <view class='flexs' style='width:100%;height:100%;padding:60rpx 0;'>
                   <view class='flexBox'>物</view>
@@ -155,11 +155,15 @@
                 <text>此派工单应领取数：{{(item.m_num-0)*(todo.subtodo_plannumber-0)}}</text>
               </view> -->
               </view>
-              <view class='mView changes' style=''>
-                <view class='change' data-subtodo_m_id='{{item.subtodo_m_id}}' data-m_code='{{item.m_code}}' data-m_name='{{item.m_name}}' data-m_model='{{item.m_model}}' data-batchno='{{item.batchno}}' data-m_num='{{item.m_num}}' bindtap='updateMaterial'>修改</view>
-              </view>
-              <view class='mView deletes deletes_m' style=''>
-                <view class='delete' data-mid='{{item.subtodo_m_id}}' bindtap='deleteMaterial' style=''>删除</view>
+              <view class='materialBtnView'>
+                <view class='materialBtnBox'>
+                  <view class='changes' style=''>
+                    <view class='change' data-subtodo_m_id='{{item.subtodo_m_id}}' data-m_code='{{item.m_code}}' data-m_name='{{item.m_name}}' data-m_model='{{item.m_model}}' data-batchno='{{item.batchno}}' data-m_num='{{item.m_num}}' bindtap='updateMaterial'>修改</view>
+                  </view>
+                  <view class='deletes deletes_m' style=''>
+                    <view class='delete' data-mid='{{item.subtodo_m_id}}' bindtap='deleteMaterial' style=''>删除</view>
+                  </view>
+                </view>
               </view>
             </view>
           </view>

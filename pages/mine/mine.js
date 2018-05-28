@@ -28,7 +28,7 @@ Page({
         wxUserInfo: wxUserInfo,
         appuserinfo: app.Session.get().user,
         company: app.globalData.company
-      },()=>{
+      }, () => {
         console.log(that.data.company)
         console.log(that.data.wxUserInfo)
         console.log(that.data.appuserinfo)

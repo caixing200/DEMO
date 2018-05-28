@@ -59,13 +59,13 @@
         <!-- 合格数量 -->
         <view class="item">
           <text class="item-name" style="width:180rpx;">报工合格数</text>
-          <input class="item-value" name="qualifiedNum{{index}}" type="number" maxlength="10" placeholder='请输入合格数'></input>
+          <input class="item-value" name="qualifiedNum{{index}}" type="digit" maxlength="10" placeholder='请输入合格数'></input>
         </view>
 
         <!-- 不合格数量 -->
         <view class="item" style="border:none;">
           <text class="item-name" style="width:180rpx;">不合格数</text>
-          <input class="item-value" name="disqualifiedNum{{index}}" type="number" maxlength="10" placeholder='请输入不合格数'></input>
+          <input class="item-value" name="disqualifiedNum{{index}}" type="digit" maxlength="10" placeholder='请输入不合格数'></input>
         </view>
       </view>
     </block>

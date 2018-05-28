@@ -4,10 +4,33 @@ Page({
     focus: false,
     power: null,
     inputValue: '',
-    btnStatus: 1
+    btnStatus: 1,
+    isUserInfo: true
   },
   onLoad: function () {
     const that = this;
+    //2018.05.10微信修改登录接口基础API后进行适应性修改
+    wx.getSetting({
+      success: function (data) {
+        if (!data.authSetting['scope.userInfo']) {
+          that.setData({
+            isUserInfo: false
+          })
+        } else {
+          app.getUserInfo(function (wxUserInfo) {
+            var session = app.Session.get();
+            session.wxUserInfo = wxUserInfo;
+            app.Session.set(session);
+            //更新数据
+            that.setData({
+              wxUserInfo: wxUserInfo,
+              appuserinfo: app.Session.get().user
+            })
+          });
+        }
+      }
+    })
+
     var power = app.Session.get().user.power;
     console.log(power);
     power = that.filtrMenu(power);
@@ -27,6 +50,30 @@ Page({
   onShow: function () {
     const that = this;
     that.data.btnStatus = 1
+  },
+  //获取用户信息
+  _setUserInfo: function (data) {
+    const that = this;
+    console.log(data);
+    if (data.detail.userInfo){
+      app.globalData.wxUserInfo = data.detail.userInfo;
+      app.getUserInfo(function (wxUserInfo) {
+        var session = app.Session.get();
+        session.wxUserInfo = wxUserInfo;
+        app.Session.set(session);
+      });
+      that.setData({
+        isUserInfo: true
+      })
+    }else {
+      wx.showToast({
+        title: '需授权后使用',
+        mask: true,
+        icon: 'loading'
+      })
+    }
+    
+    
   },
   //过滤菜单
   filtrMenu: function (data) {

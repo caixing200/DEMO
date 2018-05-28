@@ -104,6 +104,10 @@
     </view>
   </view>
 
-
+  <!-- <view class="getUserData" hidden='{{isUserInfo}}'>
+    <view class='dataBox'>
+      <button open-type='getUserInfo' lang='zh_CN' bindgetuserinfo="_setUserInfo">显示微信头像和昵称</button>
+    </view>
+  </view> -->
 
 </view>
