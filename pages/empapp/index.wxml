@@ -7,6 +7,7 @@
     </view>
     <image class="user" src="../../images/partner.png" style="width:30px;height:30px;padding-left:150px" bindtap="partner"></image>
     <!-- <image class="getmore" src="../../images/getmore.png"></image> -->
+    <view class='personNum' hidden='{{personNum==0}}'><text>{{personNum}}</text></view>
   </view>
   <view class="tab bj">
     <navigator class="{{tabActiveClass[0]}}" hover-class="other-navigator-hover" bindtap="tabShowOnGoing">进行中</navigator>

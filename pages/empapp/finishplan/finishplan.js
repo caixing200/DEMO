@@ -242,7 +242,7 @@ Page({
             planList: tempArr,
             eligibilityNum: '',
             disqualificationNum: '',
-            pageIndex: that.data.pageIndex + 1
+            //pageIndex: that.data.pageIndex + 1
           });
         } else {
           if(that.data.pageIndex === 1){

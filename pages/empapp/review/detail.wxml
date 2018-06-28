@@ -13,7 +13,8 @@
 
       <view class="list" style="display:flex;flex-direction:column;">
         <block>
-          <text class="number-title">子派工单号:{{todo.subtodo_code}}</text>
+          <text class="number-title" bindtap='getDetail'>子派工单号:{{todo.subtodo_code}}<text class="titleBtn" hidden='{{state==1}}'>查看已审核</text></text>
+          
           <text class='title-bar'></text>
           <view class="overtime">
             <text>工序名称：{{todo.subtodo_process}}</text>

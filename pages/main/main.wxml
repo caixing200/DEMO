@@ -13,7 +13,7 @@
   
   <view class="getUserData" hidden='{{isUserInfo}}'>
     <view class='dataBox'>
-      <button open-type='getUserInfo' lang='zh_CN' bindgetuserinfo="_setUserInfo">点我开始使用</button>
+      <button open-type='getUserInfo' style='background-color:#04c38e;color:#fff;font-size:30rpx;' lang='zh_CN' bindgetuserinfo="_setUserInfo">打开微信授权</button>
     </view>
   </view>
 </view>

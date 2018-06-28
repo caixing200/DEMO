@@ -209,14 +209,24 @@
 }
 
 .number-title {
-  max-width: 450rpx;
+  width: 100%;
   font-weight: bold;
   padding-bottom: 20rpx;
   overflow: hidden;
   text-overflow: hidden;
   white-space: nowrap;
 }
-
+.titleBtn {
+  width: 200rpx;
+  float: right;
+  text-align: center;
+  color: #fff;
+  background-color: #04c38e;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+}
 .title-bar {
   border-bottom: 1rpx solid #e5e5e5;
 }

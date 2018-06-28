@@ -58,7 +58,41 @@ Page({
       })
     }
   },
-
+  getDetail: function(){
+    const that = this;
+    wx.showLoading({
+      title: 'loading',
+      mask: true
+    })
+    app.admx.request({
+      url: app.config.service.ReviewDetail,
+      data: {
+        subtodo_code: that.data.code
+      },
+      succ: function (res) {
+        wx.hideLoading();
+        const data = that.filtreList(res, 1);
+        if(data.length){
+          wx.navigateTo({
+            url: './detail?code=' + that.data.code +'&navStatus=2&state=1',
+          })
+        }else {
+          wx.showToast({
+            title: '没有审核信息',
+            mask: true,
+            icon: 'loading'
+          })
+        }
+      },
+      fail: function(){
+        wx.showToast({
+          title: '请重试',
+          mask: true,
+          icon: 'loading'
+        })
+      }
+    })
+  },
   //根据子派工单号，得到派工单相关报工信息
   _getReview: function (code, state) {
     var that = this;

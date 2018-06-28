@@ -57,14 +57,14 @@ Page({
   //记录批次号信息
   batchnoInput: function (e) {
     this.setData({
-      batchno: e.detail.value.batchno
+      batchno: e.detail.value
     });
   },
 
   //记录单件用量
   peruseInput: function (e) {
     this.setData({
-      peruse: e.detail.value.peruse
+      peruse: e.detail.value
     });
 
   },
@@ -135,7 +135,8 @@ Page({
           subtodo_id: that.data.subtodo_id,
           m_id: that.data.material.m_id,
           m_num: peruse,
-          m_ratio: ratio
+          m_ratio: ratio,
+          'type': that.data.material.type
         },
         succ: function (res) {
           console.log(res);
@@ -225,22 +226,30 @@ Page({
     app.admx.request({
       url: app.config.service.getMaterialBySubcode,
       data: {
-        m_code: code
+        m_code: code,
+        subtodo_id: that.data.subtodo_id
       },
       succ: function (res) {
         console.log(res);
-        if (res[0]) {
+        let index = 0;
+        for(let k in res){
+          index++
+        }
+        if (index>0) {
           that.setData({
-            material: res[0]
+            material: res
           });
         } else {
           wx.showModal({
-            content: '没有找到物料信息,请确认编号' + that.data.inputCode + "是否正确",
+            content: '没有找到物料信息,请确认编号是否正确',
+            showCancel: false,
+            success: function(res){
+              if(res.confirm){
+                wx.navigateBack()
+              }
+            }
           })
         }
-      },
-      complete: function (res) {
-        wx.hideLoading();
       }
     })
   }

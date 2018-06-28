@@ -285,3 +285,15 @@ page {
   width: 400rpx;
   transform: translate(-50%,-50%);
 }
+
+.personNum {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  color: #fff;
+  font-size: 24rpx;
+  padding: 0 9rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  background-color: #ff0000;
+}

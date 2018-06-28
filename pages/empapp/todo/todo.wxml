@@ -33,6 +33,13 @@
     <view>
       <text>工艺文件：{{todo.technologyid}}</text>
     </view>
+    <view class='remarkView'>
+      <view hidden='{{isRemarks}}'>备注：{{todo.remarks?todo.remarks:'无'}}</view>
+      <view class='textCenter remarkBtn'>
+        <view hidden='{{todo.remarks}}'>无备注</view>
+        <view hidden='{{!todo.remarks}}' class='icon {{isRemarks?"iconBottom":"iconTop"}}' catchtap='showRemarks'>{{isRemarks?'展开备注':'收起备注'}}</view>
+      </view>
+    </view>
   </view>
 
   <form bindsubmit="todo">

@@ -16,14 +16,19 @@ Page({
     scrollViewHeight: 400,
     tabActiveClass: ['active', '', ''],
     pageIndex: 1,
-    isUserInfo: true
+    isUserInfo: true,
+    socketTimer: null,
+    personNum: 0,
+    userid: null,
+    userState: true,
+    modelState: true
   },
 
   //数据赋值
   onLoad: function (options) {
-
     console.log("---onLoad:" + options);
     var that = this;
+
     app.getUserInfo(function (wxUserInfo) {
       var session = app.Session.get();
       session.wxUserInfo = wxUserInfo;
@@ -38,10 +43,21 @@ Page({
 
   //展示页面
   onShow: function (options) {
-
+    const that = this;
     console.log("---onshow:" + app.refreshCofing);
-    console.log(app.refreshCofing);
-    this.tabShowOnGoing(null, app.config.ClaimState.ongoing);
+    if(!that.data.userid){
+      const session = app.Session.get();
+      that.data.userid = session.user.id;
+    }
+    that.createSocket();
+    that.tabShowOnGoing(null, app.config.ClaimState.ongoing);
+    wx.onNetworkStatusChange(function(res){
+      console.log('change');
+      if(res.isConnected){
+        that.data.userState = true;
+        that.createSocket();
+      }
+    })
   },
   //获取用户信息
   _setUserInfo: function (data) {
@@ -56,6 +72,18 @@ Page({
     that.setData({
       isUserInfo: true
     })
+  },
+  onHide: function () {
+    const that = this;
+    that.data.userState = false;
+    wx.closeSocket();
+    clearTimeout(that.data.socketTimer);
+  },
+  onUnload: function () {
+    const that = this;
+    that.data.userState = false;
+    wx.closeSocket();
+    clearTimeout(that.data.socketTimer);
   },
   //下拉刷新
   lower: function () {
@@ -104,7 +132,7 @@ Page({
                 if (res.list[0]) {//如果返回了派出工
                   that.setData({
                     donelist: that.data.donelist.concat(res.list),
-                    pageIndex: that.data.pageIndex+1,
+                    pageIndex: that.data.pageIndex + 1,
                     doinglist: []
                   });
                 } else {
@@ -155,7 +183,7 @@ Page({
       pageIndex: 1,
       doinglist: [],
       donelist: []
-    },()=>{
+    }, () => {
       that._getTodolistByState(utils.extend({
         state: app.config.ClaimState.ongoing,
         currentPage: that.data.pageIndex
@@ -171,7 +199,7 @@ Page({
       pageIndex: 1,
       doinglist: [],
       donelist: []
-    },()=>{
+    }, () => {
       that._getTodolistByState(utils.extend({
         state: app.config.ClaimState.canceled,
         currentPage: that.data.pageIndex
@@ -187,7 +215,7 @@ Page({
       pageIndex: 1,
       doinglist: [],
       donelist: []
-    },()=>{
+    }, () => {
       wx.showLoading({
         title: '正在加载',
         mask: true
@@ -203,9 +231,9 @@ Page({
           if (res.list[0]) {//如果返回了派出工
             that.setData({
               donelist: res.list,
-              pageIndex: that.data.pageIndex+1,
+              pageIndex: that.data.pageIndex + 1,
               doinglist: []
-            },()=>{
+            }, () => {
               console.log(that.data.pageIndex);
             });
           } else {
@@ -239,13 +267,13 @@ Page({
         if (res.list[0]) {//如果返回了派出工
           that.setData({
             doinglist: that.data.doinglist.concat(res.list),
-            pageIndex: that.data.pageIndex+1,
+            pageIndex: that.data.pageIndex + 1,
             donelist: []
-          },()=>{
+          }, () => {
             console.log(that.data.pageIndex);
           });
         } else {
-          if(that.data.pageIndex !== 1){
+          if (that.data.pageIndex !== 1) {
             wx.showToast({
               title: '没有更多数据',
               mask: true,
@@ -275,6 +303,7 @@ Page({
         if (res.scanType == 'QR_CODE') {
           //得到派工单号
           var todocode = res.result;        //子派工单号
+          that.data.modelState = false
           //todocode = "Z18032200006";
           wx.navigateTo({
             url: './todo/todo?code=' + todocode + '&owner=' + that.data.appuserinfo.serialNo//         code +'&owner=' + that.data.appuserinfo.serialNo + '&owner_name=' + that.data.appuserinfo.name //测试用
@@ -302,4 +331,85 @@ Page({
       url: './partner_list/partner_list'
     })
   },
+  //socket
+  createSocket: function () {
+    const that = this;
+    clearTimeout(that.data.socketTimer);
+    const wsurl = 'ws://192.168.0.112:8889/ws?userid=' + that.data.userid + '&type=undo';
+    console.log(wsurl);
+    wx.connectSocket({
+      url: wsurl,
+      success: function (res) {
+        that.listenSocket();
+        that.data.modelState = true;
+      },
+      fail: function (res) {
+        clearTimeout(that.data.socketTimer);
+        that.data.socketTimer = setTimeout(function () {
+          that.createSocket();
+        }, 10000)
+      }
+    });
+
+  },
+  listenSocket: function () {
+    const that = this;
+    wx.onSocketOpen(function () {
+      console.log('socket连接打开')
+    });
+    wx.onSocketError(that.socketErr);
+    wx.onSocketClose(that.socketClose);
+    wx.onSocketMessage(function (res) {
+      const data = JSON.parse(res.data);
+      console.log(data);
+      //data.undo = 22;
+      if (data.undo) {
+        const num = data.undo - that.data.personNum;
+        that.setData({
+          personNum: data.undo
+        }, () => {
+          if(that.data.modelState && num>0){
+            // wx.showModal({
+            //   content: '有' + num + '人新申请加入你的派工单，是否进入审核列表',
+            //   success: function (res) {
+            //     if (res.confirm) {
+            //       that.data.modelState = false;
+            //       wx.navigateTo({
+            //         url: './partner_list/partner_list'
+            //       })
+            //     }
+            //   }
+            // })
+          }
+        })
+      }else {
+        that.setData({
+          personNum: data.undo
+        })
+      }
+    });
+  },
+  socketErr: function () {
+    const that = this;
+    console.log('socket出错')
+    clearTimeout(that.data.socketTimer);
+    if (that.data.userState){
+      that.data.socketTimer = setTimeout(function () {
+        wx.closeSocket();
+        that.createSocket();
+      }, 10000)
+    }
+  },
+  socketClose: function () {
+    const that = this;
+    console.log('socket关闭')
+    clearTimeout(that.data.socketTimer);
+    if(that.data.userState){
+      that.data.socketTimer = setTimeout(function () {
+        that.createSocket();
+      }, 10000)
+    }
+  },
+
+
 });

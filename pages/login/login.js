@@ -83,7 +83,6 @@ Page({
 
         console.log("--login success");
         console.log(res);
-        console.log(app.Session.get());
         console.log(account);
         console.log(pwd);
         // var power = app.Session.get().user.power;

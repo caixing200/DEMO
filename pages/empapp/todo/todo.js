@@ -12,8 +12,14 @@ Page({
     isHistory: '',
     code: '',
     subTodoState: 0,
+    isRemarks: true
   },
-
+  showRemarks: function(){
+    const that = this;
+    that.setData({
+      isRemarks: !that.data.isRemarks
+    })
+  },
   onLoad: function (options) {
     console.log(options);
     const that = this;
@@ -51,6 +57,8 @@ Page({
       },
       succ: function (res) {
         console.log(res);
+        console.log(that.data.subTodoState);
+        //res[0].remarks = '';
         if (that.data.subTodoState === 0) {
           if (res.length > 0) {
             var state = res[1].result;
@@ -277,6 +285,7 @@ Page({
 
   //点击确定（将子派工单信息进行提交）2.0
   todo: function (e) {
+    console.log(e);
     var that = this;
     if (this.data.submitting) {
       return;
@@ -357,7 +366,7 @@ Page({
       });
       return
     }
-    if (num === '0') {
+    if (num == 0) {
       wx.showModal({
         content: "生产计划数量需大于0",
         showCancel: false
@@ -488,37 +497,37 @@ Page({
       }
     })
   },
-  userInput: function (e) {
-    const that = this;
-    console.log(e);
-    switch (e.target.dataset.id) {
-      case '1':
-        that.setData({
-          'todo.subtodo_process': e.detail.value.process
-        })
-        break;
-      case '2':
-        that.setData({
-          'todo.subtodo_taskname': e.detail.value.taskname
-        })
-        break;
-      case '3':
-        that.setData({
-          'todo.subtodo_technology_id': e.detail.value.technologyid
-        })
-        break;
-      case '4':
-        that.setData({
-          'todo.todo_num': e.detail.value.num
-        })
-        break;
-      case '5':
-        that.setData({
-          'todo.subtodo_plannumber': e.detail.value.plannumber
-        })
-        break;
-    }
-  }
+  // userInput: function (e) {
+  //   const that = this;
+  //   console.log(e);
+  //   switch (e.target.dataset.id) {
+  //     case '1':
+  //       that.setData({
+  //         'todo.subtodo_process': e.detail.value
+  //       })
+  //       break;
+  //     case '2':
+  //       that.setData({
+  //         'todo.subtodo_taskname': e.detail.value
+  //       })
+  //       break;
+  //     case '3':
+  //       that.setData({
+  //         'todo.subtodo_technology_id': e.detail.value
+  //       })
+  //       break;
+  //     case '4':
+  //       that.setData({
+  //         'todo.todo_num': e.detail.value
+  //       })
+  //       break;
+  //     case '5':
+  //       that.setData({
+  //         'todo.subtodo_plannumber': e.detail.value
+  //       })
+  //       break;
+  //   }
+  // }
 })
   //点击确定（将子派工单信息进行提交）
  /* todo: function (e) {

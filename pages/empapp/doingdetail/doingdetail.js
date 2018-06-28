@@ -81,6 +81,7 @@ Page({
   // },
   //根据设备编号查设备
   _getEquipByCode: function (code, id) {
+
     if (code.indexOf("E") != 0) {
       wx.showToast({
         title: '请扫正确的设备二维码',
@@ -222,15 +223,15 @@ Page({
           if (res.scanType == 'QR_CODE') {
             //得到物料编号
             var code = res.result;
-            if (code.indexOf("W") != 0) {
-              wx.showToast({
-                title: '请扫正确的物料二维码',
-                mask: true,
-                icon: 'loading',
-                duration: 2000
-              })
-              return;
-            }
+            // if (code.indexOf("W") != 0) {
+            //   wx.showToast({
+            //     title: '请扫正确的物料二维码',
+            //     mask: true,
+            //     icon: 'loading',
+            //     duration: 2000
+            //   })
+            //   return;
+            // }
             //code = 'W000142';
             wx.navigateTo({
               url: '../material/material?code=' + code + "&subtodo_id=" + that.data.todo.subtodo_id + '&subtodo_plannumber=' + that.data.todo.subtodo_plannumber
